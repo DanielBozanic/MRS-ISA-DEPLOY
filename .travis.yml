@@ -6,8 +6,6 @@ services:
   - mysql
 
 before_install:
-  - mysql -e "alter user 'root'@'localhost' identified by 'root'";
-  - mysql -e "grant all on mrsisa2021_t15.* to 'root'@'%'";
   - chmod +x mvnw
 
 script:
