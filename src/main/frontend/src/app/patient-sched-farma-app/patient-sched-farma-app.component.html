@@ -1,0 +1,57 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>SCHEDULE  APPOINTMENT  WITH  PHARMACIST</span>
+    <span style = "flex: 1 1 auto;"></span>
+    <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+    <a mat-button routerLink = "/PatientProfile">MY PROFILE</a>
+    <a mat-button routerLink = "/login">LOGOUT</a>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div>
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>DATE AND TIME</mat-card-title>
+        </mat-card-header>
+
+        <img mat-card-image class="imageFront" src="assets\dateTime.jpg">
+        
+
+        <mat-card-content>
+          <h4 class="h4"><strong> PICK A DATE AND TIME FOR YOUR APPOINTMENT </strong></h4>
+          <div class="content">
+            <form [formGroup] = "timeForm"  class="example-form">
+                <mat-form-field class="startDate" appearance="fill">
+                    <mat-label>Choose a start date</mat-label>
+                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker3" formControlName="startDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker3></mat-datepicker>
+                    <mat-error *ngIf = "hasError('start', 'required')">Start date is required!</mat-error>
+                  </mat-form-field>
+                  <br />
+                  <br />
+                <mat-form-field class="start">
+                  <mat-label>Start time</mat-label>
+                  <input time [ngxTimepicker]="picker" matInput placeholder="3:00 PM" formControlName = "start" required>
+                  <ngx-material-timepicker #picker></ngx-material-timepicker>
+                  <mat-error *ngIf = "hasError('start', 'required')">Start time is required!</mat-error>
+                </mat-form-field>
+                <span class="material-icons">watch_later</span>
+            </form>
+          </div>
+          <br />
+          <br />
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div class="dugme">
+            <button mat-button style=
+                "background-color:#3F51B5; color:white" (click) = "schedule()" [disabled] = "timeForm.invalid">
+                SCHEDULE
+            </button>
+          </div>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+

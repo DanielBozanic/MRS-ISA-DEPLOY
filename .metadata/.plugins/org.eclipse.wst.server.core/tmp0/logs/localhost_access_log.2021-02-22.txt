@@ -1,0 +1,16 @@
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:01 +0100] "PUT /veb-projekat/rest/manifestacije/setOdabranaManifestacija HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:01 +0100] "GET /veb-projekat/rest/manifestacije/getOdabranaManifestacija HTTP/1.1" 200 343
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:01 +0100] "GET /veb-projekat/rest/korisnici/trenutniKorisnik HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:01 +0100] "GET /veb-projekat/rest/komentari/getOdobreniKomentariZaManifestaciju?nazivManifestacije=TEST_3 HTTP/1.1" 200 2
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:02 +0100] "GET /veb-projekat/rest/korisnici/trenutniKorisnik HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:02 +0100] "GET /veb-projekat/rest/manifestacije/getAktivneManifestacije HTTP/1.1" 200 341639
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:03 +0100] "PUT /veb-projekat/rest/manifestacije/setOdabranaManifestacija HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:03 +0100] "GET /veb-projekat/rest/manifestacije/getOdabranaManifestacija HTTP/1.1" 200 4525
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:03 +0100] "GET /veb-projekat/rest/korisnici/trenutniKorisnik HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:03 +0100] "GET /veb-projekat/rest/komentari/getOdobreniKomentariZaManifestaciju?nazivManifestacije=EXIT%202021 HTTP/1.1" 200 2
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:07 +0100] "GET /veb-projekat/rest/korisnici/trenutniKorisnik HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:07 +0100] "GET /veb-projekat/rest/manifestacije/getAktivneManifestacije HTTP/1.1" 200 341639
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:09 +0100] "GET /veb-projekat/login.html HTTP/1.1" 200 1230
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:09 +0100] "GET /veb-projekat/js/login.js HTTP/1.1" 200 1402
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:10 +0100] "GET /veb-projekat/rest/korisnici/trenutniKorisnik HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [22/Feb/2021:00:00:11 +0100] "GET /veb-projekat/rest/manifestacije/getAktivneManifestacije HTTP/1.1" 200 341639

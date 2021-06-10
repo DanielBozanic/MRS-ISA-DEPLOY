@@ -1,0 +1,3 @@
+127.0.0.1 - - [05/Feb/2021:21:06:42 +0100] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [05/Feb/2021:21:06:43 +0100] "GET /veb-projekat/rest/korisnici/trenutniKorisnik HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [05/Feb/2021:21:06:44 +0100] "GET /veb-projekat/rest/manifestacije/getAktivneManifestacije HTTP/1.1" 200 341639

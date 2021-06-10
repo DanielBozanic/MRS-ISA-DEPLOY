@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <span>Create predefined dermatologist appointments</span>
+        <span style = "flex: 1 1 auto;"></span>
+
+        <a mat-button (click) = "back()">Back</a>
+        <a mat-button (click) = "logout()">Logout</a>
+       
+
+    </mat-toolbar>
+
+    <mat-card class = "table-card">
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="dermatologistList">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Name</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="name"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="surname">
+              <th mat-header-cell *matHeaderCellDef class = "coloumnName">Surname</th>
+              <td mat-cell *matCellDef="let element" class = "coloumnName" type="surname"> {{element.surname}} </td>
+          </ng-container>
+              <ng-container matColumnDef="actions">
+                <mat-header-cell  *matHeaderCellDef >  </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+                     <button mat-button color="primary" (click)="addDermatologist(element)">Add to appointment</button>
+                </mat-cell>
+              </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsDermatologistList"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsDermatologistList;"></tr>
+            </table>
+        </div>
+
+      </mat-card>
+      <mat-card class = "edit-button">
+        <button mat-button color="primary" class="btn btn-danger" (click)="openDialog()">Edit appointment data</button>
+      </mat-card>
+      <mat-card class = "create-button">
+        <button [disabled]="!isValid" mat-button color="primary" class="btn btn-danger" (click)="createAppointment()">Create appointment</button>
+      </mat-card>
+
+
+</div>
+  

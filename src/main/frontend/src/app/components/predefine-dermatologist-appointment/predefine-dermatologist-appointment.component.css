@@ -1,0 +1,16 @@
+.table-card {
+  width: 400px;
+  margin-top: 10px;
+  margin-left: 10px;
+  background-color: #deede6;
+}
+.create-button {
+  width: 170px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.edit-button {
+  width: 170px;
+  margin-top: 10px;
+  margin-left: 10px;
+}

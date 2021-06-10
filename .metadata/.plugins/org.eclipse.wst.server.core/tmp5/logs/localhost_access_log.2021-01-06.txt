@@ -1,0 +1,12 @@
+127.0.0.1 - - [06/Jan/2021:00:35:25 +0100] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:09 +0100] "POST /veb-projekat/rest/loginServis/login HTTP/1.1" 200 27
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:11 +0100] "GET /veb-projekat/glavna.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:11 +0100] "GET /veb-projekat/js/glavna.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:11 +0100] "GET /veb-projekat/rest/loginServis/linkovi HTTP/1.1" 200 223
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:13 +0100] "GET /veb-projekat/rest/loginServis/trenutniKorisnik HTTP/1.1" 200 219
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:14 +0100] "GET /veb-projekat/rest/loginServis/linkovi HTTP/1.1" 200 223
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:16 +0100] "GET /veb-projekat/pregledSvihKorisnika.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:16 +0100] "GET /veb-projekat/js/pregledSvihKorisnika.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:16 +0100] "GET /veb-projekat/rest/loginServis/getKorisnici HTTP/1.1" 200 5303
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:19 +0100] "GET /veb-projekat/rest/loginServis/linkovi HTTP/1.1" 200 223
+0:0:0:0:0:0:0:1 - - [06/Jan/2021:00:37:21 +0100] "GET /veb-projekat/rest/loginServis/trenutniKorisnik HTTP/1.1" 200 219

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\Me\Desktop\DateEnumKolekcijeSortiranjeOld"/>
+		<item value="C:\Users\Me\eclipse-workspace\DateEnumKolekcijeSortiranje"/>
+		<item value="C:\Users\Me\Desktop\OOP2"/>
+		<item value="C:\Users\Me\Desktop\OOP1"/>
+		<item value="C:\Users\Me\eclipse-workspace\OOP2"/>
+		<item value="C:\Users\Me\eclipse-workspace\OOP1"/>
+	</list>
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="D:\Fakultet\III Godina\6 Semestar\Internet softverske arhitekture\Vezbe\Vezbe01\ivy-example"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\MiniProjekat_2020_2021\G_11_SW_63_2018\HttpWebServer\HttpWebServer\HttpWebServer"/>
+			<item value="C:\Users\Me\eclipse-workspace\Servers"/>
+			<item value="D:\Temp\PocetniREST"/>
+			<item value="D:\Temp\PocetniServleti"/>
+			<item value="D:\Temp\HttpWebServer"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\Projekat\web-projekat-sw63-2018\web-projekat"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\MiniProjekat\Početni\PocetniREST"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\10-REST\WebShopREST\WebShopREST"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\9-JQuery-AJAX\OnlineService"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\MiniProjekat\Početni\HttpWebServer"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\6-JSP-JSTL\6-JSP-JSTL\WebShop"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\5-Servleti\5-Servleti\resenja\HelloWorld\HelloWorld"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\4-HTTPProtokol\4-HTTPProtokol"/>
+			<item value="D:\Fakultet\II Godina\4 Semestar\Specifikacija i modelovanje softvera\Projekat\SIMS_Projekat_Mocni_Rendzeri\sims"/>
+			<item value="C:\Users\Me\Desktop\KnjigeEliminacijeZadatak"/>
+			<item value="C:\Users\Me\eclipse-workspace\sw_63_2018 Projekat"/>
+			<item value="C:\Users\Me\Desktop\DateEnumKolekcijeSortiranje"/>
+			<item value="C:\Users\Me\Desktop\DateEnumKolekcijeSortiranjeOld"/>
+			<item value="C:\Users\Me\Desktop\Stringovi i funkcije"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+	<section name="NewWizardAction">
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.jdt.ui.java"/>
+			<item value="org.eclipse.wst.web.ui"/>
+		</list>
+	</section>
+	<section name="SmartImportWizard">
+		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
+		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
+		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\MiniProjekat\Početni\PocetniServleti"/>
+			<item value="D:\Fakultet\III Godina\5 Semestar\Veb programiranje\Vezbe\3-MreznoProgramiranje\3-MreznoProgramiranje\Mrezno programiranje\Mrezno programiranje"/>
+		</list>
+	</section>
+	<section name="CleanDialogSettings">
+		<item key="TOGGLE_SELECTED" value="false"/>
+		<item key="DIALOG_WIDTH" value="500"/>
+		<item key="DIALOG_HEIGHT" value="389"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <a mat-button (click) = "back()">HOMEPAGE</a>
+            <a mat-button (click) = "profile()"> MY PROFILE</a>
+            <a mat-button (click) = "patients()" [disabled] = "firstLogin"> VIEW EXAMINED PATIENTS</a>
+            <a mat-button (click) = "allPatients()" [disabled] = "firstLogin"> VIEW ALL PATIENTS</a>
+            <a mat-button (click) = "calendar()" [disabled] = "firstLogin"> WORK CALENDAR</a>
+            <a mat-button (click) = "absence()" [disabled] = "firstLogin"> ABSENCE FORM </a>
+            <a mat-button (click) = "appointments()" [disabled] = "firstLogin"> APPOINTMENTS </a>
+            <a mat-button (click) = "medicine()" [disabled] = "firstLogin">VIEW MEDICINE</a>
+            <a mat-button (click) = "logout()">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "table-card">
+        <mat-card-title>See reservations</mat-card-title>
+        <form [formGroup] = "medicinePrescribedForm" class = "medicine-form">
+            <mat-form-field class = "field">
+                <div class="inline">
+                    <label class="reservationSearch" id="reservationSearch">Res</label>
+                </div>
+                <div class="inline"> 
+                    <input type = "number" (change) = "getReservation()" matInput 
+                    formControlName = "reservationSearch" id="reservationSearch" class="reservationSearch" min="1">
+                </div>
+            </mat-form-field>
+            <div class = "data-table">
+                <table mat-table [dataSource]="medicinePrescribedDataSource">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef class = "coloumnName">Patient Name</th>
+                        <td mat-cell *matCellDef="let element" class = "coloumnName"> {{element.patient.name + " " + element.patient.surname}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cost">
+                        <th mat-header-cell *matHeaderCellDef class = "coloumnCost">Cost</th>
+                        <td mat-cell *matCellDef="let element"  class = "coloumnCost">{{element.total}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicinePrescribed"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicinePrescribed;"></tr>
+                </table>
+            </div>
+        </form>
+    </mat-card>
+    <mat-card class = "table-card">
+        <mat-card-title>Reserved Medication</mat-card-title>
+        <div class = "data-table">
+            <table mat-table [dataSource]="medicineSupplyDataSource">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnName">Name</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnName"> {{element.medicine.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnQuantity">Quantity</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnQuantity"> {{element.quantity}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicineSupply"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicineSupply;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+        <button (click) = "giveOut()" [disabled] = "medicinePrescribedForm.invalid" mat-raised-button color="primary">Give out medications</button>
+    </mat-card>
+</div>

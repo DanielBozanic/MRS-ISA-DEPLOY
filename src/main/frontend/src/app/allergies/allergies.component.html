@@ -1,0 +1,59 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>ALLERGIES</span>
+        <span style = "flex: 1 1 auto;"></span>
+        <a mat-button routerLink = "/AllergiesOfPatient">YOUR ALLERGIES</a>
+        <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+        <a mat-button routerLink = "/PatientProfile">MY PROFILE</a>
+        <a mat-button routerLink = "/login">LOGOUT</a>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div class="div2" *ngIf="showTableOfMedicines">
+    <mat-card class = "table-card2">
+        <mat-card-header>
+            <span class="title_card2"><h2>MEDICINE YOU MIGHT BE ALLERGIC TO</h2></span>
+        </mat-card-header>
+        <img mat-card-image class="imageFront" src="assets\allergieMan.jpg">
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Filter medicine by entering it's data.</mat-label>
+            <input matInput (keyup)="applyFilterMedicine($event)" placeholder="bensedin" #input>
+        </mat-form-field>
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="dataSource2">
+                
+                <ng-container matColumnDef="NAME">
+                <th mat-header-cell class = "coloumnName" *matHeaderCellDef> NAME </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COMPOSITION">
+                    <th mat-header-cell class = "coloumnComposition" *matHeaderCellDef> COMPOSITION </th>
+                    <td mat-cell *matCellDef="let element"> {{element.composition}}</td>
+                    </ng-container>
+    
+                
+                <ng-container matColumnDef="ADDITIONAL COMMENT">
+                    <th mat-header-cell class = "coloumnComment" *matHeaderCellDef> ADDITIONAL COMMENT </th>
+                    <td mat-cell *matCellDef="let element"> {{element.additionalComments}}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="ADD">
+                    <th mat-header-cell class = "coloumnADD" *matHeaderCellDef> ADD</th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button (click) = "add(element)" mat-raised-button color="primary">ADD</button>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+</div>

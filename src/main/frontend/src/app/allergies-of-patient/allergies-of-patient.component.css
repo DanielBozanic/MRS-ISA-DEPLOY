@@ -1,0 +1,59 @@
+.example-icon {
+    padding: 5 18px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .example-radio-group {
+      display: flex;
+      flex-direction: column;
+      margin: 15px 0;
+    }
+  
+    .imageFront{
+      height: 500px;
+    }
+  
+   
+    
+    .table-card1 {
+        background-color: rgb(188, 214, 247);
+        width: 1000px;
+    }
+      
+  
+    .div1{
+      margin-left: 220px;
+      margin-top: 10px;
+    }
+  
+  
+  
+  .coloumnName {
+      width: 20%;  
+  }
+  
+  .coloumnComposition {
+      width: 40%; 
+  }
+  
+  .coloumnComment{
+      width: 40%; 
+  }
+  
+  
+
+  .title_card1{
+    margin-left: 360px;
+  }
+  
+ 
+  ng-container{
+    margin-left: 5px;
+  }
+  
+  
+  
+  

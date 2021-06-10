@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>SUBSCRIBED PHARMACIES</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button (click) = "back()">Back</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "table-card">
+        <div class = "data-table">
+            <table mat-table [dataSource]="subscribedPharmaciesDataSource">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnName">Name</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnName"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnAddress">Address</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnAddress"> {{element.address}} </td>
+                </ng-container>
+                <ng-container matColumnDef="city">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnCity">City</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnCity">{{element.city}}</td>
+                </ng-container>
+                <ng-container matColumnDef="country">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnCountry">Country</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnCountry">{{element.country}}</td>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnDescription">Description</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnDescription">{{element.description}}</td>
+                </ng-container>
+                <ng-container matColumnDef="unsubscribe">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnUnsubscribe"></th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnUnsubscribe"><button (click) = "unsubscribe(element)" mat-raised-button color="primary">Unsubscribe</button></td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsPharmacies"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsPharmacies;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+</div>

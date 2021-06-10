@@ -1,0 +1,101 @@
+package view;
+
+import javax.swing.JFrame;
+import javax.swing.JTable;
+
+import controler.IzvodjacMenadzer;
+import model.Grupa;
+import model.Pojedinacanizvodjac;
+import model.Sesija;
+import model.Zanr;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+
+public class PromenaZanraIzvodjaca extends JFrame {
+	private static final long serialVersionUID = 1L;
+	private JTable pojedninacniIzvodjaci;
+	public Sesija sesija;
+	private JTable grupe;
+	
+	@SuppressWarnings("unchecked")
+	public PromenaZanraIzvodjaca(Sesija sesija) throws Exception {
+		this.sesija = sesija;
+		setResizable(false);
+		setTitle("Promena zanra izvodjaca");
+		getContentPane().setLayout(null);
+		
+		pojedninacniIzvodjaci = new JTable();
+		pojedninacniIzvodjaci.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		pojedninacniIzvodjaci.setBounds(10, 26, 674, 207);
+		getContentPane().add(pojedninacniIzvodjaci);
+		
+		@SuppressWarnings("rawtypes")
+		JComboBox cmbZanr = new JComboBox();
+		cmbZanr.setBounds(312, 244, 273, 22);
+		getContentPane().add(cmbZanr);
+		
+		JLabel lblZanr = new JLabel("Zanr:");
+		lblZanr.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblZanr.setBounds(254, 248, 48, 14);
+		getContentPane().add(lblZanr);
+		
+		JButton btnPromeni = new JButton("Promeni");
+		btnPromeni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!pojedninacniIzvodjaci.getSelectionModel().isSelectionEmpty()) {
+					for (Pojedinacanizvodjac pi : sesija.getUmetnici()) {
+						if (pi.getUmetnickoIme().equals((String)pojedninacniIzvodjaci.getValueAt(pojedninacniIzvodjaci.getSelectedRow(), 0))) {
+							pi.setZanr(new Zanr((String)cmbZanr.getSelectedItem(), true));
+							break;
+						}
+					}
+				}
+				else if (!grupe.getSelectionModel().isSelectionEmpty()) {
+					for (Grupa g : sesija.getGrupe()) {
+						if (g.getUmetnickoIme().equals((String)grupe.getValueAt(grupe.getSelectedRow(), 0))) {
+							g.setZanr(new Zanr((String)cmbZanr.getSelectedItem(), true));
+							break;
+						}
+					}
+				}
+			}
+		});
+		btnPromeni.setBounds(595, 244, 89, 23);
+		getContentPane().add(btnPromeni);
+		
+		grupe = new JTable();
+		grupe.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		grupe.setBounds(10, 274, 674, 218);
+		getContentPane().add(grupe);
+		
+		JLabel lblGrupe = new JLabel("Grupe");
+		lblGrupe.setBounds(10, 255, 48, 18);
+		getContentPane().add(lblGrupe);
+		
+		JLabel lblPojedinacniIzvodjaci = new JLabel("Pojedinacni izvodjaci");
+		lblPojedinacniIzvodjaci.setBounds(10, 11, 105, 14);
+		getContentPane().add(lblPojedinacniIzvodjaci);
+		
+		ucitajIzvodjace();
+		
+		for (Zanr z : sesija.getZanrovi())
+		{
+			cmbZanr.addItem(z.getNazivZanra());
+		}
+		
+	}
+	
+	private void ucitajIzvodjace() throws Exception {
+		IzvodjacMenadzer izvodjacMenadzer = sesija.getIzvodjacMenadzer();
+		TableModelWrapper tmw1 = izvodjacMenadzer.getTabelaPojednicanihIzvodjaca();
+		pojedninacniIzvodjaci.setModel(tmw1);
+		TableModelWrapper tmw2 = izvodjacMenadzer.getTabelaGrupa();
+		grupe.setModel(tmw2);
+	}
+}

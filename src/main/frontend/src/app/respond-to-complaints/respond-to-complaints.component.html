@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>RESPOND TO PATIENT COMPLAINTS</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button routerLink = "/systemAdminProfilePage">MY PROFILE</a>
+            <a mat-button routerLink = "/register">REGISTER USERS</a>
+            <a mat-button routerLink = "/registerPharmacies">REGISTER PHARMACIES</a>
+            <a mat-button routerLink = "/addMedicine">ADD MEDICINE</a>
+            <a mat-button routerLink = "/loyaltyProgram">LOYALTY PROGRAM</a>
+            <a mat-button routerLink = "/searchFilterMedicine">VIEW MEDICINE</a>
+            <a mat-button (click) = "logout()">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-card class = "table-card">
+        <mat-card-title>Complaints to respond</mat-card-title> 
+        <div class = "data-table">
+            <table mat-table [dataSource]="complaintsToRespondDataSource">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnId">ID</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnId"> {{element.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="complaint">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnComplaintAndResponse">Complaint</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnComplaintAndResponse"> {{element.text}} </td>
+                </ng-container>
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnPatient">Patient</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnPatient">{{element.patient.username}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsComplaintsToRespond"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsComplaintsToRespond;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+
+    <mat-card class = "table-card">
+        <mat-card-title>My responses</mat-card-title> 
+        <div class = "data-table">
+            <table mat-table [dataSource]="responsesDataSource">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnId">ID</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnId"> {{element.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="complaint">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnComplaintAndResponse">Complaint</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnComplaintAndResponse"> {{element.text}} </td>
+                </ng-container>
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnPatient">Patient</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnPatient">{{element.patient.username}}</td>
+                </ng-container>
+                <ng-container matColumnDef="response">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnComplaintAndResponse">Response</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnComplaintAndResponse"> {{element.response}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsResponses"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsResponses;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+
+    <mat-card class = "card">
+        <mat-card-title>Respond to complaint</mat-card-title>
+        <form [formGroup] = "responseForm" class = "response-form">
+            <mat-form-field class = "field-width">
+                <mat-label>Select a complaint to respond to</mat-label>
+                <mat-select formControlName = "id" required>
+                    <mat-option *ngFor = "let complaint of complaintsToRespond" [value]="complaint['id']">{{complaint['id']}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf = "hasError('id', 'required')">Select an offer!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Response</mat-label>
+                <textarea class = "textarea-size" matInput placeholder = "Response" formControlName = "response"></textarea>
+                <mat-error *ngIf = "hasError('response', 'required')">You must write a response for the selected complaint!</mat-error>
+            </mat-form-field>
+        </form>
+        <button (click) = "sendResponse()" [disabled] = "responseForm.invalid" mat-raised-button color="primary">Send</button>
+    </mat-card>
+
+</div>

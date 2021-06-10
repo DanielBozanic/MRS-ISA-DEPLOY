@@ -1,0 +1,51 @@
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Rezervacija karti</title>
+	<link rel="stylesheet" href="bootstrap.css">
+	<link rel="stylesheet" href="bootstrap.css.map">
+	<script src = "jquery-3.3.1.min.js"></script>
+	<script src="bootstrap.js"></script>
+	<script src="bootstrap.js.map"></script>
+	<script src="js/rezervacijaKarte.js"></script>
+</head>
+<body style = "padding: 15px; background-color:#DEEDE6">
+	<form>
+		<div class="form-group">
+			<h1>Rezervacija karti</h1>
+		</div>
+		
+		<div class = "row">
+			<div class = "col-md-3">
+				<div class="form-group">
+					<label>Manifestacija:</label>
+					<select class="form-control" name = "manifestacije"></select>
+				</div>
+				
+				<div class="form-group">
+					<label>Broj karata:</label>
+					<input class="form-control" type = "number" name = "brojKarata" min = "1"/>
+				</div>
+			
+				<div class="form-group">
+					<label>Tip karte:</label>
+					<select class="form-control" name = "tipKarte">
+						<option value = "regular" selected="selected">regular</option>
+						<option value = "vip">vip</option>
+						<option value = "fanPit">fanPit</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<p id = "ukupnaCena"></p>
+				</div>
+				
+				<div class="form-group">
+					<label></label>
+					<input class="btn btn-primary" id = "btnRezervacija" type = "button" value="Rezervisi"></input>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

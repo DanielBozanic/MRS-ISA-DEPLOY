@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <span>Active purchase orders</span>
+        <span style = "flex: 1 1 auto;"></span>
+
+        <a mat-button (click) = "back()">Back</a>
+        <a mat-button (click) = "logout()">Logout</a>
+       
+
+    </mat-toolbar>
+
+    <mat-card class = "table-card">
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="purchaseOrderList">
+              <ng-container matColumnDef="dueDateOffer">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Due date offer</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="dueDateOffer"> {{element.dueDateOffer[0]}}/{{element.dueDateOffer[1]}}/{{element.dueDateOffer[2]}} </td>
+              </ng-container>
+              <ng-container matColumnDef="purchaseOrderName">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Name</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="purchaseOrderName"> {{element.purchaseOrderName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <mat-header-cell  *matHeaderCellDef >  </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+                     <button mat-button color="primary" (click)="displayPurchaseOrderData(element)">Info</button>
+                </mat-cell>
+              </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsPurchaseOrderList"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsPurchaseOrderList;"></tr>
+            </table>
+        </div>
+
+      </mat-card>
+
+
+</div>
+  

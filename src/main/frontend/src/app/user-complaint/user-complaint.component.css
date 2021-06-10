@@ -1,0 +1,17 @@
+.example-card {
+    max-width: 600px;
+    margin-left: 28%;
+}
+
+mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.address{
+  margin-left: 1%;
+}
+
+.namee{
+  margin-left: 3%;
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span *ngIf = "!systemAdmin">REGISTRATION</span>
+            <span *ngIf = "systemAdmin">REGISTER USERS</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button routerLink = "/login" *ngIf = "!systemAdmin">LOGIN</a>
+            <a mat-button routerLink = "/searchFilterMedicine" *ngIf = "!systemAdmin">VIEW MEDICINE</a>
+            <a mat-button routerLink = "/searchPharmacy" *ngIf = "!systemAdmin">VIEW PHARMACIES</a>
+            <a mat-button routerLink = "/systemAdminProfilePage" *ngIf = "systemAdmin">MY PROFILE</a>
+            <a mat-button routerLink = "/registerPharmacies" *ngIf = "systemAdmin">REGISTER PHARMACIES</a>
+            <a mat-button routerLink = "/addMedicine" *ngIf = "systemAdmin">ADD MEDICINE</a>
+            <a mat-button routerLink = "/respondToComplaints" *ngIf = "systemAdmin">RESPOND TO PATIENT COMPLAINTS</a>
+            <a mat-button routerLink = "/loyaltyProgram" *ngIf = "systemAdmin">LOYALTY PROGRAM</a>
+            <a mat-button routerLink = "/searchFilterMedicine" *ngIf = "systemAdmin">VIEW MEDICINE</a>
+            <a mat-button (click) = "logout()" *ngIf = "systemAdmin">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "card">
+        <form [formGroup] = "registrationForm" class = "registration-form">
+            <mat-form-field class = "field-width">
+                <mat-label>Email</mat-label>
+                <input type = "email" matInput placeholder = "Email" formControlName = "email" required>
+                <mat-error *ngIf = "hasError('email', 'required')">Email is required!</mat-error>
+                <mat-error *ngIf = "hasError('email', 'pattern') && !hasError('email', 'required')">Email format is not valid!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Username</mat-label>
+                <input type = "text" matInput placeholder = "Username" formControlName = "username" required>
+                <mat-error *ngIf = "hasError('username', 'required')">Username is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Password</mat-label>
+                <input type = "password" (input)="checkPasswords()" matInput placeholder = "Password" formControlName = "password" required>
+                <mat-error *ngIf = "hasError('password', 'required')">Password is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Confirm password</mat-label>
+                <input type = "password" (input)="checkPasswords()" matInput placeholder = "Confirm password" formControlName = "confirmPassword" required>
+                <mat-error *ngIf = "hasError('confirmPassword', 'required')">Enter the password again!</mat-error>
+                <mat-error *ngIf = "confirmPassword?.invalid && !hasError('confirmPassword','required')">Passwords don't match</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Name</mat-label>
+                <input type = "text" matInput placeholder = "Name" formControlName = "name" required>
+                <mat-error *ngIf = "hasError('name', 'required')">Name is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Surname</mat-label>
+                <input type = "text" matInput placeholder = "Surname" formControlName = "surname" required>
+                <mat-error *ngIf = "hasError('surname', 'required')">Surname is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Address</mat-label>
+                <input type = "text" matInput placeholder = "Address" formControlName = "address" required>
+                <mat-error *ngIf = "hasError('address', 'required')">Address is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>City</mat-label>
+                <input type = "text" matInput placeholder = "City" formControlName = "city" required>
+                <mat-error *ngIf = "hasError('city', 'required')">City is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Country</mat-label>
+                <input type = "text" matInput placeholder = "Country" formControlName = "country" required>
+                <mat-error *ngIf = "hasError('country', 'required')">Country is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Phone number</mat-label>
+                <input type = "tel" matInput placeholder = "Phone number" formControlName = "phoneNumber" required>
+                <mat-error *ngIf = "hasError('phoneNumber', 'required')">Phone number is required!</mat-error>
+                <mat-error *ngIf = "hasError('phoneNumber', 'maxlength') || hasError('phoneNumber', 'minlength')">
+                    Phone number has to have 10 digits!
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width" *ngIf = "systemAdmin">
+                <mat-label>Select user type</mat-label>
+                <mat-select [(value)]="selected" formControlName = "userType" required>
+                    <mat-option (click) = "pharamcyField()" *ngFor = "let user of users" [value]="user">{{user}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class = "field-width" *ngIf = "selectedPharmacyAdmin">
+                <mat-label>Select pharmacy</mat-label>
+                <mat-select formControlName = "pharmacy">
+                    <mat-option *ngFor = "let pharmacy of pharmacies" [value]="pharmacy">{{pharmacy['name']}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+        <button (click) = "register()" [disabled] = "registrationForm.invalid" mat-raised-button color="primary">Register</button>
+    </mat-card>
+</div>

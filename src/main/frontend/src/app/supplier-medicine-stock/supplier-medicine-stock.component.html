@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>MEDICINE STOCK</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button routerLink = "/supplierProfilePage">MY PROFILE</a>
+            <a mat-button routerLink = "/supplierWriteOffers">WRITE OFFERS FOR INCOMING PURCHASE ORDERS</a>
+            <a mat-button routerLink = "/supplierViewOffers">VIEW OFFERS</a>
+            <a mat-button (click) = "logout()">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "table-card">
+        <div class = "data-table">
+            <table mat-table [dataSource]="medicineSupplyDataSource">
+                <ng-container matColumnDef="medicineCode">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnMedicineCode">Medicine code</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnMedicineCode"> {{element.medicine.medicineCode}} </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnName">Name</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnName"> {{element.medicine.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnQuantity">Quantity</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnQuantity"> {{element.quantity}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicineSupply"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicineSupply;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+    <mat-card class = "card">
+        <mat-card-title>Update medicine stock</mat-card-title>
+        <form [formGroup] = "updateMedicineStockForm" class = "update-medicine-stock">
+            <mat-form-field class = "field-width">
+                <mat-label>Select medicine</mat-label>
+                <mat-select formControlName = "medicine" required>
+                    <mat-option *ngFor = "let m of listOfMedicine" [value]="m">{{m['name']}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf = "hasError('medicine', 'required')">Select a medicine!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Quantity</mat-label>
+                <input type = "number" (input) = "checkQuantity()" matInput placeholder = "Quantity" formControlName = "quantity" min = "1" required>
+                <mat-error *ngIf = "hasError('medicine', 'required')">Quantity is required!</mat-error>
+                <mat-error *ngIf = "quantity?.invalid && !hasError('quantity','required')">Quantity must be above zero!</mat-error>
+            </mat-form-field>
+        </form>
+        <button (click) = "updateMedicineStock()" [disabled] = "updateMedicineStockForm.invalid" mat-raised-button color="primary">Update</button>
+    </mat-card>
+</div>

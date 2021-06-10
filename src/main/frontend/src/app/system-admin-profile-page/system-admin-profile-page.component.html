@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>PROFILE PAGE</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button (click) = "registerUsers()" [disabled] = "firstLogin">REGISTER USERS</a>
+            <a mat-button (click) = "registerPharmacies()" [disabled] = "firstLogin">REGISTER PHARMACIES</a>
+            <a mat-button (click) = "addMedicine()" [disabled] = "firstLogin">ADD MEDICINE</a>
+            <a mat-button (click) = "respondToComplaints()" [disabled] = "firstLogin">RESPOND TO PATIENT COMPLAINTS</a>
+            <a mat-button (click) = "loyaltyProgram()" [disabled] = "firstLogin">LOYALTY PROGRAM</a>
+            <a mat-button (click) = "searchFilterMedicine()" [disabled] = "firstLogin">VIEW MEDICINE</a>
+            <a mat-button (click) = "logout()">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "card">
+        <mat-card-title class = "card-title">Change password</mat-card-title>
+        <form [formGroup] = "updatePasswordForm" class = "update-form">
+            <mat-form-field class = "field">
+                <mat-label>Old password</mat-label>
+                <input type = "password"  matInput placeholder = "Type in old password" formControlName = "oldPassword" required>
+                <mat-error *ngIf = "hasError('oldPassword', 'required', updatePasswordForm)">Type in old password!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>New password</mat-label>
+                <input type = "password" (input)="checkPasswords()" matInput placeholder = "Type in new password" formControlName = "password" required>
+                <mat-error *ngIf = "hasError('password', 'required', updatePasswordForm)">Type in new password!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>Confirm new password</mat-label>
+                <input type = "password"  (input)="checkPasswords()" matInput placeholder = "Confirm new password" formControlName = "confirmPassword" required>
+                <mat-error *ngIf = "hasError('confirmPassword', 'required', updatePasswordForm)">Type in new password again!</mat-error>
+                <mat-error *ngIf = "confirmPassword?.invalid && !hasError('confirmPassword','required', updatePasswordForm)">Passwords do not match!</mat-error>
+            </mat-form-field>
+        </form>
+        <button (click) = "updatePassword()" [disabled] = "updatePasswordForm.invalid" mat-raised-button color="primary">Update password</button>
+    </mat-card>
+</div>

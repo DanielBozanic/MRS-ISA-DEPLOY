@@ -1,0 +1,27 @@
+package view;
+
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.JRadioButton;
+
+public class DodavanjeZakRecIRecZaIzemnu extends JFrame {
+	public DodavanjeZakRecIRecZaIzemnu() {
+		private static final long serialVersionUID = 1L;
+		private JTable recenzije;
+		setTitle("Zakazivanje recenzija i zahtevanje izmena recenzija");
+		setResizable(false);
+		getContentPane().setLayout(null);
+		
+		recenzije = new JTable();
+		recenzije.setBounds(10, 11, 689, 188);
+		getContentPane().add(recenzije);
+		
+		JRadioButton rbZakaziRecenziju = new JRadioButton("Zakazi recenziju");
+		rbZakaziRecenziju.setBounds(10, 224, 109, 23);
+		getContentPane().add(rbZakaziRecenziju);
+		
+		JRadioButton rbZahtevZaIzmenu = new JRadioButton("Zahtev za izmenu");
+		rbZahtevZaIzmenu.setBounds(141, 224, 127, 23);
+		getContentPane().add(rbZahtevZaIzmenu);
+	}
+}

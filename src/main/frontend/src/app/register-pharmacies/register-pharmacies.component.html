@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>REGISTER PHARMACIES</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button routerLink = "/systemAdminProfilePage">MY PROFILE</a>
+            <a mat-button routerLink = "/register">REGISTER USERS</a>
+            <a mat-button routerLink = "/addMedicine">ADD MEDICINE</a>
+            <a mat-button routerLink = "/respondToComplaints">RESPOND TO PATIENT COMPLAINTS</a>
+            <a mat-button routerLink = "/loyaltyProgram">LOYALTY PROGRAM</a>
+            <a mat-button routerLink = "/searchFilterMedicine">VIEW MEDICINE</a>
+            <a mat-button (click) = "logout()">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "card">
+        <form [formGroup] = "pharmacyRegistrationForm" class = "register-pharmacy-form">
+            <mat-form-field class = "field-width">
+                <mat-label>Name</mat-label>
+                <input type = "text" matInput placeholder = "Name" formControlName = "name" required>
+                <mat-error *ngIf = "hasError('name', 'required')">Name is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Address</mat-label>
+                <input type = "text" matInput placeholder = "Address" formControlName = "address" required>
+                <mat-error *ngIf = "hasError('address', 'required')">Address is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>City</mat-label>
+                <input type = "text" matInput placeholder = "City" formControlName = "city" required>
+                <mat-error *ngIf = "hasError('city', 'required')">City is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Country</mat-label>
+                <input type = "text" matInput placeholder = "Country" formControlName = "country" required>
+                <mat-error *ngIf = "hasError('country', 'required')">Country is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Description</mat-label>
+                <textarea class = "textarea-size" matInput placeholder = "Description" formControlName = "description"></textarea>
+            </mat-form-field>
+        </form>
+        <button (click) = "registerPharmacy()" [disabled] = "pharmacyRegistrationForm.invalid" mat-raised-button color="primary">Register</button>
+    </mat-card>
+</div>

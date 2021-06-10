@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <div [innerHTML]="pharmacy.name"></div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <div [innerHTML]="pharmacy.address"></div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <a mat-button (click) = "subscribeToPromotions()">Subscribe to promotions</a>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button (click) = "back()">Back</a>
+            <a *ngIf = "!loggedOn" mat-button routerLink = "/login">Login</a>
+            <a *ngIf = "loggedOn" mat-button (click) = "logout()">Logout</a>
+
+
+        </mat-toolbar-row>
+
+    </mat-toolbar>
+    &nbsp;
+    &nbsp;
+            &nbsp;
+            &nbsp;
+    <mat-card id="neighbour-card">
+      <mat-card class = "inline-block">
+        <mat-card-title>Available medicine</mat-card-title>
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="medicinePharmacyList">
+              <ng-container matColumnDef="medicine">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Medicine</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="medicine"> {{element.medicine.name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Available amount</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="amount"> {{element.amount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="cost">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Cost</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="cost"> {{element.cost}} </td>
+            </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicinePharmacyList"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicinePharmacyList;"></tr>
+            </table>
+        </div>
+
+      </mat-card>
+      <mat-card class = "inline-block">
+        <mat-card-title>Available appointments</mat-card-title>
+
+        <div class = "data-table2">
+            <table mat-table [dataSource]="dermatologistAppointmentList">
+              <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Name</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="name"> {{element.dermatologist.name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Surname</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="surname"> {{element.dermatologist.surname}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Cost</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="price"> {{element.price}} </td>
+            </ng-container>
+            <ng-container matColumnDef="start">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Date</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="start"> {{element.start[0]}}/{{element.start[1]}}/{{element.start[2]}} {{element.start[3]}}:{{element.start[4]}} </td>
+            </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsDermatolgoistAppointmentList"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsDermatolgoistAppointmentList;"></tr>
+            </table>
+        </div>
+      </mat-card>
+      <mat-card class = "inline-block">
+        <mat-card-title>Employees</mat-card-title>
+
+        <div class = "data-table3">
+            <table *ngIf="pharmacistList.length!=0"class = "employee-table" mat-table [dataSource]="pharmacistListSource">
+              <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Pharmaceut Name</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="name"> {{element.name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Surname</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="surname"> {{element.surname}} </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Email</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="email"> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Phonenumber</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="phoneNumber"> {{element.phoneNumber}} </td>
+            </ng-container>
+            <ng-container matColumnDef="rating">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Rating</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="rating"> {{element.rating}} </td>
+            </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsPharmacistList"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsPharmacistList;"></tr>
+            </table>
+        </div>
+        <div class = "data-table3">
+            <table *ngIf="dermatologistList.length!=0" class = "employee-table" mat-table [dataSource]="dermatologistListSource">
+              <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Dermatologist Name</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="name"> {{element.name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Surname</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="surname"> {{element.surname}} </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Email</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="email"> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Phonenumber</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="phoneNumber"> {{element.phoneNumber}} </td>
+            </ng-container>
+            <ng-container matColumnDef="rating">
+                <th mat-header-cell *matHeaderCellDef class = "coloumnName">Rating</th>
+                <td mat-cell *matCellDef="let element" class = "coloumnName" type="rating"> {{element.rating}} </td>
+            </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsDermatolgoistList"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsDermatolgoistList;"></tr>
+            </table>
+        </div>
+      </mat-card>
+    </mat-card>
+      <mat-card class = "rating-card">
+        <span>Pharmacy rating: {{pharmacy.rating}}</span>
+      </mat-card>
+</div>

@@ -1,0 +1,79 @@
+  .update-form{
+    min-width: 150px;
+    max-width: 800px;
+    width: 100%;
+  }
+    
+  .field {
+    width: 100%;
+    display: block;
+  }
+  
+  .card {
+    width: 700px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #DEEDE6;
+    display: block;
+  }
+
+  button{
+    margin-right: 10px;
+  }
+
+  .table-card {
+    width: 700px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #DEEDE6;
+    display: block;
+}
+
+#appointment{
+  height: auto;
+  width: auto;
+  margin-right: 700px;
+  float: right;
+}
+
+table {
+    width: 100%;
+    display: block;
+}
+
+.data-table {
+    width: 100%;
+    display: block;
+}
+
+.table-card{
+  display: block;
+}
+
+.coloumnComposition {
+    width: 20%; 
+}
+
+.coloumnName {
+    width: 20%; 
+}
+
+.coloumnQuantity {
+    width: 10%; 
+}
+
+.add {
+  width: 10%;
+}
+
+.addButton{
+  background-color: steelblue;
+}
+
+.removeButton{
+  background-color: steelblue;
+}
+
+.inputTable{
+  margin: 5px;
+}

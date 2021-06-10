@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="D:\Fakultet\III Godina\6 Semestar\Internet softverske arhitekture\Vezbe\Projekat\MRS-ISA\backend"/>
+			<item value="D:\Temp\isamrs21-master\isamrs21-master\klinika"/>
+			<item value="D:\Fakultet\III Godina\6 Semestar\Internet softverske arhitekture\Vezbe\Vezbe06\server\spring-security-example"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

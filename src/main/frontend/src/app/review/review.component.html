@@ -1,0 +1,43 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <span>PAST  APPOINTMENT  WITH  PHARMACISTS </span>
+      <span style = "flex: 1 1 auto;"></span>
+      <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+      <a mat-button routerLink = "/PatientProfile">MY PROFILE</a>
+      <a mat-button routerLink = "/login">LOGOUT</a>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
+  
+  <br />
+  <br />
+  <br />
+  
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <span class="title_card"><h2>REVIEW</h2></span>
+    </mat-card-header>
+    <img mat-card-image src="assets/giveReview.jpg" alt="Photo of a review">
+    <mat-card-content>
+        <h3 class="h3_title"><strong>Please pick an option to make a review.</strong></h3>
+        <br />
+        <div class="example-button-row">
+            <button (click) = "showDermatologists()" class="dermabutton" mat-raised-button color="primary">DERMATOLOG</button>
+            <br />
+            <br />
+            <button (click) = "showPharmacists()" class="pharmabutton" mat-raised-button color="basic">PHARMACIST</button>
+            <br />
+            <br />
+            <button (click) = "showPharmacies()" class="pharbutton" mat-raised-button color="primary">PHARMACY</button>
+            <br />
+            <br />
+            <button (click) = "showMedicines()" class="medicinebutton" mat-raised-button color="basic">MEDICINE</button>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="exit"> 
+    <button (click) = "exit()" mat-button>EXIT</button>
+    </mat-card-actions>
+  </mat-card>
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>LOYALTY PROGRAM</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button routerLink = "/systemAdminProfilePage">MY PROFILE</a>
+            <a mat-button routerLink = "/register">REGISTER USERS</a>
+            <a mat-button routerLink = "/registerPharmacies">REGISTER PHARMACIES</a>
+            <a mat-button routerLink = "/addMedicine">ADD MEDICINE</a>
+            <a mat-button routerLink = "/respondToComplaints">RESPOND TO PATIENT COMPLAINTS</a>
+            <a mat-button routerLink = "/searchFilterMedicine">VIEW MEDICINE</a>
+            <a mat-button (click) = "logout()">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "card">
+        <mat-card-title>Define categories</mat-card-title>
+        <form [formGroup] = "defineCategoriesForm" class = "define-categories-form">
+            <mat-form-field class = "field-width">
+                <mat-label>Select a category</mat-label>
+                <mat-select formControlName = "categoryName" required>
+                    <mat-option *ngFor = "let categoryName of categoryNames" [value]="categoryName">{{categoryName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf = "hasError('categoryName', 'required', defineCategoriesForm)">Select a category!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Required number of points</mat-label>
+                <input type = "number" matInput (input) = "checkRequiredNumberOfPoints()" formControlName = "requiredNumberOfPoints" min = "0" required>
+                <mat-error *ngIf = "hasError('requiredNumberOfPoints', 'required', defineCategoriesForm)">You must enter the required number of points!</mat-error>
+                <mat-error *ngIf = "requiredNumberOfPoints?.invalid && !hasError('requiredNumberOfPoints','required', defineCategoriesForm)">Required number of points must be a postive number!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Discount</mat-label>
+                <input type = "number" matInput (input) = "checkDiscount()" formControlName = "discount" min = "0" max = "100" required>
+                <mat-error *ngIf = "hasError('discount', 'required', defineCategoriesForm)">You must enter the discount for category!</mat-error>
+                <mat-error *ngIf = "discount?.invalid && !hasError('discount','required', defineCategoriesForm)">Discount must be a between 0 and 100!</mat-error>
+            </mat-form-field>
+        </form>
+        <button (click) = "defineCategories()" [disabled] = "defineCategoriesForm.invalid" mat-raised-button color="primary">Define</button>
+    </mat-card>
+    <mat-card class = "card">
+        <mat-card-title>Define points for appointments and consultations</mat-card-title>
+        <form [formGroup] = "appointmentAndConsultationForm" class = "define-categories-form">
+            <mat-form-field class = "field-width">
+                <mat-label>Select type</mat-label>
+                <mat-select formControlName = "type" required>
+                    <mat-option *ngFor = "let t of types" [value]="t">{{t}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf = "hasError('type', 'required', appointmentAndConsultationForm)">Select type!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Points</mat-label>
+                <input type = "number" matInput (input) = "checkPoints()" formControlName = "points" min = "0" required>
+                <mat-error *ngIf = "hasError('points', 'required', appointmentAndConsultationForm)">Points is required!</mat-error>
+                <mat-error *ngIf = "points?.invalid && !hasError('points','required', appointmentAndConsultationForm)">Points must be a postive number!</mat-error>
+            </mat-form-field>
+        </form>
+        <button (click) = "definePointsForAppointmentAndConsulation()" [disabled] = "appointmentAndConsultationForm.invalid" mat-raised-button color="primary">Define</button>
+    </mat-card>
+</div>

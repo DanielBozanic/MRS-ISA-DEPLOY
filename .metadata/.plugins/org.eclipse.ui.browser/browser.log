@@ -1,0 +1,329 @@
+
+Dec 30, 2020 15:53:34.312 NEW SESSION
+Dec 30, 2020 15:53:34.312 [9288:11936:1230/155334.306:ERROR:device_event_log_impl.cc(211)] [15:53:34.306] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Dec 30, 2020 15:55:34.976 [3616:16164:1230/155534.976:ERROR:device_event_log_impl.cc(211)] [15:55:34.976] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Dec 30, 2020 16:05:27.989 [1230/160527.988:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Dec 30, 2020 19:29:35.954 NEW SESSION
+Dec 30, 2020 19:29:35.954 [14484:5212:1230/192935.952:ERROR:device_event_log_impl.cc(211)] [19:29:35.952] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Dec 30, 2020 19:39:30.642 [1230/193930.641:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 01, 2021 14:45:13.321 NEW SESSION
+Jan 01, 2021 14:45:13.321 [12512:14504:0101/144513.319:ERROR:device_event_log_impl.cc(211)] [14:45:13.320] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 14:48:01.447 [13356:9824:0101/144801.447:ERROR:device_event_log_impl.cc(211)] [14:48:01.447] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 14:49:17.136 [9536:10200:0101/144917.136:ERROR:device_event_log_impl.cc(211)] [14:49:17.136] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 14:51:47.570 [9376:9556:0101/145147.570:ERROR:device_event_log_impl.cc(211)] [14:51:47.570] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 14:53:21.380 [15268:2260:0101/145321.379:ERROR:device_event_log_impl.cc(211)] [14:53:21.380] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 14:56:03.160 [14632:5152:0101/145603.159:ERROR:device_event_log_impl.cc(211)] [14:56:03.158] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 01, 2021 14:56:03.417 [14632:5152:0101/145603.417:ERROR:device_event_log_impl.cc(211)] [14:56:03.417] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 15:00:07.301 [2964:2868:0101/150007.300:ERROR:device_event_log_impl.cc(211)] [15:00:07.301] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 01, 2021 15:00:07.301 [2964:2868:0101/150007.300:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 01, 2021 15:00:07.301 [2964:2868:0101/150007.300:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 01, 2021 15:00:07.302 [2964:2868:0101/150007.300:ERROR:device_event_log_impl.cc(211)] [15:00:07.301] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 01, 2021 15:00:07.536 [2964:2868:0101/150007.532:ERROR:device_event_log_impl.cc(211)] [15:00:07.532] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 15:05:36.926 [13856:11448:0101/150536.925:ERROR:device_event_log_impl.cc(211)] [15:05:36.925] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 01, 2021 15:05:36.926 [13856:11448:0101/150536.925:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 01, 2021 15:05:36.928 [13856:11448:0101/150536.925:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 01, 2021 15:05:36.928 [13856:11448:0101/150536.925:ERROR:device_event_log_impl.cc(211)] [15:05:36.926] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 01, 2021 15:05:37.158 [13856:11448:0101/150537.157:ERROR:device_event_log_impl.cc(211)] [15:05:37.157] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 15:09:36.145 [14128:10464:0101/150936.145:ERROR:device_event_log_impl.cc(211)] [15:09:36.144] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 01, 2021 15:09:36.416 [14128:10464:0101/150936.416:ERROR:device_event_log_impl.cc(211)] [15:09:36.416] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 16:06:32.272 [6796:14308:0101/160632.271:ERROR:device_event_log_impl.cc(211)] [16:06:32.272] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 16:09:49.730 [8188:13080:0101/160949.730:ERROR:device_event_log_impl.cc(211)] [16:09:49.730] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 16:12:43.391 [6996:12344:0101/161243.391:ERROR:device_event_log_impl.cc(211)] [16:12:43.391] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 16:17:03.886 [12492:13732:0101/161703.885:ERROR:device_event_log_impl.cc(211)] [16:17:03.885] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 16:19:22.787 [2664:9344:0101/161922.787:ERROR:device_event_log_impl.cc(211)] [16:19:22.787] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 16:31:29.398 [14308:15012:0101/163129.397:ERROR:device_event_log_impl.cc(211)] [16:31:29.397] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 16:35:10.199 [2388:13252:0101/163510.199:ERROR:device_event_log_impl.cc(211)] [16:35:10.199] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 01, 2021 16:35:10.199 [2388:13252:0101/163510.199:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 01, 2021 16:35:10.199 [2388:13252:0101/163510.199:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 01, 2021 16:35:10.200 [2388:13252:0101/163510.199:ERROR:device_event_log_impl.cc(211)] [16:35:10.199] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 01, 2021 16:35:10.422 [2388:13252:0101/163510.421:ERROR:device_event_log_impl.cc(211)] [16:35:10.421] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 17:03:43.269 [8816:14792:0101/170343.268:ERROR:device_event_log_impl.cc(211)] [17:03:43.268] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 17:07:27.984 [15340:2440:0101/170727.984:ERROR:device_event_log_impl.cc(211)] [17:07:27.983] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 01, 2021 17:07:27.985 [15340:2440:0101/170727.984:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 01, 2021 17:07:27.985 [15340:2440:0101/170727.984:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 01, 2021 17:07:27.985 [15340:2440:0101/170727.984:ERROR:device_event_log_impl.cc(211)] [17:07:27.983] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 01, 2021 17:07:28.213 [15340:2440:0101/170728.213:ERROR:device_event_log_impl.cc(211)] [17:07:28.213] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 17:11:08.718 [11588:1020:0101/171108.718:ERROR:device_event_log_impl.cc(211)] [17:11:08.719] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 01, 2021 17:15:42.366 [15040:9552:0101/171542.365:ERROR:device_event_log_impl.cc(211)] [17:15:42.365] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 02, 2021 14:32:37.906 NEW SESSION
+Jan 02, 2021 14:32:37.906 [6888:13660:0102/143237.902:ERROR:device_event_log_impl.cc(211)] [14:32:37.902] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 14:36:30.220 [4576:3352:0102/143630.220:ERROR:device_event_log_impl.cc(211)] [14:36:30.220] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 14:42:12.219 [8756:5224:0102/144212.219:ERROR:device_event_log_impl.cc(211)] [14:42:12.219] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 14:44:06.531 [2660:2000:0102/144406.530:ERROR:device_event_log_impl.cc(211)] [14:44:06.530] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 14:46:42.598 [1508:72:0102/144642.597:ERROR:device_event_log_impl.cc(211)] [14:46:42.597] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 14:50:36.337 [3856:12232:0102/145036.336:ERROR:device_event_log_impl.cc(211)] [14:50:36.336] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 15:13:01.887 [13736:7920:0102/151301.887:ERROR:device_event_log_impl.cc(211)] [15:13:01.888] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 02, 2021 15:13:01.888 [13736:7920:0102/151301.887:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 02, 2021 15:13:01.888 [13736:7920:0102/151301.887:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 02, 2021 15:13:01.889 [13736:7920:0102/151301.887:ERROR:device_event_log_impl.cc(211)] [15:13:01.888] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 02, 2021 15:13:02.118 [13736:7920:0102/151302.117:ERROR:device_event_log_impl.cc(211)] [15:13:02.117] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 15:22:56.59 [0102/152256.058:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+Jan 02, 2021 15:29:24.46 [1688:12824:0102/152924.046:ERROR:device_event_log_impl.cc(211)] [15:29:24.046] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 15:39:11.143 [0102/153911.142:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+Jan 02, 2021 16:21:27.398 [14064:5228:0102/162127.398:ERROR:device_event_log_impl.cc(211)] [16:21:27.398] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 16:23:41.546 [13540:388:0102/162341.546:ERROR:device_event_log_impl.cc(211)] [16:23:41.546] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 16:32:03.163 [10284:14236:0102/163203.162:ERROR:device_event_log_impl.cc(211)] [16:32:03.162] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 02, 2021 16:32:03.163 [10284:14236:0102/163203.162:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 02, 2021 16:32:03.163 [10284:14236:0102/163203.162:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 02, 2021 16:32:03.164 [10284:14236:0102/163203.162:ERROR:device_event_log_impl.cc(211)] [16:32:03.162] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 02, 2021 16:32:03.400 [10284:14236:0102/163203.397:ERROR:device_event_log_impl.cc(211)] [16:32:03.396] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 16:41:53.409 [0102/164153.408:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 02, 2021 17:48:52.605 NEW SESSION
+Jan 02, 2021 17:48:52.605 [6600:13880:0102/174852.603:ERROR:device_event_log_impl.cc(211)] [17:48:52.604] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 02, 2021 17:57:52.149 NEW SESSION
+Jan 02, 2021 17:57:52.149 [14092:6452:0102/175752.148:ERROR:device_event_log_impl.cc(211)] [17:57:52.148] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 02, 2021 20:19:46.351 NEW SESSION
+Jan 02, 2021 20:19:46.351 [2424:9476:0102/201946.349:ERROR:device_event_log_impl.cc(211)] [20:19:46.348] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 02, 2021 20:44:04.830 NEW SESSION
+Jan 02, 2021 20:44:04.830 [10852:4732:0102/204404.828:ERROR:device_event_log_impl.cc(211)] [20:44:04.828] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 20:46:29.114 [2932:1272:0102/204629.114:ERROR:device_event_log_impl.cc(211)] [20:46:29.113] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 02, 2021 20:46:29.115 [2932:1272:0102/204629.114:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 02, 2021 20:46:29.115 [2932:1272:0102/204629.114:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 02, 2021 20:46:29.115 [2932:1272:0102/204629.114:ERROR:device_event_log_impl.cc(211)] [20:46:29.113] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 02, 2021 20:46:29.343 [2932:1272:0102/204629.343:ERROR:device_event_log_impl.cc(211)] [20:46:29.343] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 20:47:23.76 [13664:10024:0102/204723.076:ERROR:device_event_log_impl.cc(211)] [20:47:23.076] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 20:50:39.400 [10820:14332:0102/205039.400:ERROR:device_event_log_impl.cc(211)] [20:50:39.399] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 20:53:04.898 [2228:14228:0102/205304.898:ERROR:device_event_log_impl.cc(211)] [20:53:04.898] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 20:55:40.745 [13248:10540:0102/205540.745:ERROR:device_event_log_impl.cc(211)] [20:55:40.745] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 21:19:47.954 [14188:12744:0102/211947.954:ERROR:device_event_log_impl.cc(211)] [21:19:47.954] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 21:21:43.751 [11996:8108:0102/212143.751:ERROR:device_event_log_impl.cc(211)] [21:21:43.751] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 02, 2021 21:31:42.355 [0102/213142.354:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+Jan 02, 2021 21:34:00.727 [9648:2100:0102/213400.727:ERROR:device_event_log_impl.cc(211)] [21:34:00.727] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 03, 2021 12:40:15.85 NEW SESSION
+Jan 03, 2021 12:40:15.85 [3808:3968:0103/124015.083:ERROR:device_event_log_impl.cc(211)] [12:40:15.083] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 03, 2021 12:40:15.86 [3808:3968:0103/124015.083:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 03, 2021 12:40:15.86 [3808:3968:0103/124015.083:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 03, 2021 12:40:15.87 [3808:3968:0103/124015.083:ERROR:device_event_log_impl.cc(211)] [12:40:15.083] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 03, 2021 12:40:15.306 [3808:3968:0103/124015.305:ERROR:device_event_log_impl.cc(211)] [12:40:15.306] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 03, 2021 12:44:41.470 [1448:1720:0103/124441.469:ERROR:device_event_log_impl.cc(211)] [12:44:41.469] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 03, 2021 12:54:34.218 [0103/125434.217:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 03, 2021 14:47:18.40 NEW SESSION
+Jan 03, 2021 14:47:18.40 [11916:7884:0103/144718.038:ERROR:device_event_log_impl.cc(211)] [14:47:18.038] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 03, 2021 15:04:24.897 NEW SESSION
+Jan 03, 2021 15:04:24.897 [7024:6616:0103/150424.894:ERROR:device_event_log_impl.cc(211)] [15:04:24.893] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 03, 2021 15:07:31.734 [13080:2104:0103/150731.734:ERROR:device_event_log_impl.cc(211)] [15:07:31.733] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 04, 2021 19:24:26.909 NEW SESSION
+Jan 04, 2021 19:24:26.909 [13832:3580:0104/192426.905:ERROR:device_event_log_impl.cc(211)] [19:24:26.905] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 04, 2021 19:34:23.793 [0104/193423.792:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 04, 2021 22:31:56.488 NEW SESSION
+Jan 04, 2021 22:31:56.488 [1660:11648:0104/223156.486:ERROR:device_event_log_impl.cc(211)] [22:31:56.485] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 05, 2021 14:52:40.802 NEW SESSION
+Jan 05, 2021 14:52:40.802 [13000:4744:0105/145240.796:ERROR:device_event_log_impl.cc(211)] [14:52:40.796] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 14:55:07.559 [4848:13420:0105/145507.559:ERROR:device_event_log_impl.cc(211)] [14:55:07.559] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 05, 2021 14:55:07.560 [4848:13420:0105/145507.559:ERROR:usb_descriptors.cc(117)] Failed to read configuration descriptor.
+Jan 05, 2021 14:55:07.561 [4848:13420:0105/145507.559:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 05, 2021 14:55:07.561 [4848:13420:0105/145507.559:ERROR:device_event_log_impl.cc(211)] [14:55:07.559] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 05, 2021 14:55:07.830 [4848:13420:0105/145507.830:ERROR:device_event_log_impl.cc(211)] [14:55:07.830] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 15:02:39.592 [5552:12328:0105/150239.592:ERROR:device_event_log_impl.cc(211)] [15:02:39.592] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 15:07:07.612 [13040:12236:0105/150707.612:ERROR:device_event_log_impl.cc(211)] [15:07:07.612] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 05, 2021 15:59:46.967 NEW SESSION
+Jan 05, 2021 15:59:46.967 [8092:13588:0105/155946.966:ERROR:device_event_log_impl.cc(211)] [15:59:46.966] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 16:02:13.37 [3636:4000:0105/160213.036:ERROR:device_event_log_impl.cc(211)] [16:02:13.037] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 16:06:34.120 [6188:2192:0105/160634.120:ERROR:device_event_log_impl.cc(211)] [16:06:34.119] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 16:14:46.19 [13940:14000:0105/161446.019:ERROR:device_event_log_impl.cc(211)] [16:14:46.019] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 16:20:56.517 [13336:13436:0105/162056.517:ERROR:device_event_log_impl.cc(211)] [16:20:56.516] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 16:27:12.78 [2268:9588:0105/162712.077:ERROR:device_event_log_impl.cc(211)] [16:27:12.076] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 05, 2021 16:30:04.547 [4324:7820:0105/163004.547:ERROR:device_event_log_impl.cc(211)] [16:30:04.547] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 07, 2021 17:28:09.685 NEW SESSION
+Jan 07, 2021 17:28:09.685 [8212:17248:0107/172809.682:ERROR:device_event_log_impl.cc(211)] [17:28:09.682] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 07, 2021 17:29:16.681 [5328:3604:0107/172916.681:ERROR:device_event_log_impl.cc(211)] [17:29:16.681] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 07, 2021 17:31:56.237 [15644:13008:0107/173156.237:ERROR:device_event_log_impl.cc(211)] [17:31:56.237] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 07, 2021 17:44:13.350 [3668:16712:0107/174413.350:ERROR:device_event_log_impl.cc(211)] [17:44:13.350] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 07, 2021 17:49:31.583 [8208:12668:0107/174931.583:ERROR:device_event_log_impl.cc(211)] [17:49:31.583] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 07, 2021 17:49:31.584 [8208:12668:0107/174931.583:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 07, 2021 17:49:31.584 [8208:12668:0107/174931.583:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 07, 2021 17:49:31.584 [8208:12668:0107/174931.583:ERROR:device_event_log_impl.cc(211)] [17:49:31.583] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 07, 2021 17:49:31.843 [8208:12668:0107/174931.843:ERROR:device_event_log_impl.cc(211)] [17:49:31.842] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 07, 2021 19:13:51.975 [3532:16792:0107/191351.975:ERROR:device_event_log_impl.cc(211)] [19:13:51.974] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 07, 2021 20:29:28.366 NEW SESSION
+Jan 07, 2021 20:29:28.366 [4244:15248:0107/202928.365:ERROR:device_event_log_impl.cc(211)] [20:29:28.364] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 08, 2021 21:31:26.509 NEW SESSION
+Jan 08, 2021 21:31:26.510 [2520:12996:0108/213126.508:ERROR:device_event_log_impl.cc(211)] [21:31:26.506] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 08, 2021 21:31:26.511 [2520:12996:0108/213126.508:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 08, 2021 21:31:26.511 [2520:12996:0108/213126.508:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 08, 2021 21:31:26.511 [2520:12996:0108/213126.508:ERROR:device_event_log_impl.cc(211)] [21:31:26.506] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 08, 2021 21:31:26.739 [2520:12996:0108/213126.738:ERROR:device_event_log_impl.cc(211)] [21:31:26.738] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 08, 2021 21:41:40.764 [3768:2844:0108/214140.763:ERROR:device_event_log_impl.cc(211)] [21:41:40.763] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 08, 2021 21:44:50.61 [15328:12440:0108/214450.060:ERROR:device_event_log_impl.cc(211)] [21:44:50.060] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 09, 2021 24:06:48.422 NEW SESSION
+Jan 09, 2021 24:06:48.423 [2492:7776:0109/000648.420:ERROR:device_event_log_impl.cc(211)] [00:06:48.420] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 09, 2021 24:06:48.423 [2492:7776:0109/000648.420:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 09, 2021 24:06:48.423 [2492:7776:0109/000648.420:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 09, 2021 24:06:48.424 [2492:7776:0109/000648.420:ERROR:device_event_log_impl.cc(211)] [00:06:48.420] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 09, 2021 24:06:48.689 [2492:7776:0109/000648.688:ERROR:device_event_log_impl.cc(211)] [00:06:48.688] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 09, 2021 24:09:39.304 [2520:7220:0109/000939.304:ERROR:device_event_log_impl.cc(211)] [00:09:39.304] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 09, 2021 24:09:39.304 [2520:7220:0109/000939.304:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 09, 2021 24:09:39.305 [2520:7220:0109/000939.304:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 09, 2021 24:09:39.305 [2520:7220:0109/000939.304:ERROR:device_event_log_impl.cc(211)] [00:09:39.304] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 09, 2021 24:09:39.547 [2520:7220:0109/000939.545:ERROR:device_event_log_impl.cc(211)] [00:09:39.545] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 09, 2021 24:16:33.584 [4880:9244:0109/001633.584:ERROR:device_event_log_impl.cc(211)] [00:16:33.584] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 09, 2021 24:26:26.523 [0109/002626.522:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+Jan 09, 2021 24:33:05.511 [7272:15744:0109/003305.511:ERROR:device_event_log_impl.cc(211)] [00:33:05.511] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 09, 2021 24:35:26.446 [2548:16320:0109/003526.446:ERROR:device_event_log_impl.cc(211)] [00:35:26.445] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 09, 2021 24:38:29.714 [15552:14448:0109/003829.714:ERROR:device_event_log_impl.cc(211)] [00:38:29.713] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 09, 2021 12:47:57.533 NEW SESSION
+Jan 09, 2021 12:47:57.533 [4352:7828:0109/124757.531:ERROR:device_event_log_impl.cc(211)] [12:47:57.531] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 10, 2021 19:52:31.864 NEW SESSION
+Jan 10, 2021 19:52:31.865 [14724:10572:0110/195231.862:ERROR:device_event_log_impl.cc(211)] [19:52:31.862] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 11, 2021 18:38:03.908 NEW SESSION
+Jan 11, 2021 18:38:03.909 [1152:2028:0111/183803.906:ERROR:device_event_log_impl.cc(211)] [18:38:03.905] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 11, 2021 18:39:15.453 [4176:8028:0111/183915.453:ERROR:device_event_log_impl.cc(211)] [18:39:15.453] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 12, 2021 14:30:41.971 NEW SESSION
+Jan 12, 2021 14:30:41.971 [3796:3600:0112/143041.969:ERROR:device_event_log_impl.cc(211)] [14:30:41.969] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 12, 2021 14:35:07.244 [4076:12128:0112/143507.244:ERROR:device_event_log_impl.cc(211)] [14:35:07.245] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 12, 2021 15:52:31.109 [1976:12268:0112/155231.109:ERROR:device_event_log_impl.cc(211)] [15:52:31.109] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 12, 2021 15:59:22.56 [1644:12716:0112/155922.055:ERROR:device_event_log_impl.cc(211)] [15:59:22.055] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 12, 2021 15:59:22.56 [1644:12716:0112/155922.055:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 12, 2021 15:59:22.56 [1644:12716:0112/155922.055:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 12, 2021 15:59:22.57 [1644:12716:0112/155922.055:ERROR:device_event_log_impl.cc(211)] [15:59:22.055] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 12, 2021 15:59:22.285 [1644:12716:0112/155922.284:ERROR:device_event_log_impl.cc(211)] [15:59:22.284] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 12, 2021 16:22:44.325 [2552:12820:0112/162244.320:ERROR:device_event_log_impl.cc(211)] [16:22:44.320] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 12, 2021 16:25:56.645 [4756:13384:0112/162556.644:ERROR:device_event_log_impl.cc(211)] [16:25:56.643] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 12, 2021 16:36:14.95 [13820:5364:0112/163614.094:ERROR:device_event_log_impl.cc(211)] [16:36:14.095] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 15, 2021 10:17:50.672 NEW SESSION
+Jan 15, 2021 10:17:50.672 [4800:15468:0115/101750.670:ERROR:device_event_log_impl.cc(211)] [10:17:50.670] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 15, 2021 10:17:50.673 [4800:15468:0115/101750.670:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 15, 2021 10:17:50.674 [4800:15468:0115/101750.670:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 15, 2021 10:17:50.674 [4800:15468:0115/101750.670:ERROR:device_event_log_impl.cc(211)] [10:17:50.670] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 15, 2021 10:17:50.897 [4800:15468:0115/101750.897:ERROR:device_event_log_impl.cc(211)] [10:17:50.897] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 15, 2021 10:21:54.117 [3040:436:0115/102154.117:ERROR:device_event_log_impl.cc(211)] [10:21:54.117] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 15, 2021 10:31:44.514 [0115/103144.513:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+Jan 15, 2021 10:51:33.971 [3904:2316:0115/105133.971:ERROR:device_event_log_impl.cc(211)] [10:51:33.971] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 15, 2021 10:56:32.959 [1792:8580:0115/105632.959:ERROR:device_event_log_impl.cc(211)] [10:56:32.959] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 15, 2021 11:06:25.253 [0115/110625.252:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+Jan 15, 2021 11:18:41.78 [7912:12844:0115/111841.078:ERROR:device_event_log_impl.cc(211)] [11:18:41.077] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 15, 2021 11:25:21.444 [2192:12336:0115/112521.443:ERROR:device_event_log_impl.cc(211)] [11:25:21.444] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 15, 2021 11:50:18.878 NEW SESSION
+Jan 15, 2021 11:50:18.878 [6872:14864:0115/115018.876:ERROR:device_event_log_impl.cc(211)] [11:50:18.877] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 15, 2021 12:06:36.701 NEW SESSION
+Jan 15, 2021 12:06:36.701 [14736:4672:0115/120636.699:ERROR:device_event_log_impl.cc(211)] [12:06:36.699] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 15, 2021 12:22:53.211 [2888:7564:0115/122253.211:ERROR:device_event_log_impl.cc(211)] [12:22:53.210] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 15, 2021 12:31:27.354 NEW SESSION
+Jan 15, 2021 12:31:27.354 [2676:2412:0115/123127.353:ERROR:device_event_log_impl.cc(211)] [12:31:27.353] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 15, 2021 12:50:56.767 NEW SESSION
+Jan 15, 2021 12:50:56.767 [14620:14460:0115/125056.766:ERROR:device_event_log_impl.cc(211)] [12:50:56.765] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 15, 2021 12:50:56.767 [14620:14460:0115/125056.766:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 15, 2021 12:50:56.768 [14620:14460:0115/125056.766:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 15, 2021 12:50:56.768 [14620:14460:0115/125056.766:ERROR:device_event_log_impl.cc(211)] [12:50:56.765] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 15, 2021 12:50:56.996 [14620:14460:0115/125056.995:ERROR:device_event_log_impl.cc(211)] [12:50:56.994] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 15, 2021 12:53:57.32 [12936:6668:0115/125357.032:ERROR:device_event_log_impl.cc(211)] [12:53:57.031] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 18, 2021 08:59:43.303 NEW SESSION
+Jan 18, 2021 08:59:43.303 [5936:12172:0118/085943.301:ERROR:device_event_log_impl.cc(211)] [08:59:43.301] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 09:09:31.294 [0118/090931.293:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+Jan 18, 2021 11:13:21.537 [12644:16024:0118/111321.537:ERROR:device_event_log_impl.cc(211)] [11:13:21.537] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 11:16:08.217 [14632:2608:0118/111608.217:ERROR:device_event_log_impl.cc(211)] [11:16:08.217] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 11:18:12.167 [3084:2848:0118/111812.167:ERROR:device_event_log_impl.cc(211)] [11:18:12.166] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 11:19:17.506 [15308:8068:0118/111917.506:ERROR:device_event_log_impl.cc(211)] [11:19:17.505] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 18, 2021 11:19:17.506 [15308:8068:0118/111917.506:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 18, 2021 11:19:17.507 [15308:8068:0118/111917.506:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 18, 2021 11:19:17.507 [15308:8068:0118/111917.506:ERROR:device_event_log_impl.cc(211)] [11:19:17.505] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 18, 2021 11:19:17.737 [15308:8068:0118/111917.737:ERROR:device_event_log_impl.cc(211)] [11:19:17.737] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 11:26:32.885 [300:4704:0118/112632.885:ERROR:device_event_log_impl.cc(211)] [11:26:32.885] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 11:29:19.152 [10176:15056:0118/112919.151:ERROR:device_event_log_impl.cc(211)] [11:29:19.151] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 11:30:34.523 [15248:14532:0118/113034.522:ERROR:device_event_log_impl.cc(211)] [11:30:34.523] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 11:32:46.915 [15460:2220:0118/113246.915:ERROR:device_event_log_impl.cc(211)] [11:32:46.915] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 18, 2021 16:04:22.610 NEW SESSION
+Jan 18, 2021 16:04:22.610 [14668:3612:0118/160422.608:ERROR:device_event_log_impl.cc(211)] [16:04:22.608] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 18, 2021 16:14:17.663 [0118/161417.662:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 19, 2021 10:01:44.35 NEW SESSION
+Jan 19, 2021 10:01:44.35 [10892:8872:0119/100144.030:ERROR:device_event_log_impl.cc(211)] [10:01:44.029] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 19, 2021 10:05:39.319 [8304:11852:0119/100539.319:ERROR:device_event_log_impl.cc(211)] [10:05:39.320] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 19, 2021 11:01:37.919 [1404:15824:0119/110137.918:ERROR:device_event_log_impl.cc(211)] [11:01:37.919] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 19, 2021 11:54:06.39 NEW SESSION
+Jan 19, 2021 11:54:06.39 [1276:2548:0119/115406.038:ERROR:device_event_log_impl.cc(211)] [11:54:06.038] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 19, 2021 11:54:06.40 [1276:2548:0119/115406.038:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 19, 2021 11:54:06.40 [1276:2548:0119/115406.038:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 19, 2021 11:54:06.40 [1276:2548:0119/115406.038:ERROR:device_event_log_impl.cc(211)] [11:54:06.039] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 19, 2021 11:54:06.270 [1276:2548:0119/115406.270:ERROR:device_event_log_impl.cc(211)] [11:54:06.270] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 19, 2021 11:56:40.347 [9868:148:0119/115640.347:ERROR:device_event_log_impl.cc(211)] [11:56:40.347] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 19, 2021 12:33:48.883 [668:16172:0119/123348.883:ERROR:device_event_log_impl.cc(211)] [12:33:48.883] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 19, 2021 12:43:41.604 [0119/124341.602:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 19, 2021 13:01:56.221 NEW SESSION
+Jan 19, 2021 13:01:56.221 [14720:8644:0119/130156.216:ERROR:device_event_log_impl.cc(211)] [13:01:56.216] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 19, 2021 13:28:19.692 NEW SESSION
+Jan 19, 2021 13:28:19.692 [1336:1704:0119/132819.690:ERROR:device_event_log_impl.cc(211)] [13:28:19.691] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 19, 2021 13:38:07.639 [0119/133807.638:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 19, 2021 16:21:08.102 NEW SESSION
+Jan 19, 2021 16:21:08.102 [1012:5484:0119/162108.100:ERROR:device_event_log_impl.cc(211)] [16:21:08.100] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 19, 2021 20:41:30.117 NEW SESSION
+Jan 19, 2021 20:41:30.117 [3756:12632:0119/204130.115:ERROR:device_event_log_impl.cc(211)] [20:41:30.115] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 19, 2021 20:51:22.980 [0119/205122.978:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+Jan 19, 2021 20:58:10.852 [10348:4788:0119/205810.851:ERROR:device_event_log_impl.cc(211)] [20:58:10.852] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 19, 2021 21:05:54.453 [10348:4788:0119/210554.452:ERROR:device_event_log_impl.cc(211)] [21:05:54.452] USB: usb_service_win.cc:258 Failed to get device driver name: Element not found. (0x490)
+Jan 19, 2021 21:08:00.870 [0119/210800.869:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 20, 2021 09:10:04.254 NEW SESSION
+Jan 20, 2021 09:10:04.254 [8648:10252:0120/091004.251:ERROR:device_event_log_impl.cc(211)] [09:10:04.251] USB: usb_device_handle_win.cc:1020 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Jan 20, 2021 09:10:04.256 [8648:10252:0120/091004.251:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Jan 20, 2021 09:10:04.256 [8648:10252:0120/091004.251:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Jan 20, 2021 09:10:04.256 [8648:10252:0120/091004.251:ERROR:device_event_log_impl.cc(211)] [09:10:04.251] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Jan 20, 2021 09:10:04.476 [8648:10252:0120/091004.476:ERROR:device_event_log_impl.cc(211)] [09:10:04.477] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 21, 2021 16:41:51.359 NEW SESSION
+Jan 21, 2021 16:41:51.359 [7660:6452:0121/164151.358:ERROR:device_event_log_impl.cc(211)] [16:41:51.357] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 21, 2021 20:14:20.453 NEW SESSION
+Jan 21, 2021 20:14:20.453 [11744:14284:0121/201420.450:ERROR:device_event_log_impl.cc(211)] [20:14:20.449] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 21, 2021 22:37:10.85 NEW SESSION
+Jan 21, 2021 22:37:10.85 [8948:15236:0121/223710.083:ERROR:device_event_log_impl.cc(211)] [22:37:10.082] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+
+Jan 24, 2021 16:37:23.225 NEW SESSION
+Jan 24, 2021 16:37:23.225 [12200:13096:0124/163723.222:ERROR:device_event_log_impl.cc(211)] [16:37:23.222] Bluetooth: bluetooth_adapter_winrt.cc:1073 Getting Default Adapter failed.
+Jan 24, 2021 16:47:09.148 [0124/164709.147:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+
+Jan 31, 2021 16:54:23.63 NEW SESSION
+Jan 31, 2021 16:54:23.63 [12580:12192:0131/165423.061:ERROR:device_event_log_impl.cc(211)] [16:54:23.061] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
+
+Feb 05, 2021 21:46:54.868 NEW SESSION
+Feb 05, 2021 21:46:54.868 [12444:11028:0205/214654.866:ERROR:device_event_log_impl.cc(211)] [21:46:54.865] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
+
+Feb 05, 2021 21:50:22.916 NEW SESSION
+Feb 05, 2021 21:50:22.916 [5176:1932:0205/215022.915:ERROR:device_event_log_impl.cc(211)] [21:50:22.915] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.
+
+Mar 02, 2021 08:29:55.138 NEW SESSION
+Mar 02, 2021 08:29:55.138 [8400:1636:0302/082955.136:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+Mar 02, 2021 08:29:55.140 [8400:1636:0302/082955.137:ERROR:cache_util.cc(144)] Unable to move cache folder C:\Users\Me\AppData\Local\Google\Chrome\User Data\ShaderCache\GPUCache to C:\Users\Me\AppData\Local\Google\Chrome\User Data\ShaderCache\old_GPUCache_000
+Mar 02, 2021 08:29:55.140 [8400:1636:0302/082955.137:ERROR:disk_cache.cc(184)] Unable to create cache
+Mar 02, 2021 08:29:55.140 [8400:1636:0302/082955.137:ERROR:shader_disk_cache.cc(606)] Shader Cache Creation failed: -2
+Mar 02, 2021 08:29:55.944 Opening in existing browser session.
+Mar 02, 2021 08:30:10.473 [1848:3852:0302/083010.473:ERROR:device_event_log_impl.cc(211)] [08:30:10.472] USB: usb_device_handle_win.cc:1049 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+Mar 02, 2021 08:30:10.473 [1848:3852:0302/083010.473:ERROR:usb_descriptors.cc(140)] Failed to read length for configuration 0.
+Mar 02, 2021 08:30:10.474 [1848:3852:0302/083010.473:ERROR:usb_descriptors.cc(100)] Failed to read all configuration descriptors. Expected 1, got 0.
+Mar 02, 2021 08:30:10.474 [1848:3852:0302/083010.473:ERROR:device_event_log_impl.cc(211)] [08:30:10.472] USB: usb_device_win.cc:93 Failed to read descriptors from \\?\usb#vid_1038&pid_120a#7&22627008&0&1#{a5dcbf10-6530-11d2-901f-00c04fb951ed}.
+Mar 02, 2021 08:30:10.732 [1848:3852:0302/083010.732:ERROR:device_event_log_impl.cc(211)] [08:30:10.731] Bluetooth: bluetooth_adapter_winrt.cc:1072 Getting Default Adapter failed.

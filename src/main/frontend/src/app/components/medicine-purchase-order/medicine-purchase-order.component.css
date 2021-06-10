@@ -1,0 +1,47 @@
+table {
+  width: 100%;
+}
+.mat-column-composition {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 28% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-additionalComments {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 28% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.table-card {
+  width: 1500px;
+  margin-top: 10px;
+  margin-left: 10px;
+  background-color: #deede6;
+}
+
+.create-button {
+  width: 170px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
