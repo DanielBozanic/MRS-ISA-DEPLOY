@@ -5,15 +5,8 @@ jdk: oraclejdk11
 services:
   - mysql
 
-addons:
-  apt:
-   sources:
-    - mysql-8.0.23-trusty
-   packages:
-    - mysql-server
-    - mysql-client
-
 before_install:
+  - mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';" -uroot
   - chmod +x mvnw
 
 script:
