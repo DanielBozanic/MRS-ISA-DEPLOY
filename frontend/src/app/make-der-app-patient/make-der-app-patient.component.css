@@ -1,0 +1,72 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+table {
+    width: 100%;
+}
+  
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+  
+td, th {
+    width: 18%;
+}
+
+
+
+.card{
+    background-color: #DEEDE6;
+    width: 980px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.example-full-width{
+    background-color: white;
+}
+
+.inputic{
+    background-color: white;
+}
+
+
+
+.pharmacyCard{
+    background-color: #DEEDE6;
+    width: 400px;
+    margin-top: -968px;
+    margin-left: 505px;
+}
+
+.pharmacyDiv{
+    margin-left: 36%;
+}
+
+
+.imageP{
+    background-image: url('pharmacyLogo.jpg');
+}
+
+
+
+.dermaButton{
+    color: white;
+    background-color:  #3F51B5;
+}
+
+
+.centriraj{
+    margin-left: 85px;
+  }
+  
+  .pomjeri{
+    margin-left: 5px;
+  }
+
+  .pomjeri_dugmice{
+    margin-left: 60px;
+  }
+

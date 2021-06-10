@@ -1,0 +1,58 @@
+.card {
+    width: 500px;
+    margin-top: 20px;
+    margin-left: 10px;
+    background-color: #DEEDE6
+}
+
+.offer-form{
+    max-width: 500px;
+    width: 100%;
+}
+
+.field-width {
+    width: 85%;
+}
+
+.clear-filter-button {
+    margin-left: 30px;
+}
+
+.table-card {
+    width: 1000px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #DEEDE6
+}
+
+table {
+    width: 100%;
+}
+
+.data-table {
+    width: 100%;
+}
+
+.coloumnId {
+    width: 5%;  
+}
+
+.coloumnOrderName {
+    width: 20%;  
+}
+
+.coloumnDueDateOffer {
+    width: 10%; 
+}
+
+.coloumnDeliveryDate {
+    width: 10%; 
+}
+
+.coloumnPrice{
+    width: 15%; 
+}
+
+.coloumnOfferStatus{
+    width: 10%; 
+}

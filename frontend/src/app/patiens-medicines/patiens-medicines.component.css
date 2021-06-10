@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+  }
+
+
+  .imageFront{
+    margin-top: 7px;
+    margin-left: 200px;
+    width: 1000px;
+    height: 600px;
+  }
+
+  .card{
+    background-color: #DEEDE6;
+    width: 1420px;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  
+  .h2{
+    margin-left: 170px;
+  }
+
+
+  .h22{
+    margin-left: 550px;
+  }

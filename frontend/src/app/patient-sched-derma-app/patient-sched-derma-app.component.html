@@ -1,0 +1,96 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>SCHEDULED  APPOINTMENTS  WITH  DERMATOLOGIST </span>
+        <span style = "flex: 1 1 auto;"></span>
+        <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+        <a mat-button routerLink = "/PatientProfile">MY PROFILE</a>
+        <a mat-button routerLink = "/login">LOGOUT</a>
+      </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div *ngIf="freeIsEmpty">
+    <mat-card class="card">
+        <img mat-card-image class="imageFront" src="assets\dermatologists.jpg">
+
+        <h2 class="h22">YOU DON'T HAVE ANY SCHEDULED APPOINTMENT WITH DERMATOLOGIST.</h2>
+      
+    </mat-card>
+</div>
+
+
+
+<div *ngIf="notEmpty">
+    <mat-card class="card">
+        <img mat-card-image class="imageFront" src="assets\dermatologists.jpg">
+
+        <br />
+  
+        <h2 class="h2">THESE ARE YOUR APPOINTMENTS WITH DERMATOLOGISTS. TO CANCEL AN APPOINTMENT YOU CAN CLICK ON BUTTON CANCEL IN TABLE.</h2>
+
+            <mat-form-field>
+                <mat-label>FILTER</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 1000" #input>
+            </mat-form-field>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="DATE">
+            <th mat-header-cell *matHeaderCellDef> DATE </th>
+            <td mat-cell *matCellDef="let element"> {{element.start[0]}}/ {{element.start[1]}}/{{element.start[2]}}</td>
+            </ng-container>
+        
+            <!-- Weight Column -->
+            <ng-container matColumnDef="TIME">
+            <th mat-header-cell *matHeaderCellDef> TIME </th>
+            <td mat-cell *matCellDef="let element"> {{element.start[3]}}:{{element.start[4]}} </td>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="DERMATOLOG">
+            <th mat-header-cell *matHeaderCellDef> DERMATOLOGIST </th>
+            <td mat-cell *matCellDef="let element"> {{element.dermatologist.name}} {{element.dermatologist.surname}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="DERMATOLOGIST PHONE">
+                <th mat-header-cell *matHeaderCellDef> DERMATOLOGIST PHONE </th>
+                <td mat-cell *matCellDef="let element"> {{element.dermatologist.phoneNumber}}</td>
+            </ng-container>
+            
+            <!-- Weight Column -->
+            <ng-container matColumnDef="DERMATOLOGIST E-MAIL">
+                <th mat-header-cell *matHeaderCellDef> DERMATOLOGIST E-MAIL </th>
+                <td mat-cell *matCellDef="let element"> {{element.dermatologist.email}}</td>
+            </ng-container>
+            
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="RATING">
+                <th mat-header-cell *matHeaderCellDef> DERMATOLOG'S RATE </th>
+                <td mat-cell *matCellDef="let element"> {{element.dermatologist.rating}}</td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="PRICE">
+                <th mat-header-cell *matHeaderCellDef> PRICE </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} RSD</td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="CANCEL">
+                <th mat-header-cell *matHeaderCellDef> CANCEL </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <button (click) = "delete(element)" mat-raised-button color="primary">CANCEL</button>
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="9">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+    </mat-card>
+</div>

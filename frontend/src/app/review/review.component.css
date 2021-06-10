@@ -1,0 +1,59 @@
+.example-card {
+    max-width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    background: url(backgroudForReview.jpg);
+}
+
+.example-icon {
+    padding: 5 18px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+
+.title_card{
+    margin-left: 130px;
+}
+
+.divCard{
+    margin-bottom: 200px;
+}
+
+
+.dermabutton{
+    margin-left: 120px;
+    width: 150px;
+}
+
+.pharmabutton{
+    margin-left: 120px;
+    width: 150px;
+}
+
+.pharbutton{
+    margin-left: 120px;
+    width: 150px;
+    
+}
+
+.medicinebutton{
+    margin-left: 120px;
+    width: 150px;
+
+}
+
+
+.exit{
+    margin-left: 320px;
+}
+
+.h3_title{
+    margin-left: 45px;
+}
+
+

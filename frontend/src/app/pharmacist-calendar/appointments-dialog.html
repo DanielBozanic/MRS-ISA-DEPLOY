@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<mat-dialog-content>
+  <h4>On date {{data.start.getFullYear()}}.{{data.start.getMonth() + 1}}.{{data.start.getDate()}}</h4>
+  <h4>From {{data.start.getHours()}}:{{data.start.getMinutes()}} to {{data.end.getHours()}}:{{data.end.getMinutes()}}</h4>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button (click)="close()" mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

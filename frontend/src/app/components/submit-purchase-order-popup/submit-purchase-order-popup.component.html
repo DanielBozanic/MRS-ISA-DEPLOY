@@ -1,0 +1,23 @@
+<div [formGroup]="purchaseOrderForm">
+
+  <h1 mat-dialog-title>{{data.medicineName}}</h1>
+  <div mat-dialog-content>
+    <p>Purchase order name</p>
+    <mat-form-field>
+      <mat-label></mat-label>
+      <input matInput formControlName="purchaseOrderName">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="purchaseOrderDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="purchaseOrderForm" cdkFocusInitial>Submit</button>
+  </div>
+</div>

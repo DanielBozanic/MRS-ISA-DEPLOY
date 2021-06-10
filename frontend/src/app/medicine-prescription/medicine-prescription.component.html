@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>ISSUE MEDICINE VIA ERECEIPT</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button routerLink = "/UserHomePage">Back</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "card">
+        <mat-card-title>Upload QR code</mat-card-title>
+        <form [formGroup] = "qrCodeForm" class = "qr-code-form">
+            <mat-form-field class = "field-width">
+                <mat-label>Select a QR code</mat-label>
+                <ngx-mat-file-input formControlName="qrCode" accept = ".png"></ngx-mat-file-input>
+                <mat-icon matSuffix>image</mat-icon>
+            </mat-form-field>
+        </form>
+        <button (click) = "sendQrCode()" [disabled] = "qrCodeForm.invalid" mat-raised-button color="primary">Send</button>
+    </mat-card>
+    <mat-card class = "table-card">
+        <mat-card-title>Required medicine</mat-card-title>
+        <div class = "data-table">
+            <table mat-table [dataSource]="medicineDataSource">
+                <ng-container matColumnDef="medicineCode">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnMedicineCode">Medicine code</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnMedicineCode"> {{element.medicineCode}}</td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnTotalPrice">Name</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnAddress"> {{element.medicineName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnQuantity">Quantity</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnQuantity">{{element.quantity}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicine"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicine;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+    <mat-card class = "table-card">
+        <mat-card-title>Available pharmacies with required medicine</mat-card-title>
+        <div class = "data-table">
+            <table mat-table [dataSource]="pharmaciesDataSource" matSort (matSortChange)="sortData($event)">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnName" mat-sort-header>Name</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnName"> {{element.pharmacy.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnAddress" mat-sort-header>Address</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnAddress"> {{element.pharmacy.address}} </td>
+                </ng-container>
+                <ng-container matColumnDef="rating">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnAverageRating" mat-sort-header>Average rating</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnAverageRating">{{element.pharmacy.rating}}</td>
+                </ng-container>
+                <ng-container matColumnDef="totalPrice">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnTotalPrice" mat-sort-header>Total price</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnTotalPrice"> {{element.total}} </td>
+                </ng-container>
+                <ng-container matColumnDef="issue">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnIssue"></th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnIssue"><button (click) = "issueEReceipt(element)" mat-raised-button color="primary">Select</button></td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsPharmacies"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsPharmacies;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+</div>

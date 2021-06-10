@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Appointment with {{data.patient.name}} {{data.patient.surname}} in {{data.pharmacy.name}}</h1>
+<mat-dialog-content class="mat-typography">
+  <h3>On date {{data.start[0]}}.{{data.start[1] + 1}}.{{data.start[2]}}</h3>
+  <h3>From {{data.start[3]}}:{{data.start[4]}} to {{data.end[3]}}:{{data.end[4]}}</h3>
+  <br>
+  <h3>Do you want to start this appointment?</h3>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true">Start</button>
+</mat-dialog-actions>

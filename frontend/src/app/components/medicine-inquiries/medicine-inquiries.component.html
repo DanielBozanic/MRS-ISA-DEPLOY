@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <span>Medicine inquiries</span>
+        <span style = "flex: 1 1 auto;"></span>
+
+        <a mat-button (click) = "back()">Back</a>
+        <a mat-button (click) = "logout()">Logout</a>
+       
+
+    </mat-toolbar>
+
+    <mat-card class = "table-card">
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="medicineInquiryList">
+                <ng-container matColumnDef="requested">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnName">Date</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnName" type="date"> {{element.requested[0]}}/{{element.requested[1]}}/{{element.requested[2]}} </td>
+                </ng-container>
+                <ng-container matColumnDef="medicine">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnaverageRating">Medicine</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnaverageRating">{{element.medicine.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="pharmacy">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnMedicineType">Pharmacy</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnMedicineType"> {{element.pharmacy.name}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicineNeeded"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicineNeeded;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+
+
+ 
+</div>

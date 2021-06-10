@@ -1,0 +1,92 @@
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+
+  .imageFront{
+    height: 550px;
+  }
+
+  .table-card {
+    background-color: rgb(188, 214, 247);
+    width: 980px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+  
+  .example-radio-button {
+    margin: 5px;
+  }
+
+
+  .coloumnName {
+    width: 10%;  
+}
+
+.coloumnSurname {
+    width: 10%; 
+}
+
+.coloumnNumber{
+    width: 10%; 
+}
+
+.coloumnEmail {
+    width: 15%;
+}
+
+.coloumnRating {
+    width: 15%;
+}
+
+.columnRate {
+    width: 10%;
+}
+
+
+.pharmacistDiv{
+  margin-left: 1036px;
+  margin-top: -867px;
+}
+
+.pharmacistCard{
+  background-color: rgb(188, 214, 247);
+  width: 405px;
+  
+}
+
+
+.title_card{
+  margin-left: 90px;
+}
+
+.title_card1{
+  margin-left: 160px;
+}
+
+ng-container{
+  margin-left: 5px;
+}
+
+
+.centriraj{
+  margin-left: 85px;
+}
+
+.pomjeri{
+  margin-left: 5px;
+}
+
+.pomjeri_dugmice{
+  margin-left: 145px;
+}
+
+
+.example-icon {
+  padding: 5 18px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
