@@ -17,7 +17,7 @@ dist: trusty
 test:
   adapter: mysql2
   database: mrsisa2021_t15
-  username: root
+  username: travis
   encoding: utf8
 
 deploy:
