@@ -5,23 +5,20 @@ jdk: oraclejdk11
 services:
   - mysql
 
-addons:
-  apt:
-    sources:
-      - mysql-8.0.23-trusty
-    packages:
-      - mysql-server
-
 before_install:
+  - mysql -e 'CREATE DATABASE mrsisa2021_t15;
   - chmod +x mvnw
-  - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('root') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-  - sudo mysql_upgrade -u root -proot
-  - sudo service mysql restart
 
 script:
   - ./mvnw clean install -DskipTests=false -B
 
 dist: trusty
+
+test:
+  adapter: mysql2
+  database: mrsisa2021_t15
+  username: root
+  encoding: utf8
 
 deploy:
   provider: heroku
