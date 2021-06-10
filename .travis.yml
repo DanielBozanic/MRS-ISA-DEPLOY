@@ -6,7 +6,7 @@ services:
   - mysql
 
 before_install:
-  - mysql -e 'CREATE DATABASE mrsisa2021_t15;
+  - mysql -e 'CREATE DATABASE mrsisa2021_t15';
   - chmod +x mvnw
 
 script:
