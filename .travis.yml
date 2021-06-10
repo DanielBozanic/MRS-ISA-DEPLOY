@@ -5,9 +5,6 @@ jdk: oraclejdk11
 services:
   - mysql
 
-before_install:
-  - chmod +x mvnw
-
 script:
   - ./mvnw clean install -DskipTests=false -B
 
