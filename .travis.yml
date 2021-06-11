@@ -2,15 +2,25 @@ sudo: required
 language: java
 jdk: oraclejdk11
 
+node_js:
+- '14'
 services:
-  - mysql
+- mysql
 
 before_install:
-  - mysql -e 'CREATE DATABASE mrsisa2021_t15';
-  - chmod +x mvnw
+- mysql -e 'CREATE DATABASE mrsisa2021_t15';
+- chmod +x mvnw
+- sudo apt install nodejs
+
+addons:
+  sonarcloud:
+  organization: danielbozanic
+  token: 
+	secure: n4tF0nncbLG6JNukXT/kRQHTv8xTKymSFCluRd+Qzl3Gk9+X6agT/nYaRc8mi2n0WLKpI9Fjh66Nn5FUTSFq5WqRk43mziUJB+OzimvrlUzN0CNcjX3EDrAbw1qOXJjfdYlNx0ApcvPiE3TweBONtAWGfgEqM9KCHCgsnlcjUmHVNGQz7cod/GeurD+wTrphMoolPvAaTWQe1KpA0MpeLjoiO7NDrcb0ilvE6e4JNaA1J3g/8SurCO1VtdJXibnYa/HsC+aOaWSAMU+zxJ/LKhShYDKrAD7bXwDiPGaNzx0joXRhwtEzlchwrBBQFbbex62LpVrxj979HwXoTGseve1OWbLGW+miX5qDvRLUq238Zk5iVCDAZlmiS+XzPEJMPmoFhIglOmVB9t+pUHGs6VHh86QoSQZnO87lrXlPHJQLuzOmk5o8saFytv063rTrG6hpHd9O/k6nwwxhOv01UhrBrf4G+3cCn9WYOUlDkzh++F9AQHySNulTqX7JKQnzQezYQjP/A7FbLTQMik3zDvg3Z1vx9u/Py9/XlMc6PK0PdoX/YjnhZrxLLxaWY1FmhSmT9JohXw+WYJU8N9i8Rn+AMf3fcZkB/J6qSw56PXfMnWUIZthiBmc/S02X+zYEG5k3J1j2dWxTjoqYtp8lcEHko+ySTimk0oo17y7Cf2Y=
 
 script:
-  - ./mvnw clean install -DskipTests=false -B
+- "./mvnw clean install -DskipTests=false -B"
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=DanielBozanic_MRS-ISA-DEPLOY
 
 dist: trusty
 
@@ -22,5 +32,5 @@ test:
 
 deploy:
   provider: heroku
-  api_key: $HEROKU_API_KEY
+  api_key: "$HEROKU_API_KEY"
   app: backend 
