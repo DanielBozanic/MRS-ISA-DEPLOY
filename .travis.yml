@@ -2,16 +2,12 @@ sudo: required
 language: java
 jdk: oraclejdk11
 
-node_js:
-- '14'
-
 services:
 - mysql
 
 before_install:
 - mysql -e 'CREATE DATABASE mrsisa2021_t15';
 - chmod +x mvnw
-- sudo apt install nodejs
 
 addons:
   sonarcloud:
