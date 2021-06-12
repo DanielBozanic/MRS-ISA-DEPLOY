@@ -1,5 +1,6 @@
 package com.MRSISA2021_T15.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,11 @@ public class SupplierController {
 	@GetMapping(value = "/getPurchaseOrdersMedicine/{purchaseOrderId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
 	public List<PurchaseOrderMedicine> getPurchaseOrdersMedicine(@PathVariable Integer purchaseOrderId) {
-		return supplierService.getPurchaseOrdersMedicine(purchaseOrderRepository.findById(purchaseOrderId).get());
+		if (purchaseOrderRepository.findById(purchaseOrderId).isPresent()) {
+			return supplierService.getPurchaseOrdersMedicine(purchaseOrderRepository.findById(purchaseOrderId).get());
+		} else {
+			return new ArrayList<PurchaseOrderMedicine>();
+		}
 	}
 	
 	@GetMapping(value = "/getOffersBySupplier", produces = MediaType.APPLICATION_JSON_VALUE)

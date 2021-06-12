@@ -54,9 +54,6 @@ public class Patient extends User{
 	@Column
 	private int penals;
 	
-
-	
-	
 	public int getPenals() {
 		return penals;
 	}
@@ -89,11 +86,6 @@ public class Patient extends User{
 		this.allergies = allergies;
 	}
 	
-	/*public Patient(Set<Allergy> allergies) {
-		super();
-		this.allergies = allergies;
-	}*/
-
 	public Integer getCollectedPoints() {
 		return collectedPoints;
 	}
@@ -117,14 +109,4 @@ public class Patient extends User{
 	public void seteReceipts(Set<EReceipt> eReceipts) {
 		this.eReceipts = eReceipts;
 	}
-
-	public Patient() {
-		super();
-	}
-
-	/*public Patient(int id, String email, String name, String surname, String adress, String city, String country,
-			String phoneNumber, String username, String password) {
-		super(id, email, name, surname, adress, city, country, phoneNumber, username, password);
-	}*/
-
 }

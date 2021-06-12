@@ -78,11 +78,16 @@ public class AuthenticationController {
 			systemAdmin.setUsername("admin");
 			systemAdmin.setPassword(passwordEncoder.encode("ADMIN"));
 			List<Role> roles = new ArrayList<Role>();
-			Role role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).get();
-			roles.add(role);
-			systemAdmin.setRoles(roles);
-			systemAdmin.setEnabled(true);
-			systemAdminRepository.save(systemAdmin);
+			Role role = null;
+			if (roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).isPresent()) {
+				role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).get();
+			}
+			if (role != null) {
+				roles.add(role);
+				systemAdmin.setRoles(roles);
+				systemAdmin.setEnabled(true);
+				systemAdminRepository.save(systemAdmin);
+			}
 		}
 	}
 }

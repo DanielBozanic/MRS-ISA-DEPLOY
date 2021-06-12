@@ -189,7 +189,7 @@ public class ComplaintController {
 		List<Appointment>appos = service2.findAllPatientsId(p.getId());
 		if(!appos.isEmpty()) {
 			for(Appointment a : appos) {
-				if(a.getPharmacy().getId() == pharmacy.getId()) {
+				if(a.getPharmacy().getId().equals(pharmacy.getId())) {
 					found = true;
 				}
 			}
@@ -253,7 +253,7 @@ public class ComplaintController {
 		boolean found = false;
 		List<Pharmacist> pharmacists = service3.findAllPharmacist();
 		for(Pharmacist p : pharmacists) {
-			if(p.getId() == complaint.getPharmacist().getId()) {
+			if(p.getId().equals(complaint.getPharmacist().getId())) {
 				complaint.setPharmacist(p);
 				service.addPhaComplaint(complaint);
 				found = true;
@@ -284,7 +284,7 @@ public class ComplaintController {
 		boolean found = false;
 		List<Pharmacy> pharmacies = service.findAllPharmacy();
 		for(Pharmacy p : pharmacies) {
-			if(p.getId() == complaint.getPharmacy().getId()) {
+			if(p.getId().equals(complaint.getPharmacy().getId())) {
 				complaint.setPharmacy(p);
 				service.addPharyComplaint(complaint);
 				found = true;

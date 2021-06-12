@@ -32,7 +32,7 @@ public class AppointmentController {
 	public @ResponseBody ResponseEntity<String> makeAppointmentPharmacist(@RequestBody AppointmentPharmacist appointment) {
 		String message = service.makeAppointmentPharmacist(appointment);
 		Gson gson = new GsonBuilder().create();
-		if (message == "") {
+		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Appointment succesfully created."), HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -43,7 +43,7 @@ public class AppointmentController {
 	public @ResponseBody ResponseEntity<String> makeDermatologist(@RequestBody AppointmentDermatologist appointment) {
 		String message = service.makeAppointmentDermatologist(appointment);
 		Gson gson = new GsonBuilder().create();
-		if (message == "") {
+		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Appointment succesfully created."), HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,7 +54,7 @@ public class AppointmentController {
 	public @ResponseBody ResponseEntity<String> makeDermatologistPredefined(@PathVariable("appointmentId") Integer id, @RequestBody Patient patient) {
 		String message = service.makeAppointmentDermatologistPredefined(id, patient);
 		Gson gson = new GsonBuilder().create();
-		if (message == "") {
+		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Appointment succesfully assigned to patient."), HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -90,7 +90,7 @@ public class AppointmentController {
 		service.makeTrue(appointment.getAppointment());
 		String message = service.endAppointment(appointment.getAppointment(), appointment.getMeds(), appointment.getComments());
 		Gson gson = new GsonBuilder().create();
-		if (message == "") {
+		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Appointment succesfully ended, information is saved."), HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -102,7 +102,7 @@ public class AppointmentController {
 		service.makeTrue(appointment.getAppointment());
 		String message = service.endAppointment(appointment.getAppointment(), appointment.getMeds(), appointment.getComments());
 		Gson gson = new GsonBuilder().create();
-		if (message == "") {
+		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Appointment succesfully ended, information is saved."), HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -138,7 +138,7 @@ public class AppointmentController {
 		List<Appointment> appointmentPharmacyList = new ArrayList<>();
 		List returnList = new ArrayList<AppointmentDermatologist>();
 		for ( Appointment a : appointmentList) {
-			if (a.getPharmacy().getId() == pharmacyId) {
+			if (a.getPharmacy().getId().equals(pharmacyId)) {
 				appointmentPharmacyList.add(a);
 			}
 		}

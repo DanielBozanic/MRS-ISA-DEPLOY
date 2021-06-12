@@ -38,25 +38,33 @@ public class MedicineServiceImpl implements MedicineService {
 	public String addMedicine(Medicine medicine) {
 		String message = "";
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
-		if (systemAdminDb.getFirstLogin()) {
-			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
-		} else {
-			if (medicineRepository.findByMedicineCode(medicine.getMedicineCode().toLowerCase()) != null) {
-				message = "A medicine with this code already exists!";
+		SystemAdmin systemAdminDb = null;
+		if (userRepository.findById(systemAdmin.getId()).isPresent()) {
+			systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
+		}
+		if (systemAdminDb != null) {
+			if (systemAdminDb.getFirstLogin()) {
+				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 			} else {
-				medicine.setMedicineCode(medicine.getMedicineCode().toLowerCase());
-				medicine.setPoints(Math.abs(medicine.getPoints()));
-				medicineRepository.save(medicine);
-				List<Integer> substituteMedicineIds = medicine.getSubstituteMedicineIds();
-				if (substituteMedicineIds != null) {
-					for (Integer id : substituteMedicineIds) {
-						SubstituteMedicine substituteMedicine = new SubstituteMedicine();
-						substituteMedicine.setMedicine(medicine);
-						Medicine sm = medicineRepository.findById(id).get();
-						if (sm != null) {
-							substituteMedicine.setSubstituteMedicine(sm);
-							substituteMedicineRepository.save(substituteMedicine);
+				if (medicineRepository.findByMedicineCode(medicine.getMedicineCode().toLowerCase()) != null) {
+					message = "A medicine with this code already exists!";
+				} else {
+					medicine.setMedicineCode(medicine.getMedicineCode().toLowerCase());
+					medicine.setPoints(Math.abs(medicine.getPoints()));
+					medicineRepository.save(medicine);
+					List<Integer> substituteMedicineIds = medicine.getSubstituteMedicineIds();
+					if (substituteMedicineIds != null) {
+						for (Integer id : substituteMedicineIds) {
+							SubstituteMedicine substituteMedicine = new SubstituteMedicine();
+							substituteMedicine.setMedicine(medicine);
+							Medicine sm = null;
+							if (medicineRepository.findById(id).isPresent()) {
+								sm = medicineRepository.findById(id).get();
+							}
+							if (sm != null) {
+								substituteMedicine.setSubstituteMedicine(sm);
+								substituteMedicineRepository.save(substituteMedicine);
+							}
 						}
 					}
 				}

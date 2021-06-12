@@ -296,7 +296,7 @@ public class AppointmentService {
 		for (MedicineQuantity medicine : meds) {
 			
 			for (Allergy allergy : allergies) {
-				if(allergy.getMedicine().getId() == medicine.getMedicine().getId()) {
+				if(allergy.getMedicine().getId().equals(medicine.getMedicine().getId())) {
 					msg = "Patient is allergic to this medicine!";
 					break;
 				}
@@ -304,7 +304,7 @@ public class AppointmentService {
 			
 			for (MedicinePharmacy medicinePharm : medicines) {
 
-				if (medicine.getMedicine().getId() == medicinePharm.getMedicine().getId()) {
+				if (medicine.getMedicine().getId().equals(medicinePharm.getMedicine().getId())) {
 					if (medicine.getQuantity() > medicinePharm.getAmount()) {
 						msg = msg + "Your pharmacy has only " + medicinePharm.getAmount() + " of "
 								+ medicine.getMedicine().getName() + ". ";
@@ -319,52 +319,57 @@ public class AppointmentService {
 			AppointmentInfo ai = new AppointmentInfo();
 			Reservation r = new Reservation();
 			
-			Patient patient = (Patient) userRepository.findById(appointment.getPatient().getId()).get();
-			for (MedicineQuantity medicine : meds) {
-				patient.setCollectedPoints(Math.abs(patient.getCollectedPoints()) + 
-						(medicineRepository.getPointsByMedicineCode(medicine.getMedicine().getMedicineCode()) * Math.abs(medicine.getQuantity())));
+			Patient patient = null;
+			if (userRepository.findById(appointment.getPatient().getId()).isPresent()) {
+				patient = (Patient) userRepository.findById(appointment.getPatient().getId()).get();
 			}
-			if (appointment instanceof AppointmentDermatologist) {
-				if (appointmentConsultationPointsRepository.getPointsByType("APPOINTMENT") != null) {
-					patient.setCollectedPoints(patient.getCollectedPoints() + Math.abs(appointmentConsultationPointsRepository.getPointsByTypePessimisticWrite("APPOINTMENT")));
+			if (patient != null) {
+				for (MedicineQuantity medicine : meds) {
+					patient.setCollectedPoints(Math.abs(patient.getCollectedPoints()) + 
+							(medicineRepository.getPointsByMedicineCode(medicine.getMedicine().getMedicineCode()) * Math.abs(medicine.getQuantity())));
 				}
-			}
-			else if (appointment instanceof AppointmentPharmacist) {
-				if (appointmentConsultationPointsRepository.getPointsByType("CONSULTATION") != null) {
-					patient.setCollectedPoints(patient.getCollectedPoints() + Math.abs(appointmentConsultationPointsRepository.getPointsByTypePessimisticWrite("CONSULTATION")));
+				if (appointment instanceof AppointmentDermatologist) {
+					if (appointmentConsultationPointsRepository.getPointsByType("APPOINTMENT") != null) {
+						patient.setCollectedPoints(patient.getCollectedPoints() + Math.abs(appointmentConsultationPointsRepository.getPointsByTypePessimisticWrite("APPOINTMENT")));
+					}
 				}
-			}
-			
-			if (patient.getCategoryName().equals(CategoryName.REGULAR)) {
-				Category c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
-				if (patient.getCollectedPoints() >= Math.abs(c.getRequiredNumberOfPoints())) {
-					patient.setCategoryName(CategoryName.SILVER);
-					appointment.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
-					r.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
-				} else {
-					appointment.setDiscount(0.0);
-					r.setDiscount(0.0);
+				else if (appointment instanceof AppointmentPharmacist) {
+					if (appointmentConsultationPointsRepository.getPointsByType("CONSULTATION") != null) {
+						patient.setCollectedPoints(patient.getCollectedPoints() + Math.abs(appointmentConsultationPointsRepository.getPointsByTypePessimisticWrite("CONSULTATION")));
+					}
 				}
-			} else if (patient.getCategoryName().equals(CategoryName.SILVER)) {
-				Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
-				Category c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
-				if (patient.getCollectedPoints() >= Math.abs(c1.getRequiredNumberOfPoints())) {
-					patient.setCategoryName(CategoryName.GOLD);
+				
+				if (patient.getCategoryName().equals(CategoryName.REGULAR)) {
+					Category c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+					if (patient.getCollectedPoints() >= Math.abs(c.getRequiredNumberOfPoints())) {
+						patient.setCategoryName(CategoryName.SILVER);
+						appointment.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
+						r.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
+					} else {
+						appointment.setDiscount(0.0);
+						r.setDiscount(0.0);
+					}
+				} else if (patient.getCategoryName().equals(CategoryName.SILVER)) {
+					Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+					Category c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+					if (patient.getCollectedPoints() >= Math.abs(c1.getRequiredNumberOfPoints())) {
+						patient.setCategoryName(CategoryName.GOLD);
+						appointment.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+						r.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+					} else {
+						appointment.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
+						r.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
+					}
+				} else if (patient.getCategoryName().equals(CategoryName.GOLD)) {
+					Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
 					appointment.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
 					r.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
-				} else {
-					appointment.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
-					r.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
 				}
-			} else if (patient.getCategoryName().equals(CategoryName.GOLD)) {
-				Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
-				appointment.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
-				r.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+				
+				appointment.setPatient(patient);
+				appointmentRepository.save(appointment);
+				userRepository.save(patient);
 			}
-			
-			appointment.setPatient(patient);
-			appointmentRepository.save(appointment);
-			userRepository.save(patient);
 			
 			ai.setAppointment(appointment);
 			ai.setComments(comments);
@@ -394,7 +399,7 @@ public class AppointmentService {
 			
 			for (MedicineQuantity medicine : meds) {
 				for (MedicinePharmacy medicinePharm : medicines) {
-					if (medicine.getMedicine().getId() == medicinePharm.getMedicine().getId()) {
+					if (medicine.getMedicine().getId().equals(medicinePharm.getMedicine().getId())) {
 						medicinePharm.setAmount(medicinePharm.getAmount() - medicine.getQuantity());
 						repo4.save(medicinePharm);
 						r.setTotal(r.getTotal() + medicinePharm.getCost()*medicine.getQuantity());

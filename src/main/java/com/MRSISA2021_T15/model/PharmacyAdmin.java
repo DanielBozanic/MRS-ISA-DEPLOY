@@ -18,10 +18,6 @@ public class PharmacyAdmin extends User {
 	@NonNull
 	private Pharmacy pharmacy;
 	
-	public PharmacyAdmin() {
-		super();
-	}
-
 	public Pharmacy getPharmacy() {
 		return pharmacy;
 	}

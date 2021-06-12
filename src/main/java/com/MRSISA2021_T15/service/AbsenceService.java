@@ -127,7 +127,7 @@ public class AbsenceService {
 	public void sendMailPharmacist(Pharmacist p, Absence absence) {
 		Employment employment = emp.findByPharmacistId(p.getId());
 		for (PharmacyAdmin pharmacyAdmin : us.findAllPharmacyAdmins()) {
-			if(pharmacyAdmin.getPharmacy().getId() == employment.getPharmacy().getId()) {
+			if(pharmacyAdmin.getPharmacy().getId().equals(employment.getPharmacy().getId())) {
 				SimpleMailMessage mailMessage = new SimpleMailMessage();
 				mailMessage.setTo(pharmacyAdmin.getEmail());
 				mailMessage.setSubject("New absence request");

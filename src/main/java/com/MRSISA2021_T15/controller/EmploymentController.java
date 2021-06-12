@@ -21,7 +21,7 @@ public class EmploymentController {
         List<Employment> employmentList = employmentRepository.findAll();
         List returnList = new ArrayList<Employment>();
         for (Employment e : employmentList) {
-            if (e.getPharmacy().getId() == pharmacyId) {
+            if (e.getPharmacy().getId().equals(pharmacyId)) {
                 returnList.add(e);
             }
         }

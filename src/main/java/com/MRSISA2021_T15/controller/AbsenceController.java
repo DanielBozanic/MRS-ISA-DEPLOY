@@ -28,7 +28,7 @@ public class AbsenceController {
 	public @ResponseBody ResponseEntity<String> createAbsencePharmacist(@RequestBody Absence absence) throws InterruptedException {
 		String message = service.createAbsencePharmacist(absence);
 		Gson gson = new GsonBuilder().create();
-		if (message == "") {
+		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Absence succesfully created. An admin will review your request."), HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -39,7 +39,7 @@ public class AbsenceController {
 	public @ResponseBody ResponseEntity<String> createAbsenceDermatologist(@RequestBody Absence absence) throws InterruptedException {
 		String message = service.createAbsenceDermatologist(absence);
 		Gson gson = new GsonBuilder().create();
-		if (message == "") {
+		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Absence succesfully created. An admin will review your request."), HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -168,20 +168,25 @@ public class PatientService {
 	public String subscribeToPharamacy(Pharmacy pharmacy) {
 		String message = "";
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = (Patient) repository.findById(patient.getId()).get();
-		if (!patientDb.isEnabled()) {
-			message = "You have not verified your account!";
-		} else {
-			PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacy.getId(), patient.getId());
-			if (patientSubPharmacy != null) {
-				patientSubPharmacy.setSubscribed(true);
-				patientSubPharmacyRepository.save(patientSubPharmacy);
+		Patient patientDb = null;
+		if (repository.findById(patient.getId()).isPresent()) {
+			patientDb = (Patient) repository.findById(patient.getId()).get();
+		}
+		if (patientDb != null) {
+			if (!patientDb.isEnabled()) {
+				message = "You have not verified your account!";
 			} else {
-				PatientSubPharmacy psp = new PatientSubPharmacy();
-				psp.setPatient(patientDb);
-				psp.setPharmacy(pharmacy);
-				psp.setSubscribed(true);
-				patientSubPharmacyRepository.save(psp);
+				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacy.getId(), patient.getId());
+				if (patientSubPharmacy != null) {
+					patientSubPharmacy.setSubscribed(true);
+					patientSubPharmacyRepository.save(patientSubPharmacy);
+				} else {
+					PatientSubPharmacy psp = new PatientSubPharmacy();
+					psp.setPatient(patientDb);
+					psp.setPharmacy(pharmacy);
+					psp.setSubscribed(true);
+					patientSubPharmacyRepository.save(psp);
+				}
 			}
 		}
 		return message;
@@ -191,16 +196,21 @@ public class PatientService {
 	public String unsubscribeToPharamacy(Pharmacy pharmacy) {
 		String message = "";
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = (Patient) repository.findById(patient.getId()).get();
-		if (!patientDb.isEnabled()) {
-			message = "You have not verified your account!";
-		} else {
-			PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacy.getId(), patient.getId());
-			if (patientSubPharmacy != null) {
-				patientSubPharmacy.setSubscribed(false);
-				patientSubPharmacyRepository.save(patientSubPharmacy);
+		Patient patientDb = null;
+		if (repository.findById(patient.getId()).isPresent()) {
+			patientDb = (Patient) repository.findById(patient.getId()).get();
+		}
+		if (patientDb != null) {
+			if (!patientDb.isEnabled()) {
+				message = "You have not verified your account!";
 			} else {
-				message = "Patient can not unsubscribe from a pharmacy he did not subscribe to!";
+				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacy.getId(), patient.getId());
+				if (patientSubPharmacy != null) {
+					patientSubPharmacy.setSubscribed(false);
+					patientSubPharmacyRepository.save(patientSubPharmacy);
+				} else {
+					message = "Patient can not unsubscribe from a pharmacy he did not subscribe to!";
+				}
 			}
 		}
 		return message;
@@ -286,96 +296,101 @@ public class PatientService {
 		String message = "";
 		List<String> medicineCodes = new ArrayList<String>();
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = (Patient) repository.findById(patient.getId()).get();
-		if (!patientDb.isEnabled()) {
-			message = "You have not verified your account!";
-		} else {
-			for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
-				MedicinePharmacy pharmacyWithRequiredMedicine = medicinePharmacyRepository.getPharmacyByIdAndMedicineCodePessimisticRead
-				(
-						eReceiptSearch.getPharmacy().getId(), 
-						ermd.getMedicineCode(), 
-						Math.abs(ermd.getQuantity())
-				);
-				if (pharmacyWithRequiredMedicine == null) {
-					return "The pharmacy does not have the required medicine!";
-				}
-				medicineCodes.add(ermd.getMedicineCode());
-			}
-			List<Allergy> patientAllergies = allergyRepository.findAllPatients(patient.getId());
-			for (Allergy a : patientAllergies) {
-				for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
-					if (ermd.getMedicineCode().equals(a.getMedicine().getMedicineCode())) {
-						return "The medicine can not be issued due to allergies!";
-					}
-				}
-			}
-			EReceipt qrCodeUsed = eReceiptRepository.findByPatientIdAndQrCode(patientDb.getId(), eReceiptSearch.getQrCode());
-			if (qrCodeUsed != null) {
-				message = "This QR code has already been used!";
+		Patient patientDb = null;
+		if (repository.findById(patient.getId()).isPresent()) {
+			patientDb = (Patient) repository.findById(patient.getId()).get();
+		}
+		if (patientDb != null) {
+			if (!patientDb.isEnabled()) {
+				message = "You have not verified your account!";
 			} else {
-				EReceipt eReceipt = new EReceipt();
-				eReceipt.seteReceiptCode(UUID.randomUUID().toString());
-				eReceipt.setIssueDate(LocalDate.now());
-				eReceipt.setPatient(patientDb);
-				eReceipt.setTotal(eReceiptSearch.getTotal());
-				eReceipt.setQrCode(eReceiptSearch.getQrCode());
-				eReceipt = eReceiptRepository.save(eReceipt);
 				for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
-					patientDb.setCollectedPoints(Math.abs(patientDb.getCollectedPoints()) + 
-							(medicineRepository.getPointsByMedicineCode(ermd.getMedicineCode()) * (Math.abs(ermd.getQuantity()))));
-					ermd = eReceiptMedicineDetailsRepository.save(ermd);
-					EReceiptAndMedicineDetails eramd = new EReceiptAndMedicineDetails();
-					eramd.seteReceipt(eReceipt);
-					eramd.seteReceiptMedicineDetails(ermd);
-					eramd.setPharmacy(eReceiptSearch.getPharmacy());
-					eReceiptAndMedicineDetailsRepository.save(eramd);
-				}
-				if (patientDb.getCategoryName().equals(CategoryName.REGULAR)) {
-					Category c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
-					if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c.getRequiredNumberOfPoints())) {
-						patientDb.setCategoryName(CategoryName.SILVER);
-						eReceipt.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
-					} else {
-						eReceipt.setDiscount(0.0);
+					MedicinePharmacy pharmacyWithRequiredMedicine = medicinePharmacyRepository.getPharmacyByIdAndMedicineCodePessimisticRead
+					(
+							eReceiptSearch.getPharmacy().getId(), 
+							ermd.getMedicineCode(), 
+							Math.abs(ermd.getQuantity())
+					);
+					if (pharmacyWithRequiredMedicine == null) {
+						return "The pharmacy does not have the required medicine!";
 					}
-				} else if (patientDb.getCategoryName().equals(CategoryName.SILVER)) {
-					Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
-					Category c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
-					if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c1.getRequiredNumberOfPoints())) {
-						patientDb.setCategoryName(CategoryName.GOLD);
-						eReceipt.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
-					} else {
-						eReceipt.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
-					}
-				} else if (patientDb.getCategoryName().equals(CategoryName.GOLD)) {
-					Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
-					eReceipt.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+					medicineCodes.add(ermd.getMedicineCode());
 				}
-				eReceiptRepository.save(eReceipt);
-				repository.save(patientDb);
-				List<MedicinePharmacy> toUpdatePharmacyStock = medicinePharmacyRepository.findByPharmacyIdPessimisticWrite(eReceiptSearch.getPharmacy().getId(), medicineCodes);
-				for (MedicinePharmacy mp : toUpdatePharmacyStock) {
+				List<Allergy> patientAllergies = allergyRepository.findAllPatients(patient.getId());
+				for (Allergy a : patientAllergies) {
 					for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
-						if (mp.getMedicine().getMedicineCode().equals(ermd.getMedicineCode())) {
-							mp.setAmount(mp.getAmount() - Math.abs(ermd.getQuantity()));
-							break;
+						if (ermd.getMedicineCode().equals(a.getMedicine().getMedicineCode())) {
+							return "The medicine can not be issued due to allergies!";
 						}
 					}
 				}
-				medicinePharmacyRepository.saveAll(toUpdatePharmacyStock);
-				SimpleMailMessage mailMessage = new SimpleMailMessage();
-		        mailMessage.setTo(patientDb.getEmail());
-		        mailMessage.setSubject("Medicine issue via EReceipt from pharmacy " + eReceiptSearch.getPharmacy().getName());
-		        mailMessage.setFrom(env.getProperty("spring.mail.username"));
-		        String mailText = "You have been issued the following medication: \n";
-		        for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
-		        	mailText += "\t" + ermd.getMedicineName() + ", Quantity: " + Math.abs(ermd.getQuantity()) + "\n";
-		        }
-		        mailText += "\tTotal price: " + Math.abs(eReceiptSearch.getTotal()) + "\n";
-		        mailText += "\nBest regards,\nPharmacy " + eReceiptSearch.getPharmacy().getName();
-		        mailMessage.setText(mailText);
-		        emailSenderService.sendEmail(mailMessage);
+				EReceipt qrCodeUsed = eReceiptRepository.findByPatientIdAndQrCode(patientDb.getId(), eReceiptSearch.getQrCode());
+				if (qrCodeUsed != null) {
+					message = "This QR code has already been used!";
+				} else {
+					EReceipt eReceipt = new EReceipt();
+					eReceipt.seteReceiptCode(UUID.randomUUID().toString());
+					eReceipt.setIssueDate(LocalDate.now());
+					eReceipt.setPatient(patientDb);
+					eReceipt.setTotal(eReceiptSearch.getTotal());
+					eReceipt.setQrCode(eReceiptSearch.getQrCode());
+					eReceipt = eReceiptRepository.save(eReceipt);
+					for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
+						patientDb.setCollectedPoints(Math.abs(patientDb.getCollectedPoints()) + 
+								(medicineRepository.getPointsByMedicineCode(ermd.getMedicineCode()) * (Math.abs(ermd.getQuantity()))));
+						ermd = eReceiptMedicineDetailsRepository.save(ermd);
+						EReceiptAndMedicineDetails eramd = new EReceiptAndMedicineDetails();
+						eramd.seteReceipt(eReceipt);
+						eramd.seteReceiptMedicineDetails(ermd);
+						eramd.setPharmacy(eReceiptSearch.getPharmacy());
+						eReceiptAndMedicineDetailsRepository.save(eramd);
+					}
+					if (patientDb.getCategoryName().equals(CategoryName.REGULAR)) {
+						Category c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+						if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c.getRequiredNumberOfPoints())) {
+							patientDb.setCategoryName(CategoryName.SILVER);
+							eReceipt.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
+						} else {
+							eReceipt.setDiscount(0.0);
+						}
+					} else if (patientDb.getCategoryName().equals(CategoryName.SILVER)) {
+						Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+						Category c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+						if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c1.getRequiredNumberOfPoints())) {
+							patientDb.setCategoryName(CategoryName.GOLD);
+							eReceipt.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+						} else {
+							eReceipt.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
+						}
+					} else if (patientDb.getCategoryName().equals(CategoryName.GOLD)) {
+						Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+						eReceipt.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+					}
+					eReceiptRepository.save(eReceipt);
+					repository.save(patientDb);
+					List<MedicinePharmacy> toUpdatePharmacyStock = medicinePharmacyRepository.findByPharmacyIdPessimisticWrite(eReceiptSearch.getPharmacy().getId(), medicineCodes);
+					for (MedicinePharmacy mp : toUpdatePharmacyStock) {
+						for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
+							if (mp.getMedicine().getMedicineCode().equals(ermd.getMedicineCode())) {
+								mp.setAmount(mp.getAmount() - Math.abs(ermd.getQuantity()));
+								break;
+							}
+						}
+					}
+					medicinePharmacyRepository.saveAll(toUpdatePharmacyStock);
+					SimpleMailMessage mailMessage = new SimpleMailMessage();
+			        mailMessage.setTo(patientDb.getEmail());
+			        mailMessage.setSubject("Medicine issue via EReceipt from pharmacy " + eReceiptSearch.getPharmacy().getName());
+			        mailMessage.setFrom(env.getProperty("spring.mail.username"));
+			        String mailText = "You have been issued the following medication: \n";
+			        for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
+			        	mailText += "\t" + ermd.getMedicineName() + ", Quantity: " + Math.abs(ermd.getQuantity()) + "\n";
+			        }
+			        mailText += "\tTotal price: " + Math.abs(eReceiptSearch.getTotal()) + "\n";
+			        mailText += "\nBest regards,\nPharmacy " + eReceiptSearch.getPharmacy().getName();
+			        mailMessage.setText(mailText);
+			        emailSenderService.sendEmail(mailMessage);
+				}
 			}
 		}
 		return message;
@@ -384,8 +399,18 @@ public class PatientService {
 	@Transactional(readOnly = true)
 	public Integer getDiscountByPatientCategory() {
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = (Patient) repository.findById(patient.getId()).get();
-		Category c = categoryRepository.findByCategoryName(patientDb.getCategoryName());
-		return c.getDiscount();
+		Patient patientDb = null;
+		if (repository.findById(patient.getId()).isPresent()) {
+			patientDb = (Patient) repository.findById(patient.getId()).get();
+		}
+		Category c = null;
+		if (patientDb != null) {
+			c = categoryRepository.findByCategoryName(patientDb.getCategoryName());
+		}
+		if (c != null) {
+			return c.getDiscount();
+		} else {
+			return 0;
+		}
 	}
 }

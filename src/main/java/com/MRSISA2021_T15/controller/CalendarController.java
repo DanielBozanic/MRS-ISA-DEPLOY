@@ -66,7 +66,7 @@ public class CalendarController {
 		List<Appointment> appointments = service.findAllDermatologist(d.getId());
 		ArrayList<Event> events = new ArrayList<Event>();
 		for (Appointment appointment : appointments) {
-			if(appointment.getPharmacy().getId() == pharmacyId) {
+			if(appointment.getPharmacy().getId().equals(pharmacyId)) {
 				Event event = new Event();
 				if(appointment.getPatient() == null) {
 					event.setTitle("Predefined Appointment in " + appointment.getPharmacy().getName());
@@ -147,7 +147,7 @@ public class CalendarController {
 		List<Appointment> appointments = service.findAllDermatologist(d.getId());
 		ArrayList<Event> events = new ArrayList<Event>();
 		for (Appointment appointment : appointments) {
-			if(appointment.getPharmacy().getId() == pharmacyId && appointment.getPatient() == null) {
+			if(appointment.getPharmacy().getId().equals(pharmacyId) && appointment.getPatient() == null) {
 				Event event = new Event();
 				event.setId(appointment.getId());
 				event.setTitle("Predefined Appointment in " + appointment.getPharmacy().getName());

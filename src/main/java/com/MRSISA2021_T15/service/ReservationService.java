@@ -69,7 +69,7 @@ public class ReservationService {
 		Pharmacist p = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Employment employment = employRepo.findByPharmacistId(p.getId());
 		
-		if(employment.getPharmacy().getId() != reservation.get().getPharmacy().getId()) {
+		if(!employment.getPharmacy().getId().equals(reservation.get().getPharmacy().getId())) {
 			return list;
 		}else if(reservation.get().getPickedUp() != null) {
 			return list;
@@ -79,7 +79,7 @@ public class ReservationService {
 		
 		Iterable<ReservationItem> items = resiRepo.findAll();
 		for (ReservationItem item : items) {
-			if(item.getReservation().getId() == id) {
+			if(item.getReservation().getId().equals(id)) {
 				medicines.add(item.getMedicine());
 			}
 		}
@@ -131,35 +131,39 @@ public class ReservationService {
 		ri.setMedicine(mq);
 		ri.setReservation(r);
 		
-		Patient patientDb = (Patient) userRepository.findById(patient.getId()).get();
-		patient.setCollectedPoints(patient.getCollectedPoints() + 
-				medicineRepository.getPointsByMedicineCode(order.getMedicinePharmacy().getMedicine().getMedicineCode()) * order.getAmount());
-		if (patientDb.getCategoryName().equals(CategoryName.REGULAR)) {
-			Category c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
-			if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c.getRequiredNumberOfPoints())) {
-				patientDb.setCategoryName(CategoryName.SILVER);
-				r.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
-			} else {
-				r.setDiscount(0.0);
-			}
-		} else if (patientDb.getCategoryName().equals(CategoryName.SILVER)) {
-			Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
-			Category c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
-			if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c1.getRequiredNumberOfPoints())) {
-				patientDb.setCategoryName(CategoryName.GOLD);
-				r.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
-			} else {
-				r.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
-			}
-		} else if (patientDb.getCategoryName().equals(CategoryName.GOLD)) {
-			Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
-			r.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+		Patient patientDb = null;
+		if (userRepository.findById(patient.getId()).isPresent()) {
+			patientDb = (Patient) userRepository.findById(patient.getId()).get();
 		}
-		
-		userRepository.save(patientDb);
-		resRepo.save(r);
-		resiRepo.save(ri);
-		orderMedRepo.save(order);
+		if (patientDb != null) {
+			patient.setCollectedPoints(patient.getCollectedPoints() + 
+					medicineRepository.getPointsByMedicineCode(order.getMedicinePharmacy().getMedicine().getMedicineCode()) * order.getAmount());
+			if (patientDb.getCategoryName().equals(CategoryName.REGULAR)) {
+				Category c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+				if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c.getRequiredNumberOfPoints())) {
+					patientDb.setCategoryName(CategoryName.SILVER);
+					r.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
+				} else {
+					r.setDiscount(0.0);
+				}
+			} else if (patientDb.getCategoryName().equals(CategoryName.SILVER)) {
+				Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+				Category c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+				if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c1.getRequiredNumberOfPoints())) {
+					patientDb.setCategoryName(CategoryName.GOLD);
+					r.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+				} else {
+					r.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
+				}
+			} else if (patientDb.getCategoryName().equals(CategoryName.GOLD)) {
+				Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+				r.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
+			}
+			userRepository.save(patientDb);
+			resRepo.save(r);
+			resiRepo.save(ri);
+			orderMedRepo.save(order);
+		}
 	}
 	
 	

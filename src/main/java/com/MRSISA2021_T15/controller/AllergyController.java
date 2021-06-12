@@ -74,7 +74,7 @@ public class AllergyController {
 	public List<MedicineQuantity> getMedicinePharmacist(@PathVariable("pharmacyId") Integer id, @PathVariable("medicineId") Integer medicineId, @PathVariable("patientId") Integer patientId) throws InterruptedException {
 		List<MedicinePharmacy> medps = service1.medcineInPharmacy(id);
 		for (MedicinePharmacy medicine : medps) {
-			if(medicine.getMedicine().getId() == medicineId) {
+			if(medicine.getMedicine().getId().equals(medicineId)) {
 				if(medicine.getAmount() == 0) {
 					saveNeededs(medicine.getMedicine(), medicine.getPharmacy());
 					return dummySubs(medicineId, patientId, medps);
@@ -84,7 +84,7 @@ public class AllergyController {
 		}
 		List<Allergy> allergies = service.getForPatient(patientId);
 		for (Allergy allergy : allergies) {
-			if(allergy.getMedicine().getId() == medicineId) {
+			if(allergy.getMedicine().getId().equals(medicineId)) {
 				return dummySubs(medicineId, patientId, medps);
 			}
 		}
@@ -96,7 +96,7 @@ public class AllergyController {
 	public List<MedicineQuantity> getMedicineDermatologist(@PathVariable("pharmacyId") Integer id, @PathVariable("medicineId") Integer medicineId, @PathVariable("patientId") Integer patientId) throws InterruptedException {
 		List<MedicinePharmacy> medps = service1.medcineInPharmacy(id);
 		for (MedicinePharmacy medicine : medps) {
-			if(medicine.getMedicine().getId() == medicineId) {
+			if(medicine.getMedicine().getId().equals(medicineId)) {
 				if(medicine.getAmount() == 0) {
 					saveNeededs(medicine.getMedicine(), medicine.getPharmacy());
 					return dummySubs(medicineId, patientId, medps);
@@ -106,7 +106,7 @@ public class AllergyController {
 		}
 		List<Allergy> allergies = service.getForPatient(patientId);
 		for (Allergy allergy : allergies) {
-			if(allergy.getMedicine().getId() == medicineId) {
+			if(allergy.getMedicine().getId().equals(medicineId)) {
 				return dummySubs(medicineId, patientId, medps);
 			}
 		}
@@ -120,14 +120,14 @@ public class AllergyController {
 		List<Allergy> allergies = service.getForPatient(patientId);
 		for (Medicine medicine : subs1) {
 			for (Allergy allergy : allergies) {
-				if(allergy.getMedicine().getId() == medicine.getId()) {
+				if(allergy.getMedicine().getId().equals(medicine.getId())) {
 					allergic = true;
 					break;
 				}
 			}
 			if(!allergic) {
 				for(MedicinePharmacy m : medps) {
-					if(m.getMedicine().getId() == medicine.getId()) {
+					if(m.getMedicine().getId().equals(medicine.getId())) {
 						MedicineQuantity med = new MedicineQuantity();
 						med.setMedicine(medicine);
 						med.setQuantity(m.getAmount());
@@ -164,7 +164,7 @@ public class AllergyController {
 	
 	public void mailing(Pharmacy pharmacy, Medicine medicine) {
 		for (PharmacyAdmin pharmacyAdmin : adminsrepo.findAllPharmacyAdmins()) {
-			if(pharmacyAdmin.getPharmacy().getId() == pharmacy.getId()) {
+			if(pharmacyAdmin.getPharmacy().getId().equals(pharmacy.getId())) {
 				SimpleMailMessage mailMessage = new SimpleMailMessage();
 				mailMessage.setTo(pharmacyAdmin.getEmail());
 				mailMessage.setSubject("Medicine not in stock");
@@ -195,7 +195,7 @@ public class AllergyController {
 		
 		for(Medicine m: medicines){
 			for(Allergy a : allergies) {
-				if(a.getMedicine().getId() == m.getId()) {
+				if(a.getMedicine().getId().equals(m.getId())) {
 					flag = true;
 				}
 			}

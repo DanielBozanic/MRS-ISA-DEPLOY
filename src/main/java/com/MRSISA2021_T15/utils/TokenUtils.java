@@ -69,6 +69,8 @@ public class TokenUtils {
 			username = claims.getSubject();
 		} catch (ExpiredJwtException ex) {
 			throw ex;
+		} catch (NullPointerException ex) {
+			throw ex;
 		} catch (Exception e) {
 			username = null;
 		}
@@ -84,6 +86,9 @@ public class TokenUtils {
 					.parseClaimsJws(token)
 					.getBody();
 		} catch (ExpiredJwtException ex) {
+			throw ex;
+			
+		}  catch (NullPointerException ex) {
 			throw ex;
 		} catch (Exception e) {
 			claims = null;
@@ -107,6 +112,8 @@ public class TokenUtils {
 			issueAt = claims.getIssuedAt();
 		} catch (ExpiredJwtException ex) {
 			throw ex;
+		} catch (NullPointerException ex) {
+			throw ex;
 		} catch (Exception e) {
 			issueAt = null;
 		}
@@ -128,6 +135,8 @@ public class TokenUtils {
 			audience = claims.getAudience();
 		} catch (ExpiredJwtException ex) {
 			throw ex;
+		} catch (NullPointerException ex) {
+			throw ex;
 		} catch (Exception e) {
 			audience = null;
 		}
@@ -140,6 +149,8 @@ public class TokenUtils {
 			final Claims claims = this.getAllClaimsFromToken(token);
 			expiration = claims.getExpiration();
 		} catch (ExpiredJwtException ex) {
+			throw ex;
+		} catch (NullPointerException ex) {
 			throw ex;
 		} catch (Exception e) {
 			expiration = null;

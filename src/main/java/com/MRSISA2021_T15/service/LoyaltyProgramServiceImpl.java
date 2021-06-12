@@ -36,22 +36,27 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 		String message = "";
 		Gson gson = new GsonBuilder().create();
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
-		if (systemAdminDb.getFirstLogin()) {
-			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
-		} else {
-			Category ca = categoryRepository.findByCategoryName(category.getCategoryName());
-			if (ca != null) {
-				ca.setDiscount(Math.abs(category.getDiscount()));
-				ca.setRequiredNumberOfPoints(Math.abs(category.getRequiredNumberOfPoints()));
-				categoryRepository.save(ca);
-				message = "Category information updated.";
+		SystemAdmin systemAdminDb = null;
+		if (userRepository.findById(systemAdmin.getId()).isPresent()) {
+			systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
+		}
+		if (systemAdminDb != null) {
+			if (systemAdminDb.getFirstLogin()) {
+				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
+				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
-				category.setDiscount(Math.abs(category.getDiscount()));
-				category.setRequiredNumberOfPoints(Math.abs(category.getRequiredNumberOfPoints()));
-				categoryRepository.save(category);
-				message = "Category successfully defined.";
+				Category ca = categoryRepository.findByCategoryName(category.getCategoryName());
+				if (ca != null) {
+					ca.setDiscount(Math.abs(category.getDiscount()));
+					ca.setRequiredNumberOfPoints(Math.abs(category.getRequiredNumberOfPoints()));
+					categoryRepository.save(ca);
+					message = "Category information updated.";
+				} else {
+					category.setDiscount(Math.abs(category.getDiscount()));
+					category.setRequiredNumberOfPoints(Math.abs(category.getRequiredNumberOfPoints()));
+					categoryRepository.save(category);
+					message = "Category successfully defined.";
+				}
 			}
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.OK);
@@ -63,20 +68,25 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 		String message = "";
 		Gson gson = new GsonBuilder().create();
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
-		if (systemAdminDb.getFirstLogin()) {
-			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
-		} else {
-			AppointmentConsultationPoints acp = appointmentConsultationPointsRepository.findByType(appointmentConsultationPoints.getType());
-			if (acp != null) {
-				acp.setPoints(Math.abs(appointmentConsultationPoints.getPoints()));
-				appointmentConsultationPointsRepository.save(acp);
-				message = "Points for " + appointmentConsultationPoints.getType() + " successfully updated.";
+		SystemAdmin systemAdminDb = null;
+		if (userRepository.findById(systemAdmin.getId()).isPresent()) {
+			systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
+		}
+		if (systemAdminDb != null) {
+			if (systemAdminDb.getFirstLogin()) {
+				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
+				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
-				appointmentConsultationPoints.setPoints(Math.abs(appointmentConsultationPoints.getPoints()));
-				appointmentConsultationPointsRepository.save(appointmentConsultationPoints);
-				message = "Points for " + appointmentConsultationPoints.getType() + " successfully defined.";
+				AppointmentConsultationPoints acp = appointmentConsultationPointsRepository.findByType(appointmentConsultationPoints.getType());
+				if (acp != null) {
+					acp.setPoints(Math.abs(appointmentConsultationPoints.getPoints()));
+					appointmentConsultationPointsRepository.save(acp);
+					message = "Points for " + appointmentConsultationPoints.getType() + " successfully updated.";
+				} else {
+					appointmentConsultationPoints.setPoints(Math.abs(appointmentConsultationPoints.getPoints()));
+					appointmentConsultationPointsRepository.save(appointmentConsultationPoints);
+					message = "Points for " + appointmentConsultationPoints.getType() + " successfully defined.";
+				}
 			}
 		}
 		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.OK);

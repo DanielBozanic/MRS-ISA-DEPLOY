@@ -39,7 +39,7 @@ public class PatientSearchController {
 			for (Appointment appointment : service.all()) {
 				if (appointment instanceof AppointmentPharmacist) {
 					AppointmentPharmacist ap = (AppointmentPharmacist) appointment;
-					if (ap.getPatient().getId() == patient.getId() && ap.getPharmacist().getId() == p.getId() && ap.getPatient().getUsername().toLowerCase().startsWith(start.toLowerCase()) && ap.isDone()) {
+					if (ap.getPatient().getId().equals(patient.getId()) && ap.getPharmacist().getId().equals(p.getId()) && ap.getPatient().getUsername().toLowerCase().startsWith(start.toLowerCase()) && ap.isDone()) {
 						AppointmentPatient apa = new AppointmentPatient();
 						apa.setPatient(patient);
 						apa.setDate(ap.getStart());
@@ -117,7 +117,7 @@ public class PatientSearchController {
 				if (appointment instanceof AppointmentDermatologist) {
 					AppointmentDermatologist ap = (AppointmentDermatologist) appointment;
 					if (ap.getPatient() != null) {
-						if (ap.getPatient().getId() == patient.getId() && ap.getDermatologist().getId() == d.getId()  && ap.getPatient().getUsername().toLowerCase().startsWith(start.toLowerCase())  && ap.isDone()) {
+						if (ap.getPatient().getId().equals(patient.getId()) && ap.getDermatologist().getId().equals(d.getId())  && ap.getPatient().getUsername().toLowerCase().startsWith(start.toLowerCase())  && ap.isDone()) {
 							AppointmentPatient apa = new AppointmentPatient();
 							apa.setPatient(patient);
 							apa.setDate(ap.getStart());

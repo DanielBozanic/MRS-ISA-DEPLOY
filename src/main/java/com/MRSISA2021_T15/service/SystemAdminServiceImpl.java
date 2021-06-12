@@ -25,15 +25,20 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 	public String updatePassword(ChangePassword passwords) {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin updatedSystemAdmin = (SystemAdmin) userRepository.findById(currentUser.getId()).get();
-		if (!passwordEncoder.matches(passwords.getOldPassword(), updatedSystemAdmin.getPassword())) {
-			message = "Wrong old password!";
-		} else {
-			if (updatedSystemAdmin.getFirstLogin()) {
-				updatedSystemAdmin.setFirstLogin(false);
+		SystemAdmin updatedSystemAdmin = null;
+		if (userRepository.findById(currentUser.getId()).isPresent()) {
+			updatedSystemAdmin = (SystemAdmin) userRepository.findById(currentUser.getId()).get();
+		}
+		if (updatedSystemAdmin != null) {
+			if (!passwordEncoder.matches(passwords.getOldPassword(), updatedSystemAdmin.getPassword())) {
+				message = "Wrong old password!";
+			} else {
+				if (updatedSystemAdmin.getFirstLogin()) {
+					updatedSystemAdmin.setFirstLogin(false);
+				}
+				updatedSystemAdmin.setPassword(passwordEncoder.encode(passwords.getPassword()));
+				userRepository.save(updatedSystemAdmin);
 			}
-			updatedSystemAdmin.setPassword(passwordEncoder.encode(passwords.getPassword()));
-			userRepository.save(updatedSystemAdmin);
 		}
 		return message;
 	}

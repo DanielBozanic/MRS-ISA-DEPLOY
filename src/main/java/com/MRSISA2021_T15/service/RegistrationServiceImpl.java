@@ -64,19 +64,24 @@ public class RegistrationServiceImpl implements RegistrationService {
 			patient.setCategoryName(CategoryName.REGULAR);
 			patient.setCollectedPoints(0);
 			List<Role> roles = new ArrayList<Role>();
-			Role role = roleRepository.findById(Constants.ROLE_PATIENT).get();
-			roles.add(role);
-			patient.setRoles(roles);
-			registrationRepository.save(patient);
-			ConfirmationToken confirmationToken = new ConfirmationToken(patient);
-			confirmationTokenRepository.save(confirmationToken);
-			SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(patient.getEmail());
-            mailMessage.setSubject("Verify account");
-            mailMessage.setFrom(env.getProperty("spring.mail.username"));
-            mailMessage.setText("To verify your account, please click here: "
-            		+ "http://localhost:8080/registration/confirmAccount?token=" + confirmationToken.getConfirmationToken());
-            emailSenderService.sendEmail(mailMessage);
+			Role role = null;
+			if (roleRepository.findById(Constants.ROLE_PATIENT).isPresent()) {
+				role = roleRepository.findById(Constants.ROLE_PATIENT).get();
+			}
+			if (role != null) {
+				roles.add(role);
+				patient.setRoles(roles);
+				registrationRepository.save(patient);
+				ConfirmationToken confirmationToken = new ConfirmationToken(patient);
+				confirmationTokenRepository.save(confirmationToken);
+				SimpleMailMessage mailMessage = new SimpleMailMessage();
+	            mailMessage.setTo(patient.getEmail());
+	            mailMessage.setSubject("Verify account");
+	            mailMessage.setFrom(env.getProperty("spring.mail.username"));
+	            mailMessage.setText("To verify your account, please click here: "
+	            		+ "http://localhost:8080/registration/confirmAccount?token=" + confirmationToken.getConfirmationToken());
+	            emailSenderService.sendEmail(mailMessage);
+			}
 		}
 		return message;
 	}
@@ -115,10 +120,15 @@ public class RegistrationServiceImpl implements RegistrationService {
 				systemAdmin.setEnabled(true);
 				systemAdmin.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).get();
-				roles.add(role);
-				systemAdmin.setRoles(roles);
-				registrationRepository.save(systemAdmin);
+				Role role = null;
+				if (roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).isPresent()) {
+					role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).get();
+				} 
+				if (role != null) {
+					roles.add(role);
+					systemAdmin.setRoles(roles);
+					registrationRepository.save(systemAdmin);
+				}
 			}
 		}
 		return message;
@@ -142,10 +152,15 @@ public class RegistrationServiceImpl implements RegistrationService {
 				dermatologist.setEnabled(true);
 				dermatologist.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = roleRepository.findById(Constants.ROLE_DERMATOLOGIST).get();
-				roles.add(role);
-				dermatologist.setRoles(roles);
-				registrationRepository.save(dermatologist);
+				Role role = null;
+				if (roleRepository.findById(Constants.ROLE_DERMATOLOGIST).isPresent()) {
+					role = roleRepository.findById(Constants.ROLE_DERMATOLOGIST).get();
+				}
+				if (role != null) {
+					roles.add(role);
+					dermatologist.setRoles(roles);
+					registrationRepository.save(dermatologist);
+				}
 			}
 		}
 		return message;
@@ -169,10 +184,15 @@ public class RegistrationServiceImpl implements RegistrationService {
 				supplier.setEnabled(true);
 				supplier.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = roleRepository.findById(Constants.ROLE_SUPPLIER).get();
-				roles.add(role);
-				supplier.setRoles(roles);
-				registrationRepository.save(supplier);
+				Role role = null;
+				if (roleRepository.findById(Constants.ROLE_SUPPLIER).isPresent()) {
+					role = roleRepository.findById(Constants.ROLE_SUPPLIER).get();
+				}
+				if (role != null) {
+					roles.add(role);
+					supplier.setRoles(roles);
+					registrationRepository.save(supplier);
+				}
 			}
 		}
 		return message;
@@ -196,10 +216,15 @@ public class RegistrationServiceImpl implements RegistrationService {
 				pharmacyAdmin.setEnabled(true);
 				pharmacyAdmin.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = roleRepository.findById(Constants.ROLE_PHARMACY_ADMIN).get();
-				roles.add(role);
-				pharmacyAdmin.setRoles(roles);
-				registrationRepository.save(pharmacyAdmin);
+				Role role = null;
+				if (roleRepository.findById(Constants.ROLE_PHARMACY_ADMIN).isPresent()) {
+					role = roleRepository.findById(Constants.ROLE_PHARMACY_ADMIN).get();
+				}
+				if (role != null) {
+					roles.add(role);
+					pharmacyAdmin.setRoles(roles);
+					registrationRepository.save(pharmacyAdmin);
+				}
 			}
 		}
 		return message;

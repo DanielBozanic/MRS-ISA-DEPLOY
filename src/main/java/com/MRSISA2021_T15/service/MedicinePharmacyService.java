@@ -65,7 +65,7 @@ public class MedicinePharmacyService {
 		List<ReservationItem> returnList = new ArrayList<ReservationItem>();
 		List<ReservationItem> list = (List<ReservationItem>) reservationRepo.findAll();
 		for(ReservationItem ri: list) {
-			if(p.getId() == ri.getReservation().getPatient().getId() && now.compareTo(ri.getReservation().getEnd()) < 0 && ri.getReservation().getPickedUp() == null) {
+			if(p.getId().equals(ri.getReservation().getPatient().getId()) && now.compareTo(ri.getReservation().getEnd()) < 0 && ri.getReservation().getPickedUp() == null) {
 				returnList.add(ri);
 			}
 		}

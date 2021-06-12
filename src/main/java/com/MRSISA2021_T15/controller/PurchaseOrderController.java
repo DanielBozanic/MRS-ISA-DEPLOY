@@ -42,7 +42,7 @@ public class PurchaseOrderController {
     public ArrayList<PurchaseOrderMedicine> getPurchaseOrder(@PathVariable Integer purchaseOrderId){
         ArrayList<PurchaseOrderMedicine> returnList = new ArrayList<>();
         for(PurchaseOrderMedicine pom: purchaseOrderMedicineRepository.findAll())
-            if(pom.getPurchaseOrder().getId() == purchaseOrderId)
+            if(pom.getPurchaseOrder().getId().equals(purchaseOrderId))
                 returnList.add(pom);
         return returnList;
     }

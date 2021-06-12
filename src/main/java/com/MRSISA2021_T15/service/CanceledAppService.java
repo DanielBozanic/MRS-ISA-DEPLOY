@@ -21,7 +21,7 @@ public class CanceledAppService {
 		
 		List<CanceledPharAppoinment> list = canceledR.findAll();
 		for(CanceledPharAppoinment app : list) {
-			if(app.getPatient().getId() == p.getId()) {
+			if(app.getPatient().getId().equals(p.getId())) {
 				returnList.add(app);
 			}
 		}
