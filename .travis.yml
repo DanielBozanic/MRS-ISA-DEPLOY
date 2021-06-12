@@ -16,11 +16,7 @@ addons:
 
 script:
 - "./mvnw clean install -DskipTests=false -B"
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=DanielBozanic_MRS-ISA-DEPLOY
-
-cache:
-  directories:
-    - '$HOME/.sonar/cache'
+- ./mvnw sonar:sonar -Dsonar.projectKey=$PROJECT_KEY -Dsonar.organization=danielbozanic -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 
 dist: trusty
 
