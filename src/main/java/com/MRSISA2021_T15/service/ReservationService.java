@@ -131,10 +131,7 @@ public class ReservationService {
 		ri.setMedicine(mq);
 		ri.setReservation(r);
 		
-		Patient patientDb = null;
-		if (userRepository.findById(patient.getId()).isPresent()) {
-			patientDb = (Patient) userRepository.findById(patient.getId()).get();
-		}
+		Patient patientDb = (Patient) userRepository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			patient.setCollectedPoints(patient.getCollectedPoints() + 
 					medicineRepository.getPointsByMedicineCode(order.getMedicinePharmacy().getMedicine().getMedicineCode()) * order.getAmount());

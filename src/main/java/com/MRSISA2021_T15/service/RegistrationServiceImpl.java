@@ -64,10 +64,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 			patient.setCategoryName(CategoryName.REGULAR);
 			patient.setCollectedPoints(0);
 			List<Role> roles = new ArrayList<Role>();
-			Role role = null;
-			if (roleRepository.findById(Constants.ROLE_PATIENT).isPresent()) {
-				role = roleRepository.findById(Constants.ROLE_PATIENT).get();
-			}
+			Role role = roleRepository.findById(Constants.ROLE_PATIENT).orElse(null);
 			if (role != null) {
 				roles.add(role);
 				patient.setRoles(roles);
@@ -120,10 +117,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				systemAdmin.setEnabled(true);
 				systemAdmin.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = null;
-				if (roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).isPresent()) {
-					role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).get();
-				} 
+				Role role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).orElse(null);
 				if (role != null) {
 					roles.add(role);
 					systemAdmin.setRoles(roles);
@@ -152,10 +146,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				dermatologist.setEnabled(true);
 				dermatologist.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = null;
-				if (roleRepository.findById(Constants.ROLE_DERMATOLOGIST).isPresent()) {
-					role = roleRepository.findById(Constants.ROLE_DERMATOLOGIST).get();
-				}
+				Role role = roleRepository.findById(Constants.ROLE_DERMATOLOGIST).orElse(null);
 				if (role != null) {
 					roles.add(role);
 					dermatologist.setRoles(roles);
@@ -184,10 +175,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				supplier.setEnabled(true);
 				supplier.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = null;
-				if (roleRepository.findById(Constants.ROLE_SUPPLIER).isPresent()) {
-					role = roleRepository.findById(Constants.ROLE_SUPPLIER).get();
-				}
+				Role role = roleRepository.findById(Constants.ROLE_SUPPLIER).orElse(null);
 				if (role != null) {
 					roles.add(role);
 					supplier.setRoles(roles);
@@ -216,10 +204,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				pharmacyAdmin.setEnabled(true);
 				pharmacyAdmin.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = null;
-				if (roleRepository.findById(Constants.ROLE_PHARMACY_ADMIN).isPresent()) {
-					role = roleRepository.findById(Constants.ROLE_PHARMACY_ADMIN).get();
-				}
+				Role role = roleRepository.findById(Constants.ROLE_PHARMACY_ADMIN).orElse(null);
 				if (role != null) {
 					roles.add(role);
 					pharmacyAdmin.setRoles(roles);

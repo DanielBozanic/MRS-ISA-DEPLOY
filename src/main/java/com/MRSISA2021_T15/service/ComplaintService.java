@@ -92,10 +92,7 @@ public class ComplaintService {
 	public String sendResponse(Complaint response) {
 		String message = "";
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = null;
-		if (userRepository.findById(systemAdmin.getId()).isPresent()) {
-			systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
-		}
+		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
 				message = "You are logging in for the first time, you must change password before you can use this functionality!";

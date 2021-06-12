@@ -25,10 +25,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Override
 	public String registerPharmacy(Pharmacy pharmacy) {
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systeAdminDb = null;
-		if (userRepository.findById(systemAdmin.getId()).isPresent()) {
-			systeAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
-		}
+		SystemAdmin systeAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systeAdminDb != null) {
 			if (systeAdminDb.getFirstLogin()) {
 				return "You are logging in for the first time, you must change password before you can use this functionality!";
@@ -56,10 +53,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 	public String updatePharmacyData(Pharmacy pharmacy) {
 		String message = "";
 		PharmacyAdmin currentUser = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		PharmacyAdmin currentUserDb = null;
-		if (userRepository.findById(currentUser.getId()).isPresent()) {
-			currentUserDb = (PharmacyAdmin) userRepository.findById(currentUser.getId()).get();
-		}
+		PharmacyAdmin currentUserDb = (PharmacyAdmin) userRepository.findById(currentUser.getId()).orElse(null);
 		if (currentUserDb != null) {
 			Pharmacy updatedPharmacy = currentUserDb.getPharmacy();
 			updatedPharmacy.setName(pharmacy.getName());

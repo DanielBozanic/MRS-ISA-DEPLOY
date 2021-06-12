@@ -36,10 +36,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 		String message = "";
 		Gson gson = new GsonBuilder().create();
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = null;
-		if (userRepository.findById(systemAdmin.getId()).isPresent()) {
-			systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
-		}
+		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
@@ -68,10 +65,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 		String message = "";
 		Gson gson = new GsonBuilder().create();
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = null;
-		if (userRepository.findById(systemAdmin.getId()).isPresent()) {
-			systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
-		}
+		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";

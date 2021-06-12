@@ -95,11 +95,7 @@ public class SupplierController {
 	@GetMapping(value = "/getPurchaseOrdersMedicine/{purchaseOrderId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
 	public List<PurchaseOrderMedicine> getPurchaseOrdersMedicine(@PathVariable Integer purchaseOrderId) {
-		if (purchaseOrderRepository.findById(purchaseOrderId).isPresent()) {
-			return supplierService.getPurchaseOrdersMedicine(purchaseOrderRepository.findById(purchaseOrderId).get());
-		} else {
-			return new ArrayList<PurchaseOrderMedicine>();
-		}
+		return supplierService.getPurchaseOrdersMedicine(purchaseOrderRepository.findById(purchaseOrderId).orElse(null));
 	}
 	
 	@GetMapping(value = "/getOffersBySupplier", produces = MediaType.APPLICATION_JSON_VALUE)

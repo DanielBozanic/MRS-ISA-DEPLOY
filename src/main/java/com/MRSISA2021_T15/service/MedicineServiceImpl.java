@@ -38,10 +38,7 @@ public class MedicineServiceImpl implements MedicineService {
 	public String addMedicine(Medicine medicine) {
 		String message = "";
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = null;
-		if (userRepository.findById(systemAdmin.getId()).isPresent()) {
-			systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).get();
-		}
+		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
@@ -57,10 +54,7 @@ public class MedicineServiceImpl implements MedicineService {
 						for (Integer id : substituteMedicineIds) {
 							SubstituteMedicine substituteMedicine = new SubstituteMedicine();
 							substituteMedicine.setMedicine(medicine);
-							Medicine sm = null;
-							if (medicineRepository.findById(id).isPresent()) {
-								sm = medicineRepository.findById(id).get();
-							}
+							Medicine sm = medicineRepository.findById(id).orElse(null);
 							if (sm != null) {
 								substituteMedicine.setSubstituteMedicine(sm);
 								substituteMedicineRepository.save(substituteMedicine);

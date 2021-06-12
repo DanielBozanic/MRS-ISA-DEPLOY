@@ -53,10 +53,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public void updateSupplierData(Supplier supplier) {
 		Supplier currentUser = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier updatedSupplier = null;
-		if (userRepository.findById(currentUser.getId()).isPresent()) {
-			updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).get();
-		}
+		Supplier updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).orElse(null);
 		if (updatedSupplier != null) {
 			if (!supplier.getName().equals("")) {
 				updatedSupplier.setName(supplier.getName());
@@ -85,10 +82,7 @@ public class SupplierServiceImpl implements SupplierService {
 	public String updatePassword(ChangePassword passwords) {
 		String message = "";
 		Supplier currentUser = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier updatedSupplier = null;
-		if (userRepository.findById(currentUser.getId()).isPresent()) {
-			updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).get();
-		}
+		Supplier updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).orElse(null);
 		if (updatedSupplier != null) {
 			if (!passwordEncoder.matches(passwords.getOldPassword(), updatedSupplier.getPassword())) {
 				message = "Wrong old password!";
@@ -106,11 +100,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Transactional(readOnly = true)
 	@Override
 	public Supplier getSupplierData() {
-		Supplier supplierDb = null;
-		if (userRepository.findById(((Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()).isPresent()) {
-			supplierDb = (Supplier) userRepository.findById(((Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()).get();
-		}
-		return supplierDb;
+		return (Supplier) userRepository.findById(((Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()).orElse(null);
 	}
 
 	@Transactional(readOnly = true)
@@ -131,10 +121,7 @@ public class SupplierServiceImpl implements SupplierService {
 	public String writeOffer(PurchaseOrderSupplier offer) {
 		String message = "";
 		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier supplierDb = null;
-		if (userRepository.findById(supplier.getId()).isPresent()) {
-			supplierDb = (Supplier) userRepository.findById(supplier.getId()).get();
-		}
+		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb !=  null) {
 			if (supplierDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
@@ -198,10 +185,7 @@ public class SupplierServiceImpl implements SupplierService {
 	public String updateOffer(PurchaseOrderSupplier offer) {
 		String message = "";
 		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier supplierDb = null;
-		if (userRepository.findById(supplier.getId()).isPresent()) {
-			supplierDb = (Supplier) userRepository.findById(supplier.getId()).get();
-		}
+		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb != null) {
 			if (supplierDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
@@ -235,10 +219,7 @@ public class SupplierServiceImpl implements SupplierService {
 		String message = "";
 		Gson gson = new GsonBuilder().create();
 		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier supplierDb = null;
-		if (userRepository.findById(supplier.getId()).isPresent()) {
-			supplierDb = (Supplier) userRepository.findById(supplier.getId()).get();
-		}
+		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb != null) {
 			if (supplierDb.getFirstLogin()) {
 				message = "You are logging in for the first time, you must change password before you can use this functionality!";

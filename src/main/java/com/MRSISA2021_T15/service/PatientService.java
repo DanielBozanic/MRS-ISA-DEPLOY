@@ -168,10 +168,7 @@ public class PatientService {
 	public String subscribeToPharamacy(Pharmacy pharmacy) {
 		String message = "";
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = null;
-		if (repository.findById(patient.getId()).isPresent()) {
-			patientDb = (Patient) repository.findById(patient.getId()).get();
-		}
+		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
 				message = "You have not verified your account!";
@@ -196,10 +193,7 @@ public class PatientService {
 	public String unsubscribeToPharamacy(Pharmacy pharmacy) {
 		String message = "";
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = null;
-		if (repository.findById(patient.getId()).isPresent()) {
-			patientDb = (Patient) repository.findById(patient.getId()).get();
-		}
+		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
 				message = "You have not verified your account!";
@@ -296,10 +290,7 @@ public class PatientService {
 		String message = "";
 		List<String> medicineCodes = new ArrayList<String>();
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = null;
-		if (repository.findById(patient.getId()).isPresent()) {
-			patientDb = (Patient) repository.findById(patient.getId()).get();
-		}
+		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
 				message = "You have not verified your account!";
@@ -399,10 +390,7 @@ public class PatientService {
 	@Transactional(readOnly = true)
 	public Integer getDiscountByPatientCategory() {
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = null;
-		if (repository.findById(patient.getId()).isPresent()) {
-			patientDb = (Patient) repository.findById(patient.getId()).get();
-		}
+		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		Category c = null;
 		if (patientDb != null) {
 			c = categoryRepository.findByCategoryName(patientDb.getCategoryName());

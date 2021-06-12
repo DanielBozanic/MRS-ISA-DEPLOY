@@ -319,10 +319,7 @@ public class AppointmentService {
 			AppointmentInfo ai = new AppointmentInfo();
 			Reservation r = new Reservation();
 			
-			Patient patient = null;
-			if (userRepository.findById(appointment.getPatient().getId()).isPresent()) {
-				patient = (Patient) userRepository.findById(appointment.getPatient().getId()).get();
-			}
+			Patient patient = (Patient) userRepository.findById(appointment.getPatient().getId()).orElse(null);
 			if (patient != null) {
 				for (MedicineQuantity medicine : meds) {
 					patient.setCollectedPoints(Math.abs(patient.getCollectedPoints()) + 
