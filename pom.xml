@@ -15,6 +15,9 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>DanielBozanic_MRS-ISA-DEPLOY</sonar.projectKey>
+		<sonar.organization>danielbozanic</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -115,11 +118,6 @@
 				</execution>
 				</executions>
 			</plugin>
-			<plugin>
-      				<groupId>org.sonarsource.scanner.maven</groupId>
-      				<artifactId>sonar-maven-plugin</artifactId>
-      				<version>3.2</version>
-  			</plugin>
 		</plugins>
 	</build>
 
