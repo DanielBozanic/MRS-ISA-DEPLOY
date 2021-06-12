@@ -12,11 +12,16 @@ before_install:
 addons:
   sonarcloud:
   organization: danielbozanic
-  token: $SONAR_TOKEN
+  token: 
+	secure: "MEQjX5lZhtiAdAtsSrXHJ8i2Xc48PUIt7bBh29jpjQSqd6++wJuC+cu84wVrXi9IJtSFTgTErwjJczl3DXHZHcaGsQ36sNU5gR+aNBA2o9ka8AOLDOGbkWFobjPVhbKaYAszU8Ggbmd6LehpKIxzTCCtNvPnUTScJnL68o/tKdZxd/Dvmm1VimfdL2gRKwf8e3bxIkNNQmNGc2QF15Fre5c9P6ck57SC7DAilB55pE8Pb36ozoxtNfoHsiZCe4xTZka8kvSS0i1rJRH7nI+EufGnxOfswM0md9b+84xAV++DKlUlfQyvGX0q4HYDuEAww1pkIA6Gzo3s2vjgMrRohhPRvU977KjJLgTDGsUAaAJdZYFc3JwVPh3umlDog/IEs+J37Pc76t7QNb26HXzRKJGdWwSb0KVleyyDVy4gT+MdY8jg/qV+YFTo9Avf0wLvsWkQspa5cvuYYc1U4tMHcqcL9qCaJ9ea77pOkWPGhCcQrtROes3tnnlwI1kVsewNd6XPKVfxjzg9pVm1RZXyKSGa6vojPFa3ry9+YjyXXhFnfrkO4NUb6nk5wVtkjROQkDqS+dvSE7GWlhVd9XxjdXqciz5R5sgdRvhLpQTpw2a9fpAxuHoptj/emaXWiLPJqqByjiaiP3j1Rty4cjF+3bDs4JXdNuGdsxe+WlM7fMg="
 
 script:
 - "./mvnw clean install -DskipTests=false -B"
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=$PROJECT_KEY
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=DanielBozanic_MRS-ISA-DEPLOY
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
 
 dist: trusty
 
