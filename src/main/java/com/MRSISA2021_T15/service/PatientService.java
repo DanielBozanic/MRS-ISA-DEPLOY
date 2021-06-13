@@ -108,6 +108,8 @@ public class PatientService {
 	@Autowired
 	private AllergyRepository allergyRepository;
 	
+	private String verified = "You have not verified your account!";
+	
 	public List<Patient> findAllPatients(){
 		return repository.findAllPatients();
 	}
@@ -173,7 +175,7 @@ public class PatientService {
 		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
-				message = "You have not verified your account!";
+				message = verified;
 			} else {
 				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacyDto.getId(), patient.getId());
 				if (patientSubPharmacy != null) {
@@ -201,7 +203,7 @@ public class PatientService {
 		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
-				message = "You have not verified your account!";
+				message = verified;;
 			} else {
 				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacyDto.getId(), patient.getId());
 				if (patientSubPharmacy != null) {
@@ -298,7 +300,7 @@ public class PatientService {
 		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
-				message = "You have not verified your account!";
+				message = verified;
 			} else {
 				for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
 					MedicinePharmacy pharmacyWithRequiredMedicine = medicinePharmacyRepository.getPharmacyByIdAndMedicineCodePessimisticRead

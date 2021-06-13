@@ -39,6 +39,8 @@ public class AbsenceService {
 	JavaMailSender emails;
 	@Autowired
 	Environment environment;
+	
+	private String have = "You have an appointment with a patient from ";
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public String createAbsencePharmacist(Absence absence) throws InterruptedException {
@@ -54,15 +56,15 @@ public class AbsenceService {
 
 		for (Appointment appointment : appointments) {
 			if (absence.getStart().isBefore(appointment.getStart()) && absence.getEnd().isAfter(appointment.getEnd())) {
-				return "You have an appointment with a patient from " + appointment.getStart() + " to "
+				return  have + appointment.getStart() + " to "
 						+ appointment.getEnd() + ". ";
 			} else if (absence.getStart().isAfter(appointment.getStart())
 					&& absence.getStart().isBefore(appointment.getEnd())) {
-				return "You have an appointment with a patient from " + appointment.getStart() + " to "
+				return have + appointment.getStart() + " to "
 						+ appointment.getEnd() + ". ";
 			} else if (absence.getEnd().isAfter(appointment.getStart())
 					&& absence.getEnd().isBefore(appointment.getEnd())) {
-				return "You have an appointment with a patient from " + appointment.getStart() + " to "
+				return have + appointment.getStart() + " to "
 						+ appointment.getEnd() + ". ";
 			}
 		}
@@ -96,15 +98,15 @@ public class AbsenceService {
 		for (Appointment appointment : appointments) {
 			if(appointment.getPatient() != null) {
 				if (absence.getStart().isBefore(appointment.getStart()) && absence.getEnd().isAfter(appointment.getEnd())) {
-					return "You have an appointment with a patient from " + appointment.getStart() + " to "
+					return have + appointment.getStart() + " to "
 							+ appointment.getEnd() + ". ";
 				} else if (absence.getStart().isAfter(appointment.getStart())
 						&& absence.getStart().isBefore(appointment.getEnd())) {
-					return "You have an appointment with a patient from " + appointment.getStart() + " to "
+					return have + appointment.getStart() + " to "
 							+ appointment.getEnd() + ". ";
 				} else if (absence.getEnd().isAfter(appointment.getStart())
 						&& absence.getEnd().isBefore(appointment.getEnd())) {
-					return "You have an appointment with a patient from " + appointment.getStart() + " to "
+					return have + appointment.getStart() + " to "
 							+ appointment.getEnd() + ". ";
 				}
 			}

@@ -15,7 +15,6 @@ import com.MRSISA2021_T15.model.MedicineForm;
 import com.MRSISA2021_T15.model.MedicineType;
 import com.MRSISA2021_T15.model.SubstituteMedicine;
 import com.MRSISA2021_T15.model.SystemAdmin;
-import com.MRSISA2021_T15.repository.MedicinePharmacyRepository;
 import com.MRSISA2021_T15.repository.MedicineRepository;
 import com.MRSISA2021_T15.repository.SubstituteMedicineRepository;
 import com.MRSISA2021_T15.repository.UserRepository;
@@ -31,8 +30,6 @@ public class MedicineServiceImpl implements MedicineService {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
-	private MedicinePharmacyRepository medicinePharmacyRepository;
 
 	@Transactional
 	@Override

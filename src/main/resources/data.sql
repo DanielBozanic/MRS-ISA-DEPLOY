@@ -65,8 +65,8 @@ insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_
 insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_id, pharmacist_id, dermatologist_id, pharmacy_id, done) values ('APPOINTMENT_PHARMACIST', '2021-01-23 12:30:00', '2021-01-23 17:30:00', 1000, 0, 2, 5, null, 1, true);
 insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_id, pharmacist_id, dermatologist_id, pharmacy_id, done) values ('APPOINTMENT_PHARMACIST', '2021-02-22 18:30:00', '2021-02-22 19:30:00', 1000, 0, 3, 5, null, 1, true);
 
-insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_id, pharmacist_id, dermatologist_id, pharmacy_id, done) values ('APPOINTMENT_PHARMACIST', '2021-06-01 12:30:00', '2021-06-01 14:00:00', 1000, 0, 3, 5, null, 1, false);
-insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_id, pharmacist_id, dermatologist_id, pharmacy_id, done) values ('APPOINTMENT_DERMATOLOGIST', '2021-06-01 17:30:00', '2021-06-01 18:45:00', 1000, 0, 2, null, 6, 2, false);
+insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_id, pharmacist_id, dermatologist_id, pharmacy_id, done) values ('APPOINTMENT_PHARMACIST', '2021-06-13 18:30:00', '2021-06-13 19:00:00', 1000, 0, 3, 5, null, 1, false);
+insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_id, pharmacist_id, dermatologist_id, pharmacy_id, done) values ('APPOINTMENT_DERMATOLOGIST', '2021-06-13 17:30:00', '2021-06-13 18:45:00', 1000, 0, 2, null, 6, 2, false);
 
 insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_id, pharmacist_id, dermatologist_id, pharmacy_id, done) values ('APPOINTMENT_DERMATOLOGIST', '2021-01-22 16:30:00', '2021-01-22 18:30:00', 1000, 0, 1, null, 6, 1, true);
 insert into appointment (APPOINTMENT_TYPE, start, end, price, discount, patient_id, pharmacist_id, dermatologist_id, pharmacy_id, done) values ('APPOINTMENT_DERMATOLOGIST', '2021-02-22 9:30:00', '2021-02-22 10:00', 1000, 0, 4, null, 6, 2, true);

@@ -1,7 +1,6 @@
 package com.MRSISA2021_T15.repository;
 
 import com.MRSISA2021_T15.model.Allergy;
-import com.MRSISA2021_T15.model.Medicine;
 
 import java.util.List;
 

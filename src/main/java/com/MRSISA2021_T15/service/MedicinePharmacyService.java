@@ -3,16 +3,13 @@ package com.MRSISA2021_T15.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.authentication.AuthenticationManagerBeanDefinitionParser;
 import org.springframework.stereotype.Service;
 
 import com.MRSISA2021_T15.dto.OrderedMedicineDTO;
 import com.MRSISA2021_T15.dto.ReservationItemDTO;
 import com.MRSISA2021_T15.model.MedicinePharmacy;
-import com.MRSISA2021_T15.model.OrderedMedicine;
 import com.MRSISA2021_T15.model.Patient;
 import com.MRSISA2021_T15.model.ReservationItem;
 import com.MRSISA2021_T15.repository.MedicinePharmacyRepository;

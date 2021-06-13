@@ -33,6 +33,8 @@ public class RatingController {
 	@Autowired
 	RatingService ratingService;
 	
+	private final String review = "Thank you for your review.";
+	
 
 	@GetMapping(value = "/getDermatologistToRate", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
@@ -82,7 +84,7 @@ public class RatingController {
 		ratingService.saveDermatologist(dermatologistDto);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("Thank you for your review."), HttpStatus.OK);
+		return new ResponseEntity<String>(gson.toJson(review), HttpStatus.OK);
 	}
 	
 	
@@ -93,7 +95,7 @@ public class RatingController {
 		ratingService.savePharmacist(pharmacistDto);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("Thank you for your review."), HttpStatus.OK);
+		return new ResponseEntity<String>(gson.toJson(review), HttpStatus.OK);
 	}
 	
 	
@@ -105,7 +107,7 @@ public class RatingController {
 		ratingService.savePharmacy(pharmacyDto);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("Thank you for your review."), HttpStatus.OK);
+		return new ResponseEntity<String>(gson.toJson(review), HttpStatus.OK);
 	}
 	
 	
@@ -117,7 +119,7 @@ public class RatingController {
 		ratingService.saveMedicine(medicineDto);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("Thank you for your review."), HttpStatus.OK);
+		return new ResponseEntity<String>(gson.toJson(review), HttpStatus.OK);
 	}
 	
 	

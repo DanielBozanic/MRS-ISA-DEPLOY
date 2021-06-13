@@ -27,6 +27,8 @@ public class MedicinePharmacyController {
 	
 	@Autowired
 	ReservationService reservationService;
+	
+	private String cancel = "You can't cancel your appointment under 24h before it's beginning!";
 
 	@GetMapping(value = "/getMedicinePharmacist/pharmacy={pharmacyId}start={start}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
@@ -103,22 +105,20 @@ public class MedicinePharmacyController {
 	@PutMapping(value = "/cancelMedicine", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String>cancelMedicine(@RequestBody ReservationItemDTO reservationItemDto){
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
 		String message = "";
 		LocalDateTime now = LocalDateTime.now();
 		if(now.getYear() == reservationItemDto.getReservation().getEnd().getYear()) {
 			if(now.getMonthValue() == reservationItemDto.getReservation().getEnd().getMonthValue()) {
 				if(now.getDayOfMonth() == reservationItemDto.getReservation().getEnd().getDayOfMonth()) {
-					message = "You can't cancel your appointment under 24h before it's beggining!";
+					message = cancel;
 				}else if(now.getDayOfMonth() + 1 == reservationItemDto.getReservation().getEnd().getDayOfMonth()) { //ako je otkazujem dan prije
 					//provjeri sate i minute onda
 					if(now.getHour() > reservationItemDto.getReservation().getEnd().getHour()) {
-						message = "You can't cancel your appointment under 24h before it's beggining!";
+						message = cancel;
 					}else if(now.getHour() == reservationItemDto.getReservation().getEnd().getHour()) {
 						//ovdje provjeri minute
 						if(now.getMinute() >  reservationItemDto.getReservation().getEnd().getMinute()) { //moze tacno 24 od pocetka da otkaze
-							message = "You can't cancel your appointment under 24h before it's beggining!";
+							message = cancel;
 						}
 					}
 				}
@@ -132,7 +132,7 @@ public class MedicinePharmacyController {
 		
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("You cancel your medicine. :)"), HttpStatus.OK);
+			return new ResponseEntity<String>(gson.toJson("You canceled your medicine. :)"), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

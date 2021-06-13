@@ -29,6 +29,8 @@ public class RegistrationController {
 	@Autowired
 	private RegistrationService registrationService;
 	
+	private String success = "Registration successfull.";
+	
 	@PostMapping(value = "/registerPatient", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> registerPatient(@RequestBody PatientDTO patientDto) {
 		String message = registrationService.registerPatient(patientDto);
@@ -51,7 +53,7 @@ public class RegistrationController {
 		String message = registrationService.registerSystemAdmin(systemAdminDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Registration successfull."), HttpStatus.OK);
+			return new ResponseEntity<String>(gson.toJson(success), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -63,7 +65,7 @@ public class RegistrationController {
 		String message = registrationService.registerDermatologist(dermatologistDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Registration successfull."), HttpStatus.OK);
+			return new ResponseEntity<String>(gson.toJson(success), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -75,7 +77,7 @@ public class RegistrationController {
 		String message = registrationService.registerSupplier(supplierDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Registration successfull."), HttpStatus.OK);
+			return new ResponseEntity<String>(gson.toJson(success), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -87,7 +89,7 @@ public class RegistrationController {
 		String message = registrationService.registerPharmacyAdministrator(pharmacyAdminDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Registration successfull."), HttpStatus.OK);
+			return new ResponseEntity<String>(gson.toJson(success), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

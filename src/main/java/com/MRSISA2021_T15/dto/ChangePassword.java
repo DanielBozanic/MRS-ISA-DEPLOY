@@ -6,7 +6,9 @@ public class ChangePassword {
 	private String password;
 	private String confirmPassword;
 	
-	public ChangePassword() {}
+	public ChangePassword() {
+		//hey this is empty because its a deafult constructor duh.....
+	}
 
 	public String getOldPassword() {
 		return oldPassword;

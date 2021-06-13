@@ -52,6 +52,8 @@ public class SupplierServiceImpl implements SupplierService {
 	@Autowired
 	private PurchaseOrderSupplierRepository purchaseOrderSupplierRepository;
 	
+	private String login = "You are logging in for the first time, you must change password before you can use this functionality!";
+	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public void updateSupplierData(SupplierDTO supplierDto) {
@@ -127,7 +129,7 @@ public class SupplierServiceImpl implements SupplierService {
 		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb !=  null) {
 			if (supplierDb.getFirstLogin()) {
-				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
+				message =  login;
 			} else if (offerDto.getPurchaseOrder().getDueDateOffer().isBefore(LocalDate.now())) {
 				message = "Due date for purchase order has passed!";
 			} else if (LocalDate.now().isAfter(offerDto.getDeliveryDate())) {
@@ -195,7 +197,7 @@ public class SupplierServiceImpl implements SupplierService {
 		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb != null) {
 			if (supplierDb.getFirstLogin()) {
-				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
+				message =  login;
 			} else {
 				PurchaseOrderSupplier offerToUpdate = purchaseOrderSupplierRepository.findByIdAndSupplierIdPessimisticWrite(offerDto.getId(), supplier.getId());
 				if (offerToUpdate != null) {
@@ -229,7 +231,7 @@ public class SupplierServiceImpl implements SupplierService {
 		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb != null) {
 			if (supplierDb.getFirstLogin()) {
-				message = "You are logging in for the first time, you must change password before you can use this functionality!";
+				message = login;
 				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
 				MedicineSupply ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(medicineSupplyDto.getMedicine().getMedicineCode(), supplier.getId());

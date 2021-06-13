@@ -51,15 +51,19 @@ public class RegistrationServiceImpl implements RegistrationService {
 	
 	@Autowired
     private EmailSenderService emailSenderService;
+	
+	private String exists = "A user with this email already exists!";
+	private String usernameExists = "A user with this username already exists!";
+	private String login = "You are logging in for the first time, you must change password before you can use this functionality!";
 
 	@Transactional
 	@Override
 	public String registerPatient(PatientDTO patientDto) {
 		String message = "";
 		if (registrationRepository.findByEmail(patientDto.getEmail().toLowerCase()) != null) {
-			message = "A user with this email already exists!";
+			message = exists;
 		} else if (registrationRepository.findByUsername(patientDto.getUsername().toLowerCase()) != null) {
-			message = "A user with this username already exists!";
+			message = usernameExists;
 		} else {
 			Patient patient = new Patient();
 			patient.setAddress(patientDto.getAddress());
@@ -116,12 +120,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
-			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
+			message = login;
 		} else {
 			if (registrationRepository.findByEmail(systemAdminDto.getEmail().toLowerCase()) != null) {
-				message = "A user with this email already exists!";
+				message = exists;
 			} else if (registrationRepository.findByUsername(systemAdminDto.getUsername().toLowerCase()) != null) {
-				message = "A user with this username already exists!";
+				message = usernameExists;
 			} else {
 				SystemAdmin systemAdmin = new SystemAdmin();
 				systemAdmin.setAddress(systemAdminDto.getAddress());
@@ -152,12 +156,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
-			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
+			message =  login;
 		} else {
 			if (registrationRepository.findByEmail(dermatologistDto.getEmail().toLowerCase()) != null) {
-				message = "A user with this email already exists!";
+				message = exists;
 			} else if (registrationRepository.findByUsername(dermatologistDto.getUsername().toLowerCase()) != null) {
-				message = "A user with this username already exists!";
+				message = usernameExists;
 			} else {
 				Dermatologist dermatologist = new Dermatologist();
 				dermatologist.setAddress(dermatologistDto.getAddress());
@@ -188,12 +192,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
-			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
+			message =  login;
 		} else {
 			if (registrationRepository.findByEmail(supplierDto.getEmail().toLowerCase()) != null) {
-				message = "A user with this email already exists!";
+				message = exists;
 			} else if (registrationRepository.findByUsername(supplierDto.getUsername().toLowerCase()) != null) {
-				message = "A user with this username already exists!";
+				message = usernameExists;
 			} else {
 				Supplier supplier = new Supplier();
 				supplier.setAddress(supplierDto.getAddress());
@@ -224,12 +228,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
-			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
+			message =  login;
 		} else {
 			if (registrationRepository.findByEmail(pharmacyAdminDto.getEmail().toLowerCase()) != null) {
-				message = "A user with this email already exists!";
+				message = exists;
 			} else if (registrationRepository.findByUsername(pharmacyAdminDto.getUsername().toLowerCase()) != null) {
-				message = "A user with this username already exists!";
+				message = usernameExists;
 			} else {
 				PharmacyAdmin pharmacyAdmin = new PharmacyAdmin();
 				pharmacyAdmin.setAddress(pharmacyAdminDto.getAddress());

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,14 +19,17 @@ public class Pharmacist extends User{
 
 	private static final long serialVersionUID = 1L;
 
+	@Transient
 	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<AppointmentPharmacist> appointments;
 	
+	@Transient
 	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ComplaintPharmacist> complaints;
 	
+	@Transient
 	@JsonIgnore
 	@OneToMany(mappedBy = "pharmacist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<CanceledPharAppoinment> canceledAppointments;
@@ -41,6 +45,7 @@ public class Pharmacist extends User{
 		this.numOfRating = numOfRating;
 	}
 
+	@Transient
 	@JsonIgnore
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Absence> absence;

@@ -10,7 +10,6 @@ import com.MRSISA2021_T15.model.Employment;
 import com.MRSISA2021_T15.model.EmploymentDermatologist;
 import com.MRSISA2021_T15.model.EmploymentPharmacist;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
