@@ -92,7 +92,7 @@ public class ComplaintService {
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public String sendResponse(ComplaintDTO responseDto) {
 		var message = "";
-		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		var systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {

@@ -35,7 +35,7 @@ public class MedicineServiceImpl implements MedicineService {
 	@Override
 	public String addMedicine(MedicineDTO medicineDto) {
 		var message = "";
-		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		var systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {

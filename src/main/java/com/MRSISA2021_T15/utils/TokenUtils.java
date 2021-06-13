@@ -64,7 +64,7 @@ public class TokenUtils {
 	public String getUsernameFromToken(String token) {
 		String username = null;
 		try {
-			final Claims claims = this.getAllClaimsFromToken(token);
+			final var claims = this.getAllClaimsFromToken(token);
 			if (claims != null) {
 				username = claims.getSubject();
 			}
@@ -97,9 +97,9 @@ public class TokenUtils {
 	}
 	
 	public Boolean validateToken(String token, UserDetails userDetails) {
-		User user = (User) userDetails;
-		final String username = getUsernameFromToken(token);
-		final Date created = getIssuedAtDateFromToken(token);
+		var user = (User) userDetails;
+		final var username = getUsernameFromToken(token);
+		final var created = getIssuedAtDateFromToken(token);
 		return (username != null
 			&& username.equals(userDetails.getUsername())
 			&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
@@ -108,7 +108,7 @@ public class TokenUtils {
 	public Date getIssuedAtDateFromToken(String token) {
 		Date issueAt = null;
 		try {
-			final Claims claims = this.getAllClaimsFromToken(token);
+			final var claims = this.getAllClaimsFromToken(token);
 			if (claims != null) {
 				issueAt = claims.getIssuedAt();
 			}
@@ -133,7 +133,7 @@ public class TokenUtils {
 	public String getAudienceFromToken(String token) {
 		String audience = null;
 		try {
-			final Claims claims = this.getAllClaimsFromToken(token);
+			final var claims = this.getAllClaimsFromToken(token);
 			if (claims != null) {
 				audience = claims.getAudience();
 			}
@@ -150,7 +150,7 @@ public class TokenUtils {
 	public Date getExpirationDateFromToken(String token) {
 		Date expiration = null;
 		try {
-			final Claims claims = this.getAllClaimsFromToken(token);
+			final var claims = this.getAllClaimsFromToken(token);
 			if (claims != null) {
 				expiration = claims.getExpiration();
 			}

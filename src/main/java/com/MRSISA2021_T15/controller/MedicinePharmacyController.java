@@ -76,7 +76,7 @@ public class MedicinePharmacyController {
 	@PutMapping(value = "/orderMedicine", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String>orderMedicine(@RequestBody OrderedMedicineDTO orderDto){
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		var message = "";
 		mService.updateQuantity(orderDto);
@@ -95,7 +95,7 @@ public class MedicinePharmacyController {
 	
 	@GetMapping(value = "/getAllPatientsMedicines")
 	public List<ReservationItem> getAllPatientsMedicines() {
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return mService.getAllReservationItem(patient);
 	}
 	
@@ -104,8 +104,8 @@ public class MedicinePharmacyController {
 	@PutMapping(value = "/cancelMedicine", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String>cancelMedicine(@RequestBody ReservationItemDTO reservationItemDto){
-		String message = "";
-		LocalDateTime now = LocalDateTime.now();
+		var message = "";
+		var now = LocalDateTime.now();
 		if(now.getYear() == reservationItemDto.getReservation().getEnd().getYear()) {
 			if(now.getMonthValue() == reservationItemDto.getReservation().getEnd().getMonthValue()) {
 				if(now.getDayOfMonth() == reservationItemDto.getReservation().getEnd().getDayOfMonth()) {

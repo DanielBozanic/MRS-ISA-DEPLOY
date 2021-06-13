@@ -63,10 +63,10 @@ public class RatingService {
 		List<Medicine>allMedicineInBase = medicineRepository.findAllMedicines();
 		
 		
-		for(int i = 0; i<medicineByERecept.size(); i++) {
+		for(var i = 0; i<medicineByERecept.size(); i++) {
 			var nameOfMedicine = medicineByERecept.get(i).getMedicineName();
 			
-			for(int j = 0; j<allMedicineInBase.size(); j++) {
+			for(var j = 0; j<allMedicineInBase.size(); j++) {
 				if(nameOfMedicine.equals(allMedicineInBase.get(j).getName())) {
 					if(!medicinesThatArePickedUp.contains(allMedicineInBase.get(j))) {
 						medicinesThatArePickedUp.add(allMedicineInBase.get(j));
@@ -82,7 +82,7 @@ public class RatingService {
 		List<Pharmacy> list1 = appointmentRepository.findAllPharmaciesThatPatientHadApp(patient.getId());
 		List<Pharmacy> list2 = reservationItemRepository.findAllPharmaciesThatPatientPicMrd(patient.getId());
 		
-		for(int i = 0; i<list2.size(); i++) {
+		for(var i = 0; i<list2.size(); i++) {
 			if(!list1.contains(list2.get(i))) {
 				list1.add(list2.get(i));
 			}

@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.MRSISA2021_T15.dto.OrderedMedicineDTO;
 import com.MRSISA2021_T15.dto.ReservationDTO;
 import com.MRSISA2021_T15.model.CategoryName;
-import com.MRSISA2021_T15.model.Employment;
 import com.MRSISA2021_T15.model.MedicineQuantity;
 import com.MRSISA2021_T15.model.OrderedMedicine;
 import com.MRSISA2021_T15.model.Patient;
@@ -68,7 +67,7 @@ public class ReservationService {
 			return list;
 		}
 		var p = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Employment employment = employRepo.findByPharmacistId(p.getId());
+		var employment = employRepo.findByPharmacistId(p.getId());
 		
 		if(!employment.getPharmacy().getId().equals(reservation.get().getPharmacy().getId())) {
 			return list;
@@ -136,7 +135,7 @@ public class ReservationService {
 		
 		
 		r.setTotal(r.getTotal() + order.getMedicinePharmacy().getCost()* order.getAmount());
-		ReservationItem ri = new ReservationItem();
+		var ri = new ReservationItem();
 		ri.setMedicine(mq);
 		ri.setReservation(r);
 		

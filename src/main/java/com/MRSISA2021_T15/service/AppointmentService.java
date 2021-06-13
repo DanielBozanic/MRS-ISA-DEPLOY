@@ -43,8 +43,8 @@ public class AppointmentService {
 	@Autowired
 	Environment en;
 	
-	private String time = "Start can't be after end!";
-	private String past = "Can't schedule appointment into past!";
+	private static String time = "Start can't be after end!";
+	private static String past = "Can't schedule appointment into past!";
 	
     @Autowired
     private CategoryRepository categoryRepository;
@@ -101,9 +101,9 @@ public class AppointmentService {
 			return past;
 		}
 		
-		String pharmacistAbsent = "This pharmacist is absent at that time!";
-		String busy = "This pharmacist has already an appointment planned at that time!";
-		String patientBusy = "This patient has already an appointment planned at that time!";
+		var pharmacistAbsent = "This pharmacist is absent at that time!";
+		var busy = "This pharmacist has already an appointment planned at that time!";
+		var patientBusy = "This patient has already an appointment planned at that time!";
 				
 		List<Appointment> appointmentsPatient = findAllPatients(appointment.getPatient().getId());
 		List<Appointment> appointmentsPharmacist = findAllPharmacist(appointment.getPharmacist().getId());
@@ -333,7 +333,7 @@ public class AppointmentService {
 			var ai = new AppointmentInfo();
 			var r = new Reservation();
 			
-			Patient patient = (Patient) userRepository.findById(appointment.getPatient().getId()).orElse(null);
+			var patient = (Patient) userRepository.findById(appointment.getPatient().getId()).orElse(null);
 			if (patient != null) {
 				for (MedicineQuantity medicine : meds) {
 					patient.setCollectedPoints(Math.abs(patient.getCollectedPoints()) + 

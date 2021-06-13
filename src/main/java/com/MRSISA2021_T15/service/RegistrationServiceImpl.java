@@ -80,7 +80,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 			patient.setCategoryName(CategoryName.REGULAR);
 			patient.setCollectedPoints(0);
 			List<Role> roles = new ArrayList<Role>();
-			Role role = roleRepository.findById(Constants.ROLE_PATIENT).orElse(null);
+			var role = roleRepository.findById(Constants.ROLE_PATIENT).orElse(null);
 			if (role != null) {
 				roles.add(role);
 				patient.setRoles(roles);

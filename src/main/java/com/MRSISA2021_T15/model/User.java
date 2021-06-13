@@ -129,7 +129,7 @@ public abstract class User implements UserDetails {
     }
 
     public void setPassword(String password) {
-        Timestamp now = new Timestamp(new Date().getTime());
+        var now = new Timestamp(new Date().getTime());
         this.setLastPasswordResetDate(now);
         this.password = password;
     }

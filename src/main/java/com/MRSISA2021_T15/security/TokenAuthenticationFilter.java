@@ -1,7 +1,6 @@
 package com.MRSISA2021_T15.security;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -39,7 +38,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 		String username;
 		
-		String authToken = tokenUtils.getToken(request);
+		var authToken = tokenUtils.getToken(request);
 		
 		try {
 	
@@ -48,11 +47,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 				
 				if (username != null) {
 					
-					UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+					var userDetails = userDetailsService.loadUserByUsername(username);
 					
 					if (tokenUtils.validateToken(authToken, userDetails)) {
 						
-						TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
+						var authentication = new TokenBasedAuthentication(userDetails);
 						authentication.setToken(authToken);
 						SecurityContextHolder.getContext().setAuthentication(authentication);
 					}

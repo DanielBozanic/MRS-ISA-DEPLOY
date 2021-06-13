@@ -36,7 +36,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 	public ResponseEntity<String> defineCategories(CategoryDTO categoryDto) {
 		var message = "";
 		var gson = new GsonBuilder().create();
-		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		var systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
@@ -67,7 +67,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 	public ResponseEntity<String> definePointsForAppointmentAndConsulation(AppointmentConsultationPointsDTO acpDto) {
 		var message = "";
 		var gson = new GsonBuilder().create();
-		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		var systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
@@ -93,7 +93,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 
 	@Override
 	public CategoryName[] getCategoryNames() {
-		CategoryName[] cn = {CategoryName.SILVER, CategoryName.GOLD};
+		var cn = new CategoryName[]{CategoryName.SILVER, CategoryName.GOLD};
 		return cn;
 	}
 }

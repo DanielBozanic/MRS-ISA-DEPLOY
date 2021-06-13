@@ -338,7 +338,7 @@ public class PatientService {
 						patientDb.setCollectedPoints(Math.abs(patientDb.getCollectedPoints()) + 
 								(medicineRepository.getPointsByMedicineCode(ermd.getMedicineCode()) * (Math.abs(ermd.getQuantity()))));
 						ermd = eReceiptMedicineDetailsRepository.save(ermd);
-						EReceiptAndMedicineDetails eramd = new EReceiptAndMedicineDetails();
+						var eramd = new EReceiptAndMedicineDetails();
 						eramd.seteReceipt(eReceipt);
 						eramd.seteReceiptMedicineDetails(ermd);
 						eramd.setPharmacy(eReceiptSearch.getPharmacy());

@@ -138,7 +138,7 @@ public class SupplierServiceImpl implements SupplierService {
 				if (pos == null) {
 					List<PurchaseOrderMedicine> medicine = purchaseOrderMedicineRepository.findAllByPurchaseOrder(offerDto.getPurchaseOrder());
 					List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplier.getId());
-					boolean offerOk = true;
+					var offerOk = true;
 					for (PurchaseOrderMedicine pom : medicine) {
 						var sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(pom.getMedicine().getId(), pendingPurchaseOrderIds);
 						if (sum == null) {

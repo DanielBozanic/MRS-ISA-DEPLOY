@@ -43,7 +43,7 @@ public class FarAppPatientController {
 	@GetMapping(value = "/getAllCanceledApp", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	List<CanceledPharAppoinment> getAllCanceledApp(){
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<CanceledPharAppoinment>app = cancelS.getPatientAllCanceledApp(patient);
 		return app;
 	}
@@ -65,7 +65,7 @@ public class FarAppPatientController {
 	@PostMapping(value = "/newAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> newAppointment(@RequestBody AppointmentPharmacistDTO appointmentDto){
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		var appointment = new AppointmentPharmacist();
 		appointment.setDiscount(appointmentDto.getDiscount());
 		appointment.setStart(appointmentDto.getStart());
