@@ -96,15 +96,14 @@ public class ReservationService {
 		if (reservation != null) {
 			reservation.setPickedUp(LocalDateTime.now());
 			resRepo.save(reservation);
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			mailMessage.setTo(reservation.getPatient().getEmail());
+			mailMessage.setSubject("Successfull pickup");
+			mailMessage.setFrom(envir.getProperty("spring.mail.username"));
+			mailMessage.setText("You have successfully picked up your medications contained in reservation with identifier " + reservation.getReservationId() 
+			+ ". We hope you will visit us again at " + reservation.getPharmacy().getName() + ".");
+			emailsS.sendEmail(mailMessage);
 		}
-		
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setTo(reservation.getPatient().getEmail());
-		mailMessage.setSubject("Successfull pickup");
-		mailMessage.setFrom(envir.getProperty("spring.mail.username"));
-		mailMessage.setText("You have successfully picked up your medications contained in reservation with identifier " + reservation.getReservationId() 
-		+ ". We hope you will visit us again at " + reservation.getPharmacy().getName() + ".");
-		emailsS.sendEmail(mailMessage);
 		
 		return "";
 	}
