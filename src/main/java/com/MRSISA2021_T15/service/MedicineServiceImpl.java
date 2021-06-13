@@ -56,9 +56,9 @@ public class MedicineServiceImpl implements MedicineService {
 					medicine.setName(medicineDto.getName());
 					medicine.setPoints(medicineDto.getPoints());
 					medicine.setSubstituteMedicineIds(medicineDto.getSubstituteMedicineIds());
-					medicine.setMedicineCode(medicine.getMedicineCode().toLowerCase());
-					medicine.setPoints(Math.abs(medicine.getPoints()));
-					medicine.setPrescription(medicine.getPrescription());
+					medicine.setMedicineCode(medicineDto.getMedicineCode().toLowerCase());
+					medicine.setPoints(Math.abs(medicineDto.getPoints()));
+					medicine.setPrescription(medicineDto.getPrescription());
 					medicineRepository.save(medicine);
 					List<Integer> substituteMedicineIds = medicine.getSubstituteMedicineIds();
 					if (substituteMedicineIds != null) {
