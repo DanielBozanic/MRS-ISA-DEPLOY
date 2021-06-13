@@ -184,7 +184,7 @@ public class AllergyController {
 	
 	@GetMapping(value = "/getAllMedicines", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Medicine> getAllMedicines(){
+	public List<Medicine> getAllMedicines(){
 		
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Medicine> medicines = service.findAllMedicines();
@@ -214,7 +214,7 @@ public class AllergyController {
 	
 	@GetMapping(value = "/getAllAllergies", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Allergy> getAllAllergies(){
+	public List<Allergy> getAllAllergies(){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return service.getForPatient(p.getId());
 	}
