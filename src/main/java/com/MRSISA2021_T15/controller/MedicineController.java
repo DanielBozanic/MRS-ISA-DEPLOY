@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/medicine")
 public class MedicineController {
 	
@@ -87,13 +86,13 @@ public class MedicineController {
 	}
 	
 
-	@RequestMapping(path="/all")
+	@GetMapping(path="/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
 	public @ResponseBody Iterable<Medicine> getAllMedicine() {
 		return medicineRepository.findAll();
 	}
 
-	@RequestMapping(path="/{pharmacyId}/getMedicineFromPharmacy")
+	@GetMapping(path="/{pharmacyId}/getMedicineFromPharmacy", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
 	public ArrayList<Medicine> getMedicineFromPharmacy(@PathVariable Integer pharmacyId){
 		List<MedicinePharmacy> medicinePharmacies = medicinePharmacyRepository.findByPharmacyId(pharmacyId);
@@ -103,7 +102,7 @@ public class MedicineController {
 		return returnList;
 	}
 
-	@RequestMapping(path="/{medicineId}/findArrayById")
+	@GetMapping(path="/{medicineId}/findArrayById", produces = MediaType.APPLICATION_JSON_VALUE)
   	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
 	public ArrayList<Optional<Medicine>> getMedicineArrayById(@PathVariable Integer medicineId){
 		ArrayList<Optional<Medicine>> returnList = new ArrayList<>();
@@ -111,7 +110,7 @@ public class MedicineController {
 		return returnList;
 	}
 
-	@RequestMapping(path="/{string}/findByString")
+	@GetMapping(path="/{string}/findByString", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
 	public ArrayList<Medicine> getMedicineByString(@PathVariable String string){
 		Iterable<Medicine> medicineList = medicineRepository.findAll();

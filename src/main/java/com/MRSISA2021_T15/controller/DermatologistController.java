@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(path="/dermatologist")
 public class DermatologistController {
     @Autowired
@@ -45,25 +44,26 @@ public class DermatologistController {
         dermatologistRepository.deleteById(dermatologistId);
     }
 
-    @RequestMapping(path="/all")
+    @GetMapping(path="/all", produces = MediaType.APPLICATION_JSON_VALUE)
     //@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
     public @ResponseBody Iterable<Dermatologist> getAllDermatologists() {
         return dermatologistRepository.findAll();
     }
 
-    @RequestMapping(path="/{dermatologistId}/findArrayById")
+    @GetMapping(path="/{dermatologistId}/findArrayById", produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<Optional<Dermatologist>> getDermatologistArrayById(@PathVariable Integer dermatologistId) {
         ArrayList<Optional<Dermatologist>> returnList = new ArrayList<>();
         returnList.add(dermatologistRepository.findById(dermatologistId));
         return returnList;
 
     }
+    
     @PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
     public Optional<Dermatologist> getDermatologistById(@PathVariable Integer dermatologistId){
         return dermatologistRepository.findById(dermatologistId);
     }
 
-    @RequestMapping(path="/{string}/findByString")
+    @GetMapping(path="/{string}/findByString", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
     public ArrayList<Dermatologist> getDermatologistByString(@PathVariable String string){
         Iterable<Dermatologist> dermatologistList = dermatologistRepository.findAll();

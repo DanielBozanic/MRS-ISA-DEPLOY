@@ -5,8 +5,9 @@ import com.MRSISA2021_T15.model.PurchaseOrderMedicine;
 import com.MRSISA2021_T15.repository.PurchaseOrderMedicineRepository;
 import com.MRSISA2021_T15.repository.PurchaseOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/purchaseOrder")
 public class PurchaseOrderController {
 
@@ -24,7 +24,7 @@ public class PurchaseOrderController {
     @Autowired
     public PurchaseOrderMedicineRepository purchaseOrderMedicineRepository;
 
-    @RequestMapping(value = "/activePurchaseOrders")
+    @GetMapping(value = "/activePurchaseOrders", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
     public ArrayList<PurchaseOrder> getActivePurchaseOrders(){
         ArrayList<PurchaseOrder> returnList = new ArrayList<>();
@@ -37,7 +37,7 @@ public class PurchaseOrderController {
     return returnList;
     }
 
-    @RequestMapping(value = "/{purchaseOrderId}/getPurchaseOrder")
+    @GetMapping(value = "/{purchaseOrderId}/getPurchaseOrder", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
     public ArrayList<PurchaseOrderMedicine> getPurchaseOrder(@PathVariable Integer purchaseOrderId){
         ArrayList<PurchaseOrderMedicine> returnList = new ArrayList<>();

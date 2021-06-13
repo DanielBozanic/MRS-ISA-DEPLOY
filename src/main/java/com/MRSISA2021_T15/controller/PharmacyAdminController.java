@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(path="/pharmacyAdmin")
 public class PharmacyAdminController {
 
@@ -38,7 +37,7 @@ public class PharmacyAdminController {
     @Autowired
     private PurchaseOrderMedicineRepository purchaseOrderMedicineRepository;
 
-    @RequestMapping(path="/{pharmacyAdminId}/findById")
+    @GetMapping(path="/{pharmacyAdminId}/findById", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
     public Optional<PharmacyAdmin> getPharmacyAdminById(@PathVariable Integer pharmacyAdminId){
         return pharmacyAdminRepository.findById(pharmacyAdminId);

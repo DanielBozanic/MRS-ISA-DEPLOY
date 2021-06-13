@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(path = "/pharmacist")
 public class PharmacistController {
 	@Autowired
@@ -46,20 +45,20 @@ public class PharmacistController {
 		pharmacistRepository.deleteById(pharmacistId);
 	}
 
-	@RequestMapping(path = "/all")
+	@GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
 	public @ResponseBody Iterable<Pharmacist> getAllPharmacists() {
 		return pharmacistRepository.findAll();
 	}
 
-	@RequestMapping(path = "/{pharmacistId}/findArrayById")
+	@GetMapping(path = "/{pharmacistId}/findArrayById", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ArrayList<Optional<Pharmacist>> getPharmacistArrayById(@PathVariable Integer pharmacistId) {
 		ArrayList<Optional<Pharmacist>> returnList = new ArrayList<>();
 		returnList.add(pharmacistRepository.findById(pharmacistId));
 		return returnList;
 	}
 
-	@RequestMapping(path = "/{string}/findByString")
+	@GetMapping(path = "/{string}/findByString", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ArrayList<Pharmacist> getPharmacistByString(@PathVariable String string) {
 		Iterable<Pharmacist> pharmacistList = pharmacistRepository.findAll();
 		ArrayList<Pharmacist> returnList = new ArrayList<>();
