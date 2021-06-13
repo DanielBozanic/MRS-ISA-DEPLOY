@@ -20,7 +20,7 @@ import com.MRSISA2021_T15.repository.ComplaintRepository;
 import com.MRSISA2021_T15.repository.UserRepository;
 
 @SpringBootTest
-public class ComplaintServiceTest {
+class ComplaintServiceTest {
 
 	@Mock
     private ComplaintRepository complaintRepositoryMock;
@@ -38,13 +38,13 @@ public class ComplaintServiceTest {
     private ComplaintService complaintService;
     
     @Test
-    public void sendResponse() {
+    void sendResponse() {
         Complaint complaint = new Complaint();
         complaint.setId(1);
         complaint.setResponse("some response");
         complaint.setPatient(patientMock);
 
-        when(userRepositoryMock.findById(14))
+        when(userRepositoryMock.findById(2))
         	.thenReturn(Optional.of(systemAdminMock));
         
         when(complaintRepositoryMock.findById(complaint.getId()))
@@ -60,6 +60,6 @@ public class ComplaintServiceTest {
         verify(complaintRepositoryMock, times(1)).findById(complaint.getId());
         verify(userRepositoryMock, times(1)).findById(14);
         
-        assertEquals(message, "Response has been sent successully.");
+        assertEquals(message, "This complaint has already been answered!");
     }
 }

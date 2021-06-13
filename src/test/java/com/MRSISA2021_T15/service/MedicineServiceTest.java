@@ -13,7 +13,7 @@ import com.MRSISA2021_T15.model.MedicineType;
 import com.MRSISA2021_T15.repository.MedicineRepository;
 
 @SpringBootTest
-public class MedicineServiceTest {
+class MedicineServiceTest {
 	
 	@Mock
 	private MedicineRepository medicineRepository;
@@ -22,7 +22,7 @@ public class MedicineServiceTest {
 	private Medicine medicineMock;
 	
 	@Test
-	public void addMedicine() {
+	void addMedicine() {
 		Medicine medicine = new Medicine();
 		medicine.setAdditionalComments("");
 		medicine.setComposition("");

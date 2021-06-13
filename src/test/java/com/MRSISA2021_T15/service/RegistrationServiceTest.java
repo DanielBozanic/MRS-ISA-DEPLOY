@@ -11,7 +11,7 @@ import com.MRSISA2021_T15.model.SystemAdmin;
 import com.MRSISA2021_T15.repository.UserRepository;
 
 @SpringBootTest
-public class RegistrationServiceTest {
+class RegistrationServiceTest {
 	
 	@Mock
 	private UserRepository userRepository;
@@ -20,7 +20,7 @@ public class RegistrationServiceTest {
 	private SystemAdmin systemAdminMock;
 
 	@Test
-	public void registerSystemAdmin() {
+	void registerSystemAdmin() {
 		var systemAdmin = new SystemAdmin();
 		systemAdmin.setAddress("");
 		systemAdmin.setCity("");
