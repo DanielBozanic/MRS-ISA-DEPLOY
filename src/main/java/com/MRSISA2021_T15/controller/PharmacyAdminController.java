@@ -1,6 +1,11 @@
 package com.MRSISA2021_T15.controller;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.EmploymentDermatologistDTO;
+import com.MRSISA2021_T15.dto.EmploymentPharmacistDTO;
+import com.MRSISA2021_T15.dto.MedicinePharmacyDTO;
+import com.MRSISA2021_T15.dto.PharmacyAdminDTO;
+import com.MRSISA2021_T15.dto.PharmacyDTO;
 import com.MRSISA2021_T15.model.*;
 import com.MRSISA2021_T15.repository.*;
 import com.MRSISA2021_T15.service.PharmacyAdminService;
@@ -45,8 +50,8 @@ public class PharmacyAdminController {
 
     @PutMapping(value = "/updatePharmacyAdminData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-    public ResponseEntity<String> updatePharmacyAdminData(@RequestBody PharmacyAdmin pharmacyAdmin) {
-        String message = pharmacyAdminService.updatePharmacyAdminData(pharmacyAdmin);
+    public ResponseEntity<String> updatePharmacyAdminData(@RequestBody PharmacyAdminDTO pharmacyAdminDto) {
+        String message = pharmacyAdminService.updatePharmacyAdminData(pharmacyAdminDto);
         Gson gson = new GsonBuilder().create();
         if (message.equals("")) {
             return new ResponseEntity<String>(gson.toJson("Update successfull."), HttpStatus.OK);
@@ -57,8 +62,8 @@ public class PharmacyAdminController {
 
     @PutMapping(value = "/updatePharmacyData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-    public ResponseEntity<String> updatePharmacyData(@RequestBody Pharmacy pharmacy) {
-        String message = pharmacyService.updatePharmacyData(pharmacy);
+    public ResponseEntity<String> updatePharmacyData(@RequestBody PharmacyDTO pharmacyDto) {
+        String message = pharmacyService.updatePharmacyData(pharmacyDto);
         Gson gson = new GsonBuilder().create();
         if (message.equals("")) {
             return new ResponseEntity<String>(gson.toJson("Update successfull."), HttpStatus.OK);
@@ -93,21 +98,36 @@ public class PharmacyAdminController {
 
     @PostMapping(value = "/addMedicineToPharmacy")
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-    public ResponseEntity<String> addMedicineToPharmacy(@RequestBody MedicinePharmacy mp) {
+    public ResponseEntity<String> addMedicineToPharmacy(@RequestBody MedicinePharmacyDTO mpDto) {
+    	MedicinePharmacy mp = new MedicinePharmacy();
+    	mp.setAmount(mpDto.getAmount());
+    	mp.setCost(mpDto.getCost());
+    	mp.setMedicine(mpDto.getMedicine());
+    	mp.setPharmacy(mpDto.getPharmacy());
         medicinePharmacyRepository.save(mp);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/addPharmacistToPharmacy")
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-    public ResponseEntity<String> addPharmacistToPharmacy(@RequestBody EmploymentPharmacist ep) {
+    public ResponseEntity<String> addPharmacistToPharmacy(@RequestBody EmploymentPharmacistDTO epDto) {
+    	EmploymentPharmacist ep = new EmploymentPharmacist();
+    	ep.setStart(epDto.getStart());
+    	ep.setEnd(epDto.getEnd());
+    	ep.setPharmacy(epDto.getPharmacy());
+    	ep.setPharmacist(epDto.getPharmacist());
         employmentPharmacistsRepository.save(ep);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/addDermatologistToPharmacy")
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-    public ResponseEntity<String> addDermatologistToPharmacy(@RequestBody EmploymentDermatologist ed) {
+    public ResponseEntity<String> addDermatologistToPharmacy(@RequestBody EmploymentDermatologistDTO edDto) {
+    	EmploymentDermatologist ed = new EmploymentDermatologist();
+    	ed.setStart(edDto.getStart());
+    	ed.setEnd(edDto.getEnd());
+    	ed.setPharmacy(edDto.getPharmacy());
+    	ed.setDermatologist(edDto.getDermatologist());
         employmentDermatologistRepository.save(ed);
         return ResponseEntity.ok().build();
     }

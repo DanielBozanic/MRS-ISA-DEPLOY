@@ -1,6 +1,7 @@
 package com.MRSISA2021_T15.service;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.PharmacyAdminDTO;
 import com.MRSISA2021_T15.model.PharmacyAdmin;
 import com.MRSISA2021_T15.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +40,16 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
     }
 
     @Override
-    public String updatePharmacyAdminData(PharmacyAdmin pharmacyAdmin) {
+    public String updatePharmacyAdminData(PharmacyAdminDTO pharmacyAdminDto) {
         String message = "";
         PharmacyAdmin currentUser = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (currentUser != null) {
-            currentUser.setName(pharmacyAdmin.getName());
-            currentUser.setSurname(pharmacyAdmin.getSurname());
-            currentUser.setAddress(pharmacyAdmin.getAddress());
-            currentUser.setCity(pharmacyAdmin.getCity());
-            currentUser.setCountry(pharmacyAdmin.getCountry());
-            currentUser.setPhoneNumber(pharmacyAdmin.getPhoneNumber());
+            currentUser.setName(pharmacyAdminDto.getName());
+            currentUser.setSurname(pharmacyAdminDto.getSurname());
+            currentUser.setAddress(pharmacyAdminDto.getAddress());
+            currentUser.setCity(pharmacyAdminDto.getCity());
+            currentUser.setCountry(pharmacyAdminDto.getCountry());
+            currentUser.setPhoneNumber(pharmacyAdminDto.getPhoneNumber());
             userRepository.save(currentUser);
         } else {
             message = "Update unsuccessfull!";

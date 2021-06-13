@@ -1,6 +1,7 @@
 package com.MRSISA2021_T15.service;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.PharmacyAdminDTO;
 import com.MRSISA2021_T15.model.PharmacyAdmin;
 
 public interface PharmacyAdminService {
@@ -9,6 +10,6 @@ public interface PharmacyAdminService {
 
     String updatePassword(ChangePassword passwords);
 
-    String updatePharmacyAdminData(PharmacyAdmin pharmacyAdmin);
+    String updatePharmacyAdminData(PharmacyAdminDTO pharmacyAdminDto);
 
 }

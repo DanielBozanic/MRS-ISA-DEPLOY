@@ -1,9 +1,13 @@
 package com.MRSISA2021_T15.controller;
 
+import com.MRSISA2021_T15.dto.AppointmentDermatologistDTO;
 import com.MRSISA2021_T15.dto.AppointmentEnd;
 import com.MRSISA2021_T15.dto.AppointmentEndDermatologist;
+import com.MRSISA2021_T15.dto.AppointmentPharmacistDTO;
+import com.MRSISA2021_T15.dto.PatientDTO;
 import com.MRSISA2021_T15.model.*;
 import com.MRSISA2021_T15.repository.AppointmentRepository;
+import com.MRSISA2021_T15.repository.UserRepository;
 import com.MRSISA2021_T15.service.AppointmentService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,10 +30,19 @@ public class AppointmentController {
 	private AppointmentService service;
 	@Autowired
 	private AppointmentRepository appointmentRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	@PostMapping(path="/pharmacist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
-	public @ResponseBody ResponseEntity<String> makeAppointmentPharmacist(@RequestBody AppointmentPharmacist appointment) {
+	public @ResponseBody ResponseEntity<String> makeAppointmentPharmacist(@RequestBody AppointmentPharmacistDTO appointmentDto) {
+		AppointmentPharmacist appointment = new AppointmentPharmacist();
+		appointment.setDiscount(appointmentDto.getDiscount());
+		appointment.setStart(appointmentDto.getStart());
+		appointment.setEnd(appointmentDto.getEnd());
+		appointment.setPatient(appointmentDto.getPatient());
+		appointment.setPharmacist(appointmentDto.getPharmacist());
+		appointment.setPrice(appointmentDto.getPrice());
 		String message = service.makeAppointmentPharmacist(appointment);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
@@ -40,7 +53,14 @@ public class AppointmentController {
 	
 	@PostMapping(path="/dermatologist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
-	public @ResponseBody ResponseEntity<String> makeDermatologist(@RequestBody AppointmentDermatologist appointment) {
+	public @ResponseBody ResponseEntity<String> makeDermatologist(@RequestBody AppointmentDermatologistDTO appointmentDto) {
+		AppointmentDermatologist appointment = new AppointmentDermatologist();
+		appointment.setDiscount(appointmentDto.getDiscount());
+		appointment.setStart(appointmentDto.getStart());
+		appointment.setEnd(appointmentDto.getEnd());
+		appointment.setPatient(appointmentDto.getPatient());
+		appointment.setDermatologist(appointmentDto.getDermatologist());
+		appointment.setPrice(appointmentDto.getPrice());
 		String message = service.makeAppointmentDermatologist(appointment);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
@@ -51,8 +71,12 @@ public class AppointmentController {
 	
 	@PutMapping(path="/dermatologistPredefined/{appointmentId}",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
-	public @ResponseBody ResponseEntity<String> makeDermatologistPredefined(@PathVariable("appointmentId") Integer id, @RequestBody Patient patient) {
-		String message = service.makeAppointmentDermatologistPredefined(id, patient);
+	public @ResponseBody ResponseEntity<String> makeDermatologistPredefined(@PathVariable("appointmentId") Integer id, @RequestBody PatientDTO patientDto) {
+		Patient patient = (Patient) userRepository.findById(patientDto.getId()).orElse(null);
+		String message = "";
+		if (patient != null) {
+			message = service.makeAppointmentDermatologistPredefined(id, patient);
+		}
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Appointment succesfully assigned to patient."), HttpStatus.OK);
@@ -74,14 +98,20 @@ public class AppointmentController {
 	
 	@PutMapping(path="/setDonePharmacist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
-	public void makeDone(@RequestBody AppointmentPharmacist appointment) {
-		service.makeTrue(appointment);
+	public void makeDone(@RequestBody AppointmentPharmacistDTO appointmentDto) {
+		AppointmentPharmacist appointment = (AppointmentPharmacist) appointmentRepository.findById(appointmentDto.getId()).orElse(null);
+		if (appointment != null) {
+			service.makeTrue(appointment);
+		}
 	}
 	
 	@PutMapping(path="/setDoneDermatologist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
-	public void makeDoneDermatologist(@RequestBody AppointmentDermatologist appointment) {
-		service.makeTrue(appointment);
+	public void makeDoneDermatologist(@RequestBody AppointmentDermatologistDTO appointmentDto) {
+		AppointmentDermatologist appointment = (AppointmentDermatologist) appointmentRepository.findById(appointmentDto.getId()).orElse(null);
+		if (appointment != null) {
+			service.makeTrue(appointment);
+		}
 	}
 	
 	@PostMapping(path="/endAppointmentPharmacist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -116,7 +146,14 @@ public class AppointmentController {
 
 	@PostMapping(path="/defineDermatologistAppointment")
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-	public ResponseEntity<String> defineDermatologistAppointment(@RequestBody AppointmentDermatologist ad) {
+	public ResponseEntity<String> defineDermatologistAppointment(@RequestBody AppointmentDermatologistDTO adDto) {
+		AppointmentDermatologist ad = new AppointmentDermatologist();
+		ad.setDiscount(adDto.getDiscount());
+		ad.setStart(adDto.getStart());
+		ad.setEnd(adDto.getEnd());
+		ad.setPatient(adDto.getPatient());
+		ad.setDermatologist(adDto.getDermatologist());
+		ad.setPrice(adDto.getPrice());
 		List<Appointment> allAppointments = appointmentRepository.findAllDermatologistId(ad.getDermatologist().getId());
 		boolean isValid = true;
 

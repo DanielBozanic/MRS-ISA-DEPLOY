@@ -1,5 +1,6 @@
 package com.MRSISA2021_T15.controller;
 
+import com.MRSISA2021_T15.dto.PharmacyDTO;
 import com.MRSISA2021_T15.model.Pharmacist;
 import com.MRSISA2021_T15.model.Pharmacy;
 import com.MRSISA2021_T15.repository.EmploymentRepository;
@@ -32,8 +33,8 @@ public class PharmacyController {
 
 	@PostMapping(value = "/registerPharmacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
-	public ResponseEntity<String> registerPharmacy(@RequestBody Pharmacy pharmacy) {
-		String message = pharmacyService.registerPharmacy(pharmacy);
+	public ResponseEntity<String> registerPharmacy(@RequestBody PharmacyDTO pharmacyDto) {
+		String message = pharmacyService.registerPharmacy(pharmacyDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("The pharmacy has been registered successfully."), HttpStatus.OK);
@@ -63,8 +64,8 @@ public class PharmacyController {
 	//}
 
 	@GetMapping(value = "/getPharmacy", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Pharmacy getPharmacy(@RequestBody Pharmacy pharmacy){
-		return pharmacyRepository.findPharmacyWithId(pharmacy.getId());
+	public Pharmacy getPharmacy(@RequestBody PharmacyDTO pharmacyDto){
+		return pharmacyRepository.findPharmacyWithId(pharmacyDto.getId());
 	}
 
 	@GetMapping(value = "/publicGetPharmacies", produces = MediaType.APPLICATION_JSON_VALUE)

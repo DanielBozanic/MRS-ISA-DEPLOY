@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.authentication.AuthenticationManagerBeanDefinitionParser;
 import org.springframework.stereotype.Service;
 
+import com.MRSISA2021_T15.dto.OrderedMedicineDTO;
+import com.MRSISA2021_T15.dto.ReservationItemDTO;
 import com.MRSISA2021_T15.model.MedicinePharmacy;
 import com.MRSISA2021_T15.model.OrderedMedicine;
 import com.MRSISA2021_T15.model.Patient;
@@ -53,9 +55,9 @@ public class MedicinePharmacyService {
 		return retVal;
 	}
 	
-	public void updateQuantity(OrderedMedicine order) {
-		MedicinePharmacy mpb = repo.findUsingId(order.getMedicinePharmacy().getId());
-		int number = mpb.getAmount() - order.getAmount();
+	public void updateQuantity(OrderedMedicineDTO orderDto) {
+		MedicinePharmacy mpb = repo.findUsingId(orderDto.getMedicinePharmacy().getId());
+		int number = mpb.getAmount() - orderDto.getAmount();
 		mpb.setAmount(number);
 		repo.save(mpb);
 	}
@@ -73,25 +75,25 @@ public class MedicinePharmacyService {
 	}
 	
 	
-	public void deleteMedicine(ReservationItem item) {
-		Integer pharmacyId = item.getReservation().getPharmacy().getId();
-		Integer medicineId = item.getMedicine().getMedicine().getId();
+	public void deleteMedicine(ReservationItemDTO itemDto) {
+		Integer pharmacyId = itemDto.getReservation().getPharmacy().getId();
+		Integer medicineId = itemDto.getMedicine().getMedicine().getId();
 		
 		
 		
 		MedicinePharmacy mp = repo.findByExact(pharmacyId, medicineId);
 		System.out.println("123");
 		System.out.println(medicineId);
-		System.out.println(mp.getAmount() + item.getMedicine().getQuantity());
+		System.out.println(mp.getAmount() + itemDto.getMedicine().getQuantity());
 		
-		mp.setAmount(mp.getAmount() + item.getMedicine().getQuantity());
+		mp.setAmount(mp.getAmount() + itemDto.getMedicine().getQuantity());
 		
 		System.out.println(mp.getAmount());
 		repo.save(mp);
 		
-		reservationRepo.deleteById(item.getId());
-		mr.deleteById(item.getMedicine().getId());
-		rr.deleteById(item.getReservation().getId());
+		reservationRepo.deleteById(itemDto.getId());
+		mr.deleteById(itemDto.getMedicine().getId());
+		rr.deleteById(itemDto.getReservation().getId());
 		
 		
 	}

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.PatientDTO;
+import com.MRSISA2021_T15.dto.PharmacyDTO;
 import com.MRSISA2021_T15.model.EReceiptSearch;
 import com.MRSISA2021_T15.model.Patient;
 import com.MRSISA2021_T15.model.Pharmacy;
@@ -42,8 +44,8 @@ public class PatientController {
 	
 	@PutMapping(value = "/changeData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String> changeData(@RequestBody Patient patient){
-		String message = service.updatePatientData(patient);
+	public ResponseEntity<String> changeData(@RequestBody PatientDTO patientDto){
+		String message = service.updatePatientData(patientDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Update successfull."), HttpStatus.OK);
@@ -66,16 +68,16 @@ public class PatientController {
 	
 	@PostMapping(value = "/subscribeToPharamacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String> subscribeToPharamacy(@RequestBody Pharmacy pharmacy) {
-		service.subscribeToPharamacy(pharmacy);
+	public ResponseEntity<String> subscribeToPharamacy(@RequestBody PharmacyDTO pharmacyDto) {
+		service.subscribeToPharamacy(pharmacyDto);
 		Gson gson = new GsonBuilder().create();	
 		return new ResponseEntity<String>(gson.toJson("Subscribed to pharmacy successfully."), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/unsubscribeToPharamacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String> unsubscribeToPharamacy(@RequestBody Pharmacy pharmacy) {
-		service.unsubscribeToPharamacy(pharmacy);
+	public ResponseEntity<String> unsubscribeToPharamacy(@RequestBody PharmacyDTO pharmacyDto) {
+		service.unsubscribeToPharamacy(pharmacyDto);
 		Gson gson = new GsonBuilder().create();	
 		return new ResponseEntity<String>(gson.toJson("Unsubscribed from pharmacy successfully."), HttpStatus.OK);
 	}

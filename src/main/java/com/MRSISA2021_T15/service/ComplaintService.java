@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.MRSISA2021_T15.dto.ComplaintDTO;
 import com.MRSISA2021_T15.model.Complaint;
 import com.MRSISA2021_T15.model.ComplaintDermatologist;
 import com.MRSISA2021_T15.model.ComplaintPharmacist;
@@ -89,7 +90,7 @@ public class ComplaintService {
 	}
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
-	public String sendResponse(Complaint response) {
+	public String sendResponse(ComplaintDTO responseDto) {
 		String message = "";
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
@@ -97,10 +98,10 @@ public class ComplaintService {
 			if (systemAdminDb.getFirstLogin()) {
 				message = "You are logging in for the first time, you must change password before you can use this functionality!";
 			} else {
-				Complaint complaint = complaintRepository.findByIdPessimisticWrite(response.getId());
+				Complaint complaint = complaintRepository.findByIdPessimisticWrite(responseDto.getId());
 				if (complaint != null) {
 					if (complaint.getSystemAdmin() == null) {
-						complaint.setResponse(response.getResponse());
+						complaint.setResponse(responseDto.getResponse());
 						complaint.setSystemAdmin(systemAdminDb);
 						complaintRepository.save(complaint);
 						SimpleMailMessage mailMessage = new SimpleMailMessage();

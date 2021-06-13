@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.MRSISA2021_T15.dto.AppointmentDermatologistDTO;
 import com.MRSISA2021_T15.model.Appointment;
 import com.MRSISA2021_T15.model.AppointmentDermatologist;
 import com.MRSISA2021_T15.model.ComplaintDermatologist;
@@ -56,9 +57,15 @@ public class DerAppPatientController {
 	
 	@PostMapping(value = "/send", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String> send(@RequestBody AppointmentDermatologist appointment){
+	public ResponseEntity<String> send(@RequestBody AppointmentDermatologistDTO appointmentDto){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		AppointmentDermatologist appointment = new AppointmentDermatologist();
+		appointment.setDiscount(appointmentDto.getDiscount());
+		appointment.setStart(appointmentDto.getStart());
+		appointment.setEnd(appointmentDto.getEnd());
 		appointment.setPatient(p);
+		appointment.setDermatologist(appointmentDto.getDermatologist());
+		appointment.setPrice(appointmentDto.getPrice());
 		AppService.saveDerApp(appointment);
 		
 		Gson gson = new GsonBuilder().create();
@@ -85,21 +92,21 @@ public class DerAppPatientController {
 	
 	@PutMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String> delete(@RequestBody AppointmentDermatologist appointment){
+	public ResponseEntity<String> delete(@RequestBody AppointmentDermatologistDTO appointmentDto){
 		
 		String message = "";
 		LocalDateTime now = LocalDateTime.now();
-		if(now.getYear() == appointment.getStart().getYear()) {
-			if(now.getMonthValue() == appointment.getStart().getMonthValue()) {
-				if(now.getDayOfMonth() == appointment.getStart().getDayOfMonth()) {
+		if(now.getYear() == appointmentDto.getStart().getYear()) {
+			if(now.getMonthValue() == appointmentDto.getStart().getMonthValue()) {
+				if(now.getDayOfMonth() == appointmentDto.getStart().getDayOfMonth()) {
 					message = "You can't cancel your appointment under 24h before it's beggining!";
-				}else if(now.getDayOfMonth() + 1 == appointment.getStart().getDayOfMonth()) { //ako je otkazujem dan prije
+				}else if(now.getDayOfMonth() + 1 == appointmentDto.getStart().getDayOfMonth()) { //ako je otkazujem dan prije
 					//provjeri sate i minute onda
-					if(now.getHour() > appointment.getStart().getHour()) {
+					if(now.getHour() > appointmentDto.getStart().getHour()) {
 						message = "You can't cancel your appointment under 24h before it's beggining!";
-					}else if(now.getHour() == appointment.getStart().getHour()) {
+					}else if(now.getHour() == appointmentDto.getStart().getHour()) {
 						//ovdje provjeri minute
-						if(now.getMinute() >  appointment.getStart().getMinute()) { //moze tacno 24 od pocetka da otkaze
+						if(now.getMinute() >  appointmentDto.getStart().getMinute()) { //moze tacno 24 od pocetka da otkaze
 							message = "You can't cancel your appointment under 24h before it's beggining!";
 						}
 					}
@@ -108,7 +115,7 @@ public class DerAppPatientController {
 		}
 		
 		if(message.equals("")) {
-			AppService.deleteDermatologicalApp(appointment);
+			AppService.deleteDermatologicalApp(appointmentDto);
 		}
 		
 		Gson gson = new GsonBuilder().create();

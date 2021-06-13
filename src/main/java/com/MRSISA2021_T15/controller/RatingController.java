@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.MRSISA2021_T15.dto.DermatologistDTO;
+import com.MRSISA2021_T15.dto.MedicineDTO;
+import com.MRSISA2021_T15.dto.PharmacistDTO;
+import com.MRSISA2021_T15.dto.PharmacyDTO;
 import com.MRSISA2021_T15.model.Dermatologist;
 import com.MRSISA2021_T15.model.Medicine;
 import com.MRSISA2021_T15.model.Patient;
@@ -73,9 +77,9 @@ public class RatingController {
 	
 	@PutMapping(value = "/rateDermatologist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>rateDermatologist(@RequestBody Dermatologist dermatologist){
+	public ResponseEntity<String>rateDermatologist(@RequestBody DermatologistDTO dermatologistDto){
 		
-		ratingService.saveDermatologist(dermatologist);
+		ratingService.saveDermatologist(dermatologistDto);
 		
 		Gson gson = new GsonBuilder().create();
 		return new ResponseEntity<String>(gson.toJson("Thank you for your review."), HttpStatus.OK);
@@ -84,9 +88,9 @@ public class RatingController {
 	
 	@PutMapping(value = "/ratePharmacist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>ratePharmaceut(@RequestBody Pharmacist pharmacist){
+	public ResponseEntity<String>ratePharmaceut(@RequestBody PharmacistDTO pharmacistDto){
 		
-		ratingService.savePharmacist(pharmacist);
+		ratingService.savePharmacist(pharmacistDto);
 		
 		Gson gson = new GsonBuilder().create();
 		return new ResponseEntity<String>(gson.toJson("Thank you for your review."), HttpStatus.OK);
@@ -96,9 +100,9 @@ public class RatingController {
 	
 	@PutMapping(value = "/ratePharmacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>ratePharmacy(@RequestBody Pharmacy pharmacy){
+	public ResponseEntity<String>ratePharmacy(@RequestBody PharmacyDTO pharmacyDto){
 		
-		ratingService.savePharmacy(pharmacy);
+		ratingService.savePharmacy(pharmacyDto);
 		
 		Gson gson = new GsonBuilder().create();
 		return new ResponseEntity<String>(gson.toJson("Thank you for your review."), HttpStatus.OK);
@@ -108,9 +112,9 @@ public class RatingController {
 	
 	@PutMapping(value = "/rateMedicine", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>rateMedicine(@RequestBody Medicine medicine){
+	public ResponseEntity<String>rateMedicine(@RequestBody MedicineDTO medicineDto){
 		
-		ratingService.saveMedicine(medicine);
+		ratingService.saveMedicine(medicineDto);
 		
 		Gson gson = new GsonBuilder().create();
 		return new ResponseEntity<String>(gson.toJson("Thank you for your review."), HttpStatus.OK);

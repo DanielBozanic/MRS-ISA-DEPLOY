@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.MRSISA2021_T15.model.AppointmentConsultationPoints;
-import com.MRSISA2021_T15.model.Category;
+import com.MRSISA2021_T15.dto.AppointmentConsultationPointsDTO;
+import com.MRSISA2021_T15.dto.CategoryDTO;
 import com.MRSISA2021_T15.model.CategoryName;
 import com.MRSISA2021_T15.service.LoyaltyProgramService;
 
@@ -24,8 +24,8 @@ public class LoyaltyProgramController {
 	
 	@PostMapping(value = "/defineCategories", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
-	public ResponseEntity<String> defineCategories(@RequestBody Category category) {
-		return loyaltyProgramService.defineCategories(category);
+	public ResponseEntity<String> defineCategories(@RequestBody CategoryDTO categoryDto) {
+		return loyaltyProgramService.defineCategories(categoryDto);
 	}
 	
 	@GetMapping(value = "/getCategoryNames", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,7 +36,7 @@ public class LoyaltyProgramController {
 	
 	@PostMapping(value = "/definePointsForAppointmentAndConsulation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
-	public ResponseEntity<String> definePointsForAppointmentAndConsulation(@RequestBody AppointmentConsultationPoints acp) {
-		return loyaltyProgramService.definePointsForAppointmentAndConsulation(acp);
+	public ResponseEntity<String> definePointsForAppointmentAndConsulation(@RequestBody AppointmentConsultationPointsDTO acpDto) {
+		return loyaltyProgramService.definePointsForAppointmentAndConsulation(acpDto);
 	}
 }

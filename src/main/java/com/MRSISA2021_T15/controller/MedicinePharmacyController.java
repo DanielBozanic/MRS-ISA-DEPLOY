@@ -1,5 +1,7 @@
 package com.MRSISA2021_T15.controller;
 
+import com.MRSISA2021_T15.dto.OrderedMedicineDTO;
+import com.MRSISA2021_T15.dto.ReservationItemDTO;
 import com.MRSISA2021_T15.model.*;
 import com.MRSISA2021_T15.service.MedicinePharmacyService;
 import com.MRSISA2021_T15.service.ReservationService;
@@ -72,12 +74,12 @@ public class MedicinePharmacyController {
 	
 	@PutMapping(value = "/orderMedicine", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>orderMedicine(@RequestBody OrderedMedicine order){
+	public ResponseEntity<String>orderMedicine(@RequestBody OrderedMedicineDTO orderDto){
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		String message = "";
-		mService.updateQuantity(order);
-		reservationService.saveReservation(patient, order);
+		mService.updateQuantity(orderDto);
+		reservationService.saveReservation(patient, orderDto);
 		
 		
 		Gson gson = new GsonBuilder().create();
@@ -100,22 +102,22 @@ public class MedicinePharmacyController {
 	
 	@PutMapping(value = "/cancelMedicine", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>cancelMedicine(@RequestBody ReservationItem reservationItem){
+	public ResponseEntity<String>cancelMedicine(@RequestBody ReservationItemDTO reservationItemDto){
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		String message = "";
 		LocalDateTime now = LocalDateTime.now();
-		if(now.getYear() == reservationItem.getReservation().getEnd().getYear()) {
-			if(now.getMonthValue() == reservationItem.getReservation().getEnd().getMonthValue()) {
-				if(now.getDayOfMonth() == reservationItem.getReservation().getEnd().getDayOfMonth()) {
+		if(now.getYear() == reservationItemDto.getReservation().getEnd().getYear()) {
+			if(now.getMonthValue() == reservationItemDto.getReservation().getEnd().getMonthValue()) {
+				if(now.getDayOfMonth() == reservationItemDto.getReservation().getEnd().getDayOfMonth()) {
 					message = "You can't cancel your appointment under 24h before it's beggining!";
-				}else if(now.getDayOfMonth() + 1 == reservationItem.getReservation().getEnd().getDayOfMonth()) { //ako je otkazujem dan prije
+				}else if(now.getDayOfMonth() + 1 == reservationItemDto.getReservation().getEnd().getDayOfMonth()) { //ako je otkazujem dan prije
 					//provjeri sate i minute onda
-					if(now.getHour() > reservationItem.getReservation().getEnd().getHour()) {
+					if(now.getHour() > reservationItemDto.getReservation().getEnd().getHour()) {
 						message = "You can't cancel your appointment under 24h before it's beggining!";
-					}else if(now.getHour() == reservationItem.getReservation().getEnd().getHour()) {
+					}else if(now.getHour() == reservationItemDto.getReservation().getEnd().getHour()) {
 						//ovdje provjeri minute
-						if(now.getMinute() >  reservationItem.getReservation().getEnd().getMinute()) { //moze tacno 24 od pocetka da otkaze
+						if(now.getMinute() >  reservationItemDto.getReservation().getEnd().getMinute()) { //moze tacno 24 od pocetka da otkaze
 							message = "You can't cancel your appointment under 24h before it's beggining!";
 						}
 					}
@@ -124,7 +126,7 @@ public class MedicinePharmacyController {
 		}
 		
 		if(message.equals("")) {
-			mService.deleteMedicine(reservationItem);
+			mService.deleteMedicine(reservationItemDto);
 		}
 		
 		

@@ -1,5 +1,7 @@
 package com.MRSISA2021_T15.service;
 
+import com.MRSISA2021_T15.dto.AppointmentDermatologistDTO;
+import com.MRSISA2021_T15.dto.AppointmentPharmacistDTO;
 import com.MRSISA2021_T15.model.*;
 import com.MRSISA2021_T15.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -527,23 +529,27 @@ public class AppointmentService {
 	}
 	
 	
-	public void deleteDermatologicalApp(AppointmentDermatologist appointment) {
-		Appointment app = appointmentRepository.findDerAppWithId(appointment.getId());
+	public void deleteDermatologicalApp(AppointmentDermatologistDTO appointmentDto) {
+		Appointment app = appointmentRepository.findDerAppWithId(appointmentDto.getId());
 		app.setPatient(null);
 		appointmentRepository.save(app);
 	}
 	
 	
 	//ovdje stavi upis u onu tabelu
-	public void deletePharmaciestApp(AppointmentPharmacist appoinment) {
-		appointmentRepository.delete(appoinment);
+	public void deletePharmaciestApp(AppointmentPharmacistDTO appointmentDto) {
+		Appointment app = appointmentRepository.findById(appointmentDto.getId()).orElse(null);
+		
+		if (app != null) {
+			appointmentRepository.delete(app);
+		}
 		
 		CanceledPharAppoinment canceled = new CanceledPharAppoinment();
-		canceled.setPatient(appoinment.getPatient());
-		canceled.setPharmacist(appoinment.getPharmacist());
-		canceled.setPharmacy(appoinment.getPharmacy());
-		canceled.setStart(appoinment.getStart());
-		canceled.setEnd(appoinment.getEnd());
+		canceled.setPatient(appointmentDto.getPatient());
+		canceled.setPharmacist(appointmentDto.getPharmacist());
+		canceled.setPharmacy(appointmentDto.getPharmacy());
+		canceled.setStart(appointmentDto.getStart());
+		canceled.setEnd(appointmentDto.getEnd());
 		
 		canceledRepository.save(canceled);
 		

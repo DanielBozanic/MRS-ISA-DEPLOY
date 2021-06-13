@@ -1,6 +1,5 @@
 package com.MRSISA2021_T15.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.MedicineSupplyDTO;
+import com.MRSISA2021_T15.dto.PurchaseOrderSupplierDTO;
+import com.MRSISA2021_T15.dto.SupplierDTO;
 import com.MRSISA2021_T15.model.Medicine;
 import com.MRSISA2021_T15.model.MedicineSupply;
 import com.MRSISA2021_T15.model.PurchaseOrder;
@@ -44,8 +46,8 @@ public class SupplierController {
 	
 	@PutMapping(value = "/updateSupplierData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
-	public ResponseEntity<String> updateSupplierData(@RequestBody Supplier supplier) {
-		supplierService.updateSupplierData(supplier);
+	public ResponseEntity<String> updateSupplierData(@RequestBody SupplierDTO supplierDto) {
+		supplierService.updateSupplierData(supplierDto);
 		Gson gson = new GsonBuilder().create();
 		return new ResponseEntity<String>(gson.toJson("Update successfull!"), HttpStatus.OK);
 	}
@@ -76,8 +78,8 @@ public class SupplierController {
 	
 	@PostMapping(value = "/writeOffer", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
-	public ResponseEntity<String> writeOffer(@RequestBody PurchaseOrderSupplier offer) {
-		String message = supplierService.writeOffer(offer);
+	public ResponseEntity<String> writeOffer(@RequestBody PurchaseOrderSupplierDTO offerDto) {
+		String message = supplierService.writeOffer(offerDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Offer sent successfully."), HttpStatus.OK);
@@ -112,8 +114,8 @@ public class SupplierController {
 	
 	@PutMapping(value = "/updateOffer", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
-	public ResponseEntity<String> updateOffer(@RequestBody PurchaseOrderSupplier offer) {
-		String message = supplierService.updateOffer(offer);
+	public ResponseEntity<String> updateOffer(@RequestBody PurchaseOrderSupplierDTO offerDto) {
+		String message = supplierService.updateOffer(offerDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Offer updated successfully."), HttpStatus.OK);
@@ -130,7 +132,7 @@ public class SupplierController {
 	
 	@PostMapping(value = "/updateMedicineStock", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
-	public ResponseEntity<String> updateMedicineStock(@RequestBody MedicineSupply medicineSupply) {
-		return supplierService.updateMedicineStock(medicineSupply);
+	public ResponseEntity<String> updateMedicineStock(@RequestBody MedicineSupplyDTO medicineSupplyDto) {
+		return supplierService.updateMedicineStock(medicineSupplyDto);
 	}
 }

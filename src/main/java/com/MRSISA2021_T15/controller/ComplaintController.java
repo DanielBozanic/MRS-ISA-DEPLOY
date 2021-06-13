@@ -17,6 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MRSISA2021_T15.model.Complaint;
+import com.MRSISA2021_T15.dto.ComplaintDTO;
+import com.MRSISA2021_T15.dto.ComplaintDermatologistDTO;
+import com.MRSISA2021_T15.dto.ComplaintPharmacistDTO;
+import com.MRSISA2021_T15.dto.ComplaintPharmacyDTO;
+import com.MRSISA2021_T15.dto.DermatologistDTO;
+import com.MRSISA2021_T15.dto.PharmacistDTO;
+import com.MRSISA2021_T15.dto.PharmacyDTO;
 import com.MRSISA2021_T15.model.Appointment;
 import com.MRSISA2021_T15.model.ComplaintDermatologist;
 import com.MRSISA2021_T15.model.ComplaintPharmacist;
@@ -131,12 +138,12 @@ public class ComplaintController {
 	
 	@PutMapping(value = "/checkDermatologist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>checkDermatologist(@RequestBody Dermatologist dermatologist){
+	public ResponseEntity<String>checkDermatologist(@RequestBody DermatologistDTO dermatologistDto){
 		String message = "";
 		boolean found = false;
 		
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<Patient>patients = service2.findAllDAwithPatientId(p.getId(), dermatologist.getId());
+		List<Patient>patients = service2.findAllDAwithPatientId(p.getId(), dermatologistDto.getId());
 		
 		if(!patients.isEmpty()) {
 			found = true;
@@ -155,12 +162,12 @@ public class ComplaintController {
 	
 	@PutMapping(value = "/checkPharmacist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>checkPharmacist(@RequestBody Pharmacist pharmacist){
+	public ResponseEntity<String>checkPharmacist(@RequestBody PharmacistDTO pharmacistDto){
 		String message = "";
 		boolean found = false;
 		
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<Patient>patients = service2.findAllPAwithPatientId(p.getId(), pharmacist.getId());
+		List<Patient>patients = service2.findAllPAwithPatientId(p.getId(), pharmacistDto.getId());
 		
 		
 		if(!patients.isEmpty()) {
@@ -181,7 +188,7 @@ public class ComplaintController {
 	
 	@PutMapping(value = "/checkPharmacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>checkPharmacy(@RequestBody Pharmacy pharmacy){
+	public ResponseEntity<String>checkPharmacy(@RequestBody PharmacyDTO pharmacyDto){
 		String message = "";
 		boolean found = false;
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -189,7 +196,7 @@ public class ComplaintController {
 		List<Appointment>appos = service2.findAllPatientsId(p.getId());
 		if(!appos.isEmpty()) {
 			for(Appointment a : appos) {
-				if(a.getPharmacy().getId().equals(pharmacy.getId())) {
+				if(a.getPharmacy().getId().equals(pharmacyDto.getId())) {
 					found = true;
 				}
 			}
@@ -209,16 +216,18 @@ public class ComplaintController {
 	
 	@PostMapping(value = "/addComplaintToDermatologist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String> addComplaintToDermatologist(@RequestBody ComplaintDermatologist complaint){
-		System.out.print(complaint.getText());
+	public ResponseEntity<String> addComplaintToDermatologist(@RequestBody ComplaintDermatologistDTO complaintDto){
+		System.out.print(complaintDto.getText());
 		
 		String message = "";
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ComplaintDermatologist complaint = new ComplaintDermatologist();
+		complaint.setText(complaintDto.getText());
 		complaint.setPatient(p);
 		
 		boolean found = false;
 		
-		Dermatologist derma = service3.findDermatologistWithId(complaint.getDermatologist().getId());
+		Dermatologist derma = service3.findDermatologistWithId(complaintDto.getDermatologist().getId());
 		if (derma!=null) {
 			found = true;
 			complaint.setDermatologist(derma);
@@ -243,11 +252,13 @@ public class ComplaintController {
 	//@PostMapping(value = "/addComplaintToPharmacist/{patientUsername}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PostMapping(value = "/addComplaintToPharmacist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String> addComplaintToPharmacist(@RequestBody ComplaintPharmacist complaint){
+	public ResponseEntity<String> addComplaintToPharmacist(@RequestBody ComplaintPharmacistDTO complaintDto){
 		
 		
 		String message = "";
 		Patient pa = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ComplaintPharmacist complaint = new ComplaintPharmacist();
+		complaint.setText(complaintDto.getText());
 		complaint.setPatient(pa);
 		
 		boolean found = false;
@@ -275,10 +286,12 @@ public class ComplaintController {
 	
 	@PostMapping(value = "/addComplaintToPharmacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String> addComplaintToPharmacy(@RequestBody ComplaintPharmacy complaint){
+	public ResponseEntity<String> addComplaintToPharmacy(@RequestBody ComplaintPharmacyDTO complaintDto){
 		
 		String message = "";
 		Patient pa = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ComplaintPharmacy complaint = new ComplaintPharmacy();
+		complaint.setText(complaintDto.getText());
 		complaint.setPatient(pa);
 		
 		boolean found = false;
@@ -318,8 +331,8 @@ public class ComplaintController {
 	
 	@PutMapping(value = "/sendResponse", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
-	public ResponseEntity<String> sendResponse(@RequestBody Complaint response) {
-		String message = service.sendResponse(response);
+	public ResponseEntity<String> sendResponse(@RequestBody ComplaintDTO responseDto) {
+		String message = service.sendResponse(responseDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Response has been sent successully."), HttpStatus.OK);

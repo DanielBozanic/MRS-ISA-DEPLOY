@@ -1,6 +1,7 @@
 package com.MRSISA2021_T15.controller;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.PharmacistDTO;
 import com.MRSISA2021_T15.model.Pharmacist;
 import com.MRSISA2021_T15.repository.PharmacistRepository;
 import com.google.gson.Gson;
@@ -32,8 +33,17 @@ public class PharmacistController {
 
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-	public @ResponseBody ResponseEntity addNewPharmacist(@RequestBody Pharmacist p) {
-		p.setPassword(encod.encode(p.getPassword()));
+	public @ResponseBody ResponseEntity addNewPharmacist(@RequestBody PharmacistDTO pDto) {
+		Pharmacist p = new Pharmacist();
+		p.setAddress(pDto.getAddress());
+		p.setCity(pDto.getCity());
+		p.setCountry(pDto.getCountry());
+		p.setEmail(pDto.getEmail().toLowerCase());
+		p.setName(pDto.getName());
+		p.setPhoneNumber(pDto.getPhoneNumber());
+		p.setSurname(pDto.getSurname());
+		p.setUsername(pDto.getUsername().toLowerCase());
+		p.setPassword(encod.encode(pDto.getPassword()));
 		p.setEnabled(true);
 		pharmacistRepository.save(p);
 		return ResponseEntity.ok().build();
@@ -92,15 +102,15 @@ public class PharmacistController {
 
 	@PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
-	public ResponseEntity<String> putPharmacist(@RequestBody Pharmacist p) {
+	public ResponseEntity<String> putPharmacist(@RequestBody PharmacistDTO pDto) {
 		Gson gson = new GsonBuilder().create();
 		Pharmacist pharm = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		pharm.setName(p.getName());
-		pharm.setSurname(p.getSurname());
-		pharm.setAddress(p.getAddress());
-		pharm.setCity(p.getCity());
-		pharm.setCountry(p.getCountry());
-		pharm.setPhoneNumber(p.getPhoneNumber());
+		pharm.setName(pDto.getName());
+		pharm.setSurname(pDto.getSurname());
+		pharm.setAddress(pDto.getAddress());
+		pharm.setCity(pDto.getCity());
+		pharm.setCountry(pDto.getCountry());
+		pharm.setPhoneNumber(pDto.getPhoneNumber());
 		pharmacistRepository.save(pharm);
 		return new ResponseEntity<String>(gson.toJson("Update Succesfull!"), HttpStatus.OK);
 	}

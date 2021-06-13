@@ -2,15 +2,15 @@ package com.MRSISA2021_T15.service;
 
 import org.springframework.http.ResponseEntity;
 
-import com.MRSISA2021_T15.model.AppointmentConsultationPoints;
-import com.MRSISA2021_T15.model.Category;
+import com.MRSISA2021_T15.dto.AppointmentConsultationPointsDTO;
+import com.MRSISA2021_T15.dto.CategoryDTO;
 import com.MRSISA2021_T15.model.CategoryName;
 
 public interface LoyaltyProgramService {
 	
-	ResponseEntity<String> defineCategories(Category category);
+	ResponseEntity<String> defineCategories(CategoryDTO categoryDto);
 		
 	CategoryName[] getCategoryNames();
 	
-	ResponseEntity<String> definePointsForAppointmentAndConsulation(AppointmentConsultationPoints appointmentConsultationPoints);
+	ResponseEntity<String> definePointsForAppointmentAndConsulation(AppointmentConsultationPointsDTO acpDto);
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.MRSISA2021_T15.dto.MedicineDTO;
 import com.MRSISA2021_T15.model.Medicine;
 import com.MRSISA2021_T15.model.MedicineForm;
 import com.MRSISA2021_T15.model.MedicineType;
@@ -35,7 +36,7 @@ public class MedicineServiceImpl implements MedicineService {
 
 	@Transactional
 	@Override
-	public String addMedicine(Medicine medicine) {
+	public String addMedicine(MedicineDTO medicineDto) {
 		String message = "";
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
@@ -43,11 +44,21 @@ public class MedicineServiceImpl implements MedicineService {
 			if (systemAdminDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 			} else {
-				if (medicineRepository.findByMedicineCode(medicine.getMedicineCode().toLowerCase()) != null) {
+				if (medicineRepository.findByMedicineCode(medicineDto.getMedicineCode().toLowerCase()) != null) {
 					message = "A medicine with this code already exists!";
 				} else {
+					Medicine medicine = new Medicine();
+					medicine.setAdditionalComments(medicineDto.getAdditionalComments());
+					medicine.setComposition(medicineDto.getComposition());
+					medicine.setForm(medicineDto.getForm());
+					medicine.setManufacturer(medicineDto.getManufacturer());
+					medicine.setMedicineType(medicineDto.getMedicineType());
+					medicine.setName(medicineDto.getName());
+					medicine.setPoints(medicineDto.getPoints());
+					medicine.setSubstituteMedicineIds(medicineDto.getSubstituteMedicineIds());
 					medicine.setMedicineCode(medicine.getMedicineCode().toLowerCase());
 					medicine.setPoints(Math.abs(medicine.getPoints()));
+					medicine.setPrescription(medicine.getPrescription());
 					medicineRepository.save(medicine);
 					List<Integer> substituteMedicineIds = medicine.getSubstituteMedicineIds();
 					if (substituteMedicineIds != null) {

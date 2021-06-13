@@ -46,6 +46,8 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.PatientDTO;
+import com.MRSISA2021_T15.dto.PharmacyDTO;
 import com.MRSISA2021_T15.model.Allergy;
 import com.MRSISA2021_T15.model.Category;
 import com.MRSISA2021_T15.model.CategoryName;
@@ -127,7 +129,7 @@ public class PatientService {
 		return repository.findAllPharmacist();
 	}
 	
-	public String updatePatientData(Patient p) {
+	public String updatePatientData(PatientDTO p) {
 		String message = "";
 		Patient currentUser = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser != null) {
@@ -165,7 +167,7 @@ public class PatientService {
 	}
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
-	public String subscribeToPharamacy(Pharmacy pharmacy) {
+	public String subscribeToPharamacy(PharmacyDTO pharmacyDto) {
 		String message = "";
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
@@ -173,16 +175,19 @@ public class PatientService {
 			if (!patientDb.isEnabled()) {
 				message = "You have not verified your account!";
 			} else {
-				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacy.getId(), patient.getId());
+				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacyDto.getId(), patient.getId());
 				if (patientSubPharmacy != null) {
 					patientSubPharmacy.setSubscribed(true);
 					patientSubPharmacyRepository.save(patientSubPharmacy);
 				} else {
 					PatientSubPharmacy psp = new PatientSubPharmacy();
 					psp.setPatient(patientDb);
-					psp.setPharmacy(pharmacy);
-					psp.setSubscribed(true);
-					patientSubPharmacyRepository.save(psp);
+					Pharmacy pharmacy = pharmacyRepository.findById(pharmacyDto.getId()).orElse(null);
+					if (pharmacy != null) {
+						psp.setPharmacy(pharmacy);
+						psp.setSubscribed(true);
+						patientSubPharmacyRepository.save(psp);
+					}
 				}
 			}
 		}
@@ -190,7 +195,7 @@ public class PatientService {
 	}
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
-	public String unsubscribeToPharamacy(Pharmacy pharmacy) {
+	public String unsubscribeToPharamacy(PharmacyDTO pharmacyDto) {
 		String message = "";
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
@@ -198,7 +203,7 @@ public class PatientService {
 			if (!patientDb.isEnabled()) {
 				message = "You have not verified your account!";
 			} else {
-				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacy.getId(), patient.getId());
+				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacyDto.getId(), patient.getId());
 				if (patientSubPharmacy != null) {
 					patientSubPharmacy.setSubscribed(false);
 					patientSubPharmacyRepository.save(patientSubPharmacy);

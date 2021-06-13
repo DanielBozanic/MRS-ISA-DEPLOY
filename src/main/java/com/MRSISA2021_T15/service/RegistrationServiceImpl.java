@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.MRSISA2021_T15.dto.ConfirmationToken;
+import com.MRSISA2021_T15.dto.DermatologistDTO;
+import com.MRSISA2021_T15.dto.PatientDTO;
+import com.MRSISA2021_T15.dto.PharmacyAdminDTO;
+import com.MRSISA2021_T15.dto.SupplierDTO;
+import com.MRSISA2021_T15.dto.SystemAdminDTO;
 import com.MRSISA2021_T15.model.CategoryName;
 import com.MRSISA2021_T15.model.Dermatologist;
 import com.MRSISA2021_T15.model.Patient;
@@ -49,16 +54,23 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Transactional
 	@Override
-	public String registerPatient(Patient patient) {
+	public String registerPatient(PatientDTO patientDto) {
 		String message = "";
-		if (registrationRepository.findByEmail(patient.getEmail().toLowerCase()) != null) {
+		if (registrationRepository.findByEmail(patientDto.getEmail().toLowerCase()) != null) {
 			message = "A user with this email already exists!";
-		} else if (registrationRepository.findByUsername(patient.getUsername().toLowerCase()) != null) {
+		} else if (registrationRepository.findByUsername(patientDto.getUsername().toLowerCase()) != null) {
 			message = "A user with this username already exists!";
 		} else {
-			patient.setUsername(patient.getUsername().toLowerCase());
-            patient.setEmail(patient.getEmail().toLowerCase());
-			patient.setPassword(passwordEncoder.encode(patient.getPassword()));
+			Patient patient = new Patient();
+			patient.setAddress(patientDto.getAddress());
+			patient.setCity(patientDto.getCity());
+			patient.setCountry(patientDto.getCountry());
+			patient.setName(patientDto.getName());
+			patient.setPhoneNumber(patientDto.getPhoneNumber());
+			patient.setSurname(patientDto.getSurname());
+			patient.setUsername(patientDto.getUsername().toLowerCase());
+            patient.setEmail(patientDto.getEmail().toLowerCase());
+			patient.setPassword(passwordEncoder.encode(patientDto.getPassword()));
 			patient.setEnabled(false);
 			patient.setFirstLogin(false);
 			patient.setCategoryName(CategoryName.REGULAR);
@@ -100,17 +112,24 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public String registerSystemAdmin(SystemAdmin systemAdmin) {
+	public String registerSystemAdmin(SystemAdminDTO systemAdminDto) {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
 			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 		} else {
-			if (registrationRepository.findByEmail(systemAdmin.getEmail().toLowerCase()) != null) {
+			if (registrationRepository.findByEmail(systemAdminDto.getEmail().toLowerCase()) != null) {
 				message = "A user with this email already exists!";
-			} else if (registrationRepository.findByUsername(systemAdmin.getUsername().toLowerCase()) != null) {
+			} else if (registrationRepository.findByUsername(systemAdminDto.getUsername().toLowerCase()) != null) {
 				message = "A user with this username already exists!";
 			} else {
+				SystemAdmin systemAdmin = new SystemAdmin();
+				systemAdmin.setAddress(systemAdminDto.getAddress());
+				systemAdmin.setCity(systemAdminDto.getCity());
+				systemAdmin.setCountry(systemAdminDto.getCountry());
+				systemAdmin.setName(systemAdminDto.getName());
+				systemAdmin.setPhoneNumber(systemAdminDto.getPhoneNumber());
+				systemAdmin.setSurname(systemAdminDto.getSurname());
 				systemAdmin.setUsername(systemAdmin.getUsername().toLowerCase());
 				systemAdmin.setEmail(systemAdmin.getEmail().toLowerCase());
 				systemAdmin.setPassword(passwordEncoder.encode(systemAdmin.getPassword()));
@@ -129,17 +148,24 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public String registerDermatologist(Dermatologist dermatologist) {
+	public String registerDermatologist(DermatologistDTO dermatologistDto) {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
 			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 		} else {
-			if (registrationRepository.findByEmail(dermatologist.getEmail().toLowerCase()) != null) {
+			if (registrationRepository.findByEmail(dermatologistDto.getEmail().toLowerCase()) != null) {
 				message = "A user with this email already exists!";
-			} else if (registrationRepository.findByUsername(dermatologist.getUsername().toLowerCase()) != null) {
+			} else if (registrationRepository.findByUsername(dermatologistDto.getUsername().toLowerCase()) != null) {
 				message = "A user with this username already exists!";
 			} else {
+				Dermatologist dermatologist = new Dermatologist();
+				dermatologist.setAddress(dermatologistDto.getAddress());
+				dermatologist.setCity(dermatologistDto.getCity());
+				dermatologist.setCountry(dermatologistDto.getCountry());
+				dermatologist.setName(dermatologistDto.getName());
+				dermatologist.setPhoneNumber(dermatologistDto.getPhoneNumber());
+				dermatologist.setSurname(dermatologistDto.getSurname());
 				dermatologist.setUsername(dermatologist.getUsername().toLowerCase());
 				dermatologist.setEmail(dermatologist.getEmail().toLowerCase());
 				dermatologist.setPassword(passwordEncoder.encode(dermatologist.getPassword()));
@@ -158,17 +184,24 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public String registerSupplier(Supplier supplier) {
+	public String registerSupplier(SupplierDTO supplierDto) {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
 			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 		} else {
-			if (registrationRepository.findByEmail(supplier.getEmail().toLowerCase()) != null) {
+			if (registrationRepository.findByEmail(supplierDto.getEmail().toLowerCase()) != null) {
 				message = "A user with this email already exists!";
-			} else if (registrationRepository.findByUsername(supplier.getUsername().toLowerCase()) != null) {
+			} else if (registrationRepository.findByUsername(supplierDto.getUsername().toLowerCase()) != null) {
 				message = "A user with this username already exists!";
 			} else {
+				Supplier supplier = new Supplier();
+				supplier.setAddress(supplierDto.getAddress());
+				supplier.setCity(supplierDto.getCity());
+				supplier.setCountry(supplierDto.getCountry());
+				supplier.setName(supplierDto.getName());
+				supplier.setPhoneNumber(supplierDto.getPhoneNumber());
+				supplier.setSurname(supplierDto.getSurname());
 				supplier.setUsername(supplier.getUsername().toLowerCase());
 				supplier.setEmail(supplier.getEmail().toLowerCase());
 				supplier.setPassword(passwordEncoder.encode(supplier.getPassword()));
@@ -187,17 +220,25 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public String registerPharmacyAdministrator(PharmacyAdmin pharmacyAdmin) {
+	public String registerPharmacyAdministrator(PharmacyAdminDTO pharmacyAdminDto) {
 		String message = "";
 		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
 			message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 		} else {
-			if (registrationRepository.findByEmail(pharmacyAdmin.getEmail().toLowerCase()) != null) {
+			if (registrationRepository.findByEmail(pharmacyAdminDto.getEmail().toLowerCase()) != null) {
 				message = "A user with this email already exists!";
-			} else if (registrationRepository.findByUsername(pharmacyAdmin.getUsername().toLowerCase()) != null) {
+			} else if (registrationRepository.findByUsername(pharmacyAdminDto.getUsername().toLowerCase()) != null) {
 				message = "A user with this username already exists!";
 			} else {
+				PharmacyAdmin pharmacyAdmin = new PharmacyAdmin();
+				pharmacyAdmin.setAddress(pharmacyAdminDto.getAddress());
+				pharmacyAdmin.setCity(pharmacyAdminDto.getCity());
+				pharmacyAdmin.setCountry(pharmacyAdminDto.getCountry());
+				pharmacyAdmin.setName(pharmacyAdminDto.getName());
+				pharmacyAdmin.setPhoneNumber(pharmacyAdminDto.getPhoneNumber());
+				pharmacyAdmin.setSurname(pharmacyAdminDto.getSurname());
+				pharmacyAdmin.setPharmacy(pharmacyAdminDto.getPharmacy());
 				pharmacyAdmin.setUsername(pharmacyAdmin.getUsername().toLowerCase());
 				pharmacyAdmin.setEmail(pharmacyAdmin.getEmail().toLowerCase());
 				pharmacyAdmin.setPassword(passwordEncoder.encode(pharmacyAdmin.getPassword()));

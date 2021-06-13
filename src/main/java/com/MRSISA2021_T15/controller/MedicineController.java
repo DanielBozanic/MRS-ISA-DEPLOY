@@ -1,5 +1,6 @@
 package com.MRSISA2021_T15.controller;
 
+import com.MRSISA2021_T15.dto.MedicineDTO;
 import com.MRSISA2021_T15.model.*;
 import com.MRSISA2021_T15.repository.*;
 import com.MRSISA2021_T15.service.MedicineService;
@@ -37,8 +38,8 @@ public class MedicineController {
 
 	@PostMapping(value = "/addMedicine", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
-	public ResponseEntity<String> addMedicine(@RequestBody Medicine medicine) {
-		String message = medicineService.addMedicine(medicine);
+	public ResponseEntity<String> addMedicine(@RequestBody MedicineDTO medicineDto) {
+		String message = medicineService.addMedicine(medicineDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("The medicine has been added successfully."), HttpStatus.OK);
@@ -130,24 +131,24 @@ public class MedicineController {
 	
 	@PutMapping(path="/{medicineId}/update")
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-	public ResponseEntity edit(@PathVariable Integer medicineId, @RequestBody Medicine m) throws NotFoundException {
+	public ResponseEntity edit(@PathVariable Integer medicineId, @RequestBody MedicineDTO mDto) throws NotFoundException {
 		Medicine med = medicineRepository.findById(medicineId).orElseThrow(() -> new NotFoundException("Ne postoji id"));
-		med.setName(m.getName());
-		med.setAdditionalComments(m.getAdditionalComments());
-		med.setComposition((m.getComposition()));
-		med.setForm(m.getForm());
-		med.setManufacturer(m.getManufacturer());
-		med.setMedicineCode(m.getMedicineCode());
-		med.setMedicineType(m.getMedicineType());
+		med.setName(mDto.getName());
+		med.setAdditionalComments(mDto.getAdditionalComments());
+		med.setComposition((mDto.getComposition()));
+		med.setForm(mDto.getForm());
+		med.setManufacturer(mDto.getManufacturer());
+		med.setMedicineCode(mDto.getMedicineCode());
+		med.setMedicineType(mDto.getMedicineType());
 		medicineRepository.save(med);
 		return ResponseEntity.ok().build();
 	}
 
 	@PutMapping(path="/{medicineId}/updateAdditionalComments")
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-	public ResponseEntity editAdditionalComments(@PathVariable Integer medicineId, @RequestBody Medicine m) throws NotFoundException {
+	public ResponseEntity editAdditionalComments(@PathVariable Integer medicineId, @RequestBody MedicineDTO mDto) throws NotFoundException {
 		Medicine med = medicineRepository.findById(medicineId).orElseThrow(() -> new NotFoundException("Ne postoji id"));
-		med.setAdditionalComments(m.getAdditionalComments());
+		med.setAdditionalComments(mDto.getAdditionalComments());
 		medicineRepository.save(med);
 		return ResponseEntity.ok().build();
 	}

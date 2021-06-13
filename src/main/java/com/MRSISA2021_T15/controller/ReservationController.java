@@ -1,7 +1,6 @@
 package com.MRSISA2021_T15.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.MRSISA2021_T15.model.Absence;
-import com.MRSISA2021_T15.model.Appointment;
-import com.MRSISA2021_T15.model.Reservation;
+import com.MRSISA2021_T15.dto.ReservationDTO;
 import com.MRSISA2021_T15.service.ReservationService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,8 +34,8 @@ public class ReservationController {
 	
 	@PostMapping(path="/post",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
-	public @ResponseBody ResponseEntity<String> createAbsencePharmacist(@RequestBody Reservation reservation) {
-		String message = service.giveOut(reservation);
+	public @ResponseBody ResponseEntity<String> createAbsencePharmacist(@RequestBody ReservationDTO reservationDto) {
+		String message = service.giveOut(reservationDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<String>(gson.toJson("Medicine succesfully given out."), HttpStatus.OK);

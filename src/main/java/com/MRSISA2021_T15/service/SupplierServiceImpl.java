@@ -14,6 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.MedicineSupplyDTO;
+import com.MRSISA2021_T15.dto.PurchaseOrderSupplierDTO;
+import com.MRSISA2021_T15.dto.SupplierDTO;
 import com.MRSISA2021_T15.model.MedicineSupply;
 import com.MRSISA2021_T15.model.OfferStatus;
 import com.MRSISA2021_T15.model.PurchaseOrder;
@@ -51,27 +54,27 @@ public class SupplierServiceImpl implements SupplierService {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
-	public void updateSupplierData(Supplier supplier) {
+	public void updateSupplierData(SupplierDTO supplierDto) {
 		Supplier currentUser = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Supplier updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).orElse(null);
 		if (updatedSupplier != null) {
-			if (!supplier.getName().equals("")) {
-				updatedSupplier.setName(supplier.getName());
+			if (!supplierDto.getName().equals("")) {
+				updatedSupplier.setName(supplierDto.getName());
 			}
-			if (!supplier.getSurname().equals("")) {
-				updatedSupplier.setSurname(supplier.getSurname());
+			if (!supplierDto.getSurname().equals("")) {
+				updatedSupplier.setSurname(supplierDto.getSurname());
 			}
-			if (!supplier.getAddress().equals("")) {
-				updatedSupplier.setAddress(supplier.getAddress());
+			if (!supplierDto.getAddress().equals("")) {
+				updatedSupplier.setAddress(supplierDto.getAddress());
 			}
-			if (!supplier.getCity().equals("")) {
-				updatedSupplier.setCity(supplier.getCity());
+			if (!supplierDto.getCity().equals("")) {
+				updatedSupplier.setCity(supplierDto.getCity());
 			}
-			if (!supplier.getCountry().equals("")) {
-				updatedSupplier.setCountry(supplier.getCountry());
+			if (!supplierDto.getCountry().equals("")) {
+				updatedSupplier.setCountry(supplierDto.getCountry());
 			}
-			if (!supplier.getPhoneNumber().equals("")) {
-				updatedSupplier.setPhoneNumber(supplier.getPhoneNumber());
+			if (!supplierDto.getPhoneNumber().equals("")) {
+				updatedSupplier.setPhoneNumber(supplierDto.getPhoneNumber());
 			}
 			userRepository.save(updatedSupplier);
 		}
@@ -118,21 +121,21 @@ public class SupplierServiceImpl implements SupplierService {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
-	public String writeOffer(PurchaseOrderSupplier offer) {
+	public String writeOffer(PurchaseOrderSupplierDTO offerDto) {
 		String message = "";
 		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb !=  null) {
 			if (supplierDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
-			} else if (offer.getPurchaseOrder().getDueDateOffer().isBefore(LocalDate.now())) {
+			} else if (offerDto.getPurchaseOrder().getDueDateOffer().isBefore(LocalDate.now())) {
 				message = "Due date for purchase order has passed!";
-			} else if (LocalDate.now().isAfter(offer.getDeliveryDate())) {
+			} else if (LocalDate.now().isAfter(offerDto.getDeliveryDate())) {
 				message = "Delivery date must be after today's date!";
 			} else {
-				PurchaseOrderSupplier pos = purchaseOrderSupplierRepository.findBySupplierIdAndPurchaseOrderId(offer.getPurchaseOrder().getId(), supplier.getId());
+				PurchaseOrderSupplier pos = purchaseOrderSupplierRepository.findBySupplierIdAndPurchaseOrderId(offerDto.getPurchaseOrder().getId(), supplier.getId());
 				if (pos == null) {
-					List<PurchaseOrderMedicine> medicine = purchaseOrderMedicineRepository.findAllByPurchaseOrder(offer.getPurchaseOrder());
+					List<PurchaseOrderMedicine> medicine = purchaseOrderMedicineRepository.findAllByPurchaseOrder(offerDto.getPurchaseOrder());
 					List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplier.getId());
 					boolean offerOk = true;
 					for (PurchaseOrderMedicine pom : medicine) {
@@ -147,6 +150,9 @@ public class SupplierServiceImpl implements SupplierService {
 						}
 					}
 					if (offerOk) {
+						PurchaseOrderSupplier offer = new PurchaseOrderSupplier();
+						offer.setDeliveryDate(offerDto.getDeliveryDate());
+						offer.setPrice(offerDto.getPrice());
 						offer.setOfferStatus(OfferStatus.PENDING);
 						offer.setSupplier(supplierDb);
 						offer.setPrice(Math.abs(offer.getPrice()));
@@ -182,7 +188,7 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
-	public String updateOffer(PurchaseOrderSupplier offer) {
+	public String updateOffer(PurchaseOrderSupplierDTO offerDto) {
 		String message = "";
 		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
@@ -190,18 +196,18 @@ public class SupplierServiceImpl implements SupplierService {
 			if (supplierDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 			} else {
-				PurchaseOrderSupplier offerToUpdate = purchaseOrderSupplierRepository.findByIdAndSupplierIdPessimisticWrite(offer.getId(), supplier.getId());
+				PurchaseOrderSupplier offerToUpdate = purchaseOrderSupplierRepository.findByIdAndSupplierIdPessimisticWrite(offerDto.getId(), supplier.getId());
 				if (offerToUpdate != null) {
-					if (LocalDate.now().isAfter(offer.getDeliveryDate())) {
+					if (LocalDate.now().isAfter(offerDto.getDeliveryDate())) {
 						message = "Delivery date must be after today's date!";
 					} else if (offerToUpdate.getPurchaseOrder().getDueDateOffer().isBefore(LocalDate.now())) {
 						message = "Due date for purchase order has passed!";
 					} else {
-						if (offer.getPrice() != null) {
-							offerToUpdate.setPrice(Math.abs(offer.getPrice()));
+						if (offerDto.getPrice() != null) {
+							offerToUpdate.setPrice(Math.abs(offerDto.getPrice()));
 						}
-						if (offer.getDeliveryDate() != null) {
-							offerToUpdate.setDeliveryDate(offer.getDeliveryDate());
+						if (offerDto.getDeliveryDate() != null) {
+							offerToUpdate.setDeliveryDate(offerDto.getDeliveryDate());
 						}
 						purchaseOrderSupplierRepository.save(offerToUpdate);
 					}
@@ -215,7 +221,7 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED) 
 	@Override
-	public ResponseEntity<String> updateMedicineStock(MedicineSupply medicineSupply) {
+	public ResponseEntity<String> updateMedicineStock(MedicineSupplyDTO medicineSupplyDto) {
 		String message = "";
 		Gson gson = new GsonBuilder().create();
 		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -225,22 +231,24 @@ public class SupplierServiceImpl implements SupplierService {
 				message = "You are logging in for the first time, you must change password before you can use this functionality!";
 				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
-				MedicineSupply ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(medicineSupply.getMedicine().getMedicineCode(), supplier.getId());
+				MedicineSupply ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(medicineSupplyDto.getMedicine().getMedicineCode(), supplier.getId());
 				if (ms != null) {
 					List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplier.getId());
 					Integer sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(ms.getMedicine().getId(), pendingPurchaseOrderIds);
 					if (sum == null) {
 						sum = 0;
 					}
-					if (sum > Math.abs(medicineSupply.getQuantity())) {
+					if (sum > Math.abs(medicineSupplyDto.getQuantity())) {
 						message = "This medicine has more pending offers than entered quantity!";
 						return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 					} else {
-						ms.setQuantity(Math.abs(medicineSupply.getQuantity()));
+						ms.setQuantity(Math.abs(medicineSupplyDto.getQuantity()));
 						medicineSupplyRepository.save(ms);
 						message = "Medicine stock updated.";
 					}
 				} else {
+					MedicineSupply medicineSupply = new MedicineSupply();
+					medicineSupply.setMedicine(medicineSupplyDto.getMedicine());
 					medicineSupply.setSupplier(supplier);
 					medicineSupply.setQuantity(Math.abs(medicineSupply.getQuantity()));
 					medicineSupplyRepository.save(medicineSupply);

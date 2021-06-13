@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.MedicineSupplyDTO;
+import com.MRSISA2021_T15.dto.PurchaseOrderSupplierDTO;
+import com.MRSISA2021_T15.dto.SupplierDTO;
 import com.MRSISA2021_T15.model.MedicineSupply;
 import com.MRSISA2021_T15.model.PurchaseOrder;
 import com.MRSISA2021_T15.model.PurchaseOrderMedicine;
@@ -13,7 +16,7 @@ import com.MRSISA2021_T15.model.Supplier;
 
 public interface SupplierService {
 	
-	void updateSupplierData(Supplier supplier);
+	void updateSupplierData(SupplierDTO supplierDto);
 	
 	String updatePassword(ChangePassword passwords);
 	
@@ -25,14 +28,14 @@ public interface SupplierService {
 	
 	List<PurchaseOrderMedicine> getPurchaseOrdersMedicine(PurchaseOrder purchaseOrder);
 	
-	String writeOffer(PurchaseOrderSupplier offer);
+	String writeOffer(PurchaseOrderSupplierDTO offerDto);
 	
 	List<PurchaseOrderSupplier> getOffersBySupplier();
 	
 	List<PurchaseOrderSupplier> getPendingOffersBySupplier();
 	
-	String updateOffer(PurchaseOrderSupplier offer);
+	String updateOffer(PurchaseOrderSupplierDTO offerDto);
 
-	ResponseEntity<String> updateMedicineStock(MedicineSupply medicineSupply);
+	ResponseEntity<String> updateMedicineStock(MedicineSupplyDTO medicineSupplyDto);
 
 }

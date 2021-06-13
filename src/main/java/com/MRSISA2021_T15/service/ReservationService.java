@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.MRSISA2021_T15.dto.OrderedMedicineDTO;
+import com.MRSISA2021_T15.dto.ReservationDTO;
 import com.MRSISA2021_T15.model.Category;
 import com.MRSISA2021_T15.model.CategoryName;
 import com.MRSISA2021_T15.model.Employment;
@@ -89,9 +91,12 @@ public class ReservationService {
 		return list;
 	}
 	
-	public String giveOut(Reservation reservation) {
-		reservation.setPickedUp(LocalDateTime.now());
-		resRepo.save(reservation);
+	public String giveOut(ReservationDTO reservationDto) {
+		Reservation reservation = resRepo.findById(reservationDto.getId()).orElse(null);
+		if (reservation != null) {
+			reservation.setPickedUp(LocalDateTime.now());
+			resRepo.save(reservation);
+		}
 		
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(reservation.getPatient().getEmail());
@@ -106,7 +111,11 @@ public class ReservationService {
 	
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
-	public void saveReservation(Patient patient, OrderedMedicine order) {
+	public void saveReservation(Patient patient, OrderedMedicineDTO orderDto) {
+		OrderedMedicine order = new OrderedMedicine();
+		order.setAmount(orderDto.getAmount());
+		order.setMedicinePharmacy(orderDto.getMedicinePharmacy());
+		order.setUntil(orderDto.getUntil());
 		MedicineQuantity mq = new MedicineQuantity();
 		mq.setMedicine(order.getMedicinePharmacy().getMedicine());
 		mq.setQuantity(order.getAmount());

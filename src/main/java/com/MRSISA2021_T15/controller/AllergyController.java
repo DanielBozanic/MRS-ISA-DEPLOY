@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.MRSISA2021_T15.dto.MedicineDTO;
 import com.MRSISA2021_T15.model.Allergy;
 import com.MRSISA2021_T15.model.Dermatologist;
 import com.MRSISA2021_T15.model.Medicine;
@@ -31,6 +32,7 @@ import com.MRSISA2021_T15.model.Patient;
 import com.MRSISA2021_T15.model.Pharmacy;
 import com.MRSISA2021_T15.model.PharmacyAdmin;
 import com.MRSISA2021_T15.repository.MedicineNeededRepository;
+import com.MRSISA2021_T15.repository.MedicineRepository;
 import com.MRSISA2021_T15.repository.UserRepository;
 import com.MRSISA2021_T15.service.AllergyService;
 import com.MRSISA2021_T15.service.EmailSenderService;
@@ -58,6 +60,9 @@ public class AllergyController {
 	
 	@Autowired
 	UserRepository adminsrepo;
+	
+	@Autowired
+	MedicineRepository medicineRepository;
 	
 	@Autowired
 	JavaMailSender emailsending;
@@ -223,9 +228,12 @@ public class AllergyController {
 	
 	@PutMapping(value = "/addAllergy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	public ResponseEntity<String>addAllergy(@RequestBody Medicine medicine){
+	public ResponseEntity<String>addAllergy(@RequestBody MedicineDTO medicineDto){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		service.addAllergy(medicine, p);
+		Medicine medicine = medicineRepository.findById(medicineDto.getId()).orElse(null);
+		if (medicine != null) {
+			service.addAllergy(medicine, p);
+		}
 		Gson gson = new GsonBuilder().create();
 		return new ResponseEntity<String>(gson.toJson("You added new allergy."), HttpStatus.OK);
 		

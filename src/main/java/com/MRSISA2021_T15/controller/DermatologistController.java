@@ -2,6 +2,7 @@ package com.MRSISA2021_T15.controller;
 
 
 import com.MRSISA2021_T15.dto.ChangePassword;
+import com.MRSISA2021_T15.dto.DermatologistDTO;
 import com.MRSISA2021_T15.model.Dermatologist;
 import com.MRSISA2021_T15.repository.DermatologistRepository;
 import com.google.gson.Gson;
@@ -84,15 +85,15 @@ public class DermatologistController {
 
     @PutMapping(value="/update", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
-	public ResponseEntity<String> putDermatologist(@RequestBody Dermatologist d){
+	public ResponseEntity<String> putDermatologist(@RequestBody DermatologistDTO derDto){
     	Gson gson = new GsonBuilder().create();
 		Dermatologist pharm = (Dermatologist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		pharm.setName(d.getName());
-		pharm.setSurname(d.getSurname());
-		pharm.setAddress(d.getAddress());
-		pharm.setCity(d.getCity());
-		pharm.setCountry(d.getCountry());
-		pharm.setPhoneNumber(d.getPhoneNumber());
+		pharm.setName(derDto.getName());
+		pharm.setSurname(derDto.getSurname());
+		pharm.setAddress(derDto.getAddress());
+		pharm.setCity(derDto.getCity());
+		pharm.setCountry(derDto.getCountry());
+		pharm.setPhoneNumber(derDto.getPhoneNumber());
 		dermatologistRepository.save(pharm);
 		return new ResponseEntity<String>(gson.toJson("Update Succesfull!"), HttpStatus.OK);
 	}

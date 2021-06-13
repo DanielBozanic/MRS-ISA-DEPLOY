@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.MRSISA2021_T15.dto.AppointmentConsultationPointsDTO;
+import com.MRSISA2021_T15.dto.CategoryDTO;
 import com.MRSISA2021_T15.model.AppointmentConsultationPoints;
 import com.MRSISA2021_T15.model.Category;
 import com.MRSISA2021_T15.model.CategoryName;
@@ -32,7 +34,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
-	public ResponseEntity<String> defineCategories(Category category) {
+	public ResponseEntity<String> defineCategories(CategoryDTO categoryDto) {
 		String message = "";
 		Gson gson = new GsonBuilder().create();
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -42,15 +44,17 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
-				Category ca = categoryRepository.findByCategoryName(category.getCategoryName());
+				Category ca = categoryRepository.findByCategoryName(categoryDto.getCategoryName());
 				if (ca != null) {
-					ca.setDiscount(Math.abs(category.getDiscount()));
-					ca.setRequiredNumberOfPoints(Math.abs(category.getRequiredNumberOfPoints()));
+					ca.setDiscount(Math.abs(categoryDto.getDiscount()));
+					ca.setRequiredNumberOfPoints(Math.abs(categoryDto.getRequiredNumberOfPoints()));
 					categoryRepository.save(ca);
 					message = "Category information updated.";
 				} else {
-					category.setDiscount(Math.abs(category.getDiscount()));
-					category.setRequiredNumberOfPoints(Math.abs(category.getRequiredNumberOfPoints()));
+					Category category = new Category();
+					category.setCategoryName(categoryDto.getCategoryName());
+					category.setDiscount(Math.abs(categoryDto.getDiscount()));
+					category.setRequiredNumberOfPoints(Math.abs(categoryDto.getRequiredNumberOfPoints()));
 					categoryRepository.save(category);
 					message = "Category successfully defined.";
 				}
@@ -61,7 +65,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
-	public ResponseEntity<String> definePointsForAppointmentAndConsulation(AppointmentConsultationPoints appointmentConsultationPoints) {
+	public ResponseEntity<String> definePointsForAppointmentAndConsulation(AppointmentConsultationPointsDTO acpDto) {
 		String message = "";
 		Gson gson = new GsonBuilder().create();
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -71,15 +75,17 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
-				AppointmentConsultationPoints acp = appointmentConsultationPointsRepository.findByType(appointmentConsultationPoints.getType());
+				AppointmentConsultationPoints acp = appointmentConsultationPointsRepository.findByType(acpDto.getType());
 				if (acp != null) {
-					acp.setPoints(Math.abs(appointmentConsultationPoints.getPoints()));
+					acp.setPoints(Math.abs(acpDto.getPoints()));
 					appointmentConsultationPointsRepository.save(acp);
-					message = "Points for " + appointmentConsultationPoints.getType() + " successfully updated.";
+					message = "Points for " + acpDto.getType() + " successfully updated.";
 				} else {
-					appointmentConsultationPoints.setPoints(Math.abs(appointmentConsultationPoints.getPoints()));
-					appointmentConsultationPointsRepository.save(appointmentConsultationPoints);
-					message = "Points for " + appointmentConsultationPoints.getType() + " successfully defined.";
+					AppointmentConsultationPoints acpNew = new AppointmentConsultationPoints();
+					acpNew.setType(acpDto.getType());
+					acpNew.setPoints(Math.abs(acpDto.getPoints()));
+					appointmentConsultationPointsRepository.save(acpNew);
+					message = "Points for " + acpNew.getType() + " successfully defined.";
 				}
 			}
 		}

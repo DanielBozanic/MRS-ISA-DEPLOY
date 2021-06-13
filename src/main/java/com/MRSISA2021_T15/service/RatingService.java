@@ -9,6 +9,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.MRSISA2021_T15.dto.DermatologistDTO;
+import com.MRSISA2021_T15.dto.MedicineDTO;
+import com.MRSISA2021_T15.dto.PharmacistDTO;
+import com.MRSISA2021_T15.dto.PharmacyDTO;
 import com.MRSISA2021_T15.model.AppointmentDermatologist;
 import com.MRSISA2021_T15.model.AppointmentPharmacist;
 import com.MRSISA2021_T15.model.Dermatologist;
@@ -93,42 +97,42 @@ public class RatingService {
 	}
 	
 	
-	public void saveDermatologist(Dermatologist dermatologist) {
-		Dermatologist der = userRepository.findDermatologistWithId(dermatologist.getId());
+	public void saveDermatologist(DermatologistDTO dermatologistDto) {
+		Dermatologist der = userRepository.findDermatologistWithId(dermatologistDto.getId());
 		if(der != null) {
-			der.setRating(dermatologist.getRating());
-			der.setNumOfRating(dermatologist.getNumOfRating());
+			der.setRating(dermatologistDto.getRating());
+			der.setNumOfRating(dermatologistDto.getNumOfRating());
 			userRepository.save(der);
 		}
 		
 	}
 	
-	public void savePharmacist(Pharmacist pharmacist) {
-		Pharmacist phar = userRepository.findPharmacistWithId(pharmacist.getId());
+	public void savePharmacist(PharmacistDTO pharmacistDto) {
+		Pharmacist phar = userRepository.findPharmacistWithId(pharmacistDto.getId());
 		if(phar != null) {
-			phar.setRating(pharmacist.getRating());
-			phar.setNumOfRating(pharmacist.getNumOfRating());
+			phar.setRating(pharmacistDto.getRating());
+			phar.setNumOfRating(pharmacistDto.getNumOfRating());
 			userRepository.save(phar);
 		}
 	}
 	
 	
-	public void savePharmacy(Pharmacy pharmacy) {
-		Pharmacy phar = pharmacyRepository.findPharmacyWithId(pharmacy.getId());
+	public void savePharmacy(PharmacyDTO pharmacyDto) {
+		Pharmacy phar = pharmacyRepository.findPharmacyWithId(pharmacyDto.getId());
 		if(phar != null) {
-			phar.setRating(pharmacy.getRating());
-			phar.setNumOfRating(pharmacy.getNumOfRating());
-			pharmacyRepository.save(pharmacy);
+			phar.setRating(pharmacyDto.getRating());
+			phar.setNumOfRating(pharmacyDto.getNumOfRating());
+			pharmacyRepository.save(phar);
 		}
 		
 	}
 	
 	
-	public void saveMedicine(Medicine medicine) {
-		Medicine med = medicineRepository.findMedicineWithId(medicine.getId());
+	public void saveMedicine(MedicineDTO medicineDto) {
+		Medicine med = medicineRepository.findMedicineWithId(medicineDto.getId());
 		if(med != null) {
-			med.setAverageRating(medicine.getAverageRating());
-			med.setNumOfRating(medicine.getNumOfRating());
+			med.setAverageRating(medicineDto.getAverageRating());
+			med.setNumOfRating(medicineDto.getNumOfRating());
 			medicineRepository.save(med);
 		}
 	}
