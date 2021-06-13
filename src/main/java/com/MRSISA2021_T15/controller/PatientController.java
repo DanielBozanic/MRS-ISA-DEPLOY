@@ -48,9 +48,9 @@ public class PatientController {
 		String message = service.updatePatientData(patientDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Update successfull."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Update successfull."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -60,9 +60,9 @@ public class PatientController {
 		String message = service.updatePassword(passwords);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(""), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(""), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -71,7 +71,7 @@ public class PatientController {
 	public ResponseEntity<String> subscribeToPharamacy(@RequestBody PharmacyDTO pharmacyDto) {
 		service.subscribeToPharamacy(pharmacyDto);
 		Gson gson = new GsonBuilder().create();	
-		return new ResponseEntity<String>(gson.toJson("Subscribed to pharmacy successfully."), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("Subscribed to pharmacy successfully."), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/unsubscribeToPharamacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -79,7 +79,7 @@ public class PatientController {
 	public ResponseEntity<String> unsubscribeToPharamacy(@RequestBody PharmacyDTO pharmacyDto) {
 		service.unsubscribeToPharamacy(pharmacyDto);
 		Gson gson = new GsonBuilder().create();	
-		return new ResponseEntity<String>(gson.toJson("Unsubscribed from pharmacy successfully."), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("Unsubscribed from pharmacy successfully."), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/getSubscribedPharmacies", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -100,9 +100,9 @@ public class PatientController {
 		String message = service.issueEReceipt(eReceiptSearch);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Medicine issued successfully."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Medicine issued successfully."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

@@ -108,10 +108,10 @@ public class ComplaintController {
 		
 		Gson gson = new GsonBuilder().create();
 		if(found) {
-			return new ResponseEntity<String>(gson.toJson(inputComplaint), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(inputComplaint), HttpStatus.OK);
 		}else {
 			message = "Patient didn't have an appointment with this dermatologist.";
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
@@ -133,10 +133,10 @@ public class ComplaintController {
 		
 		Gson gson = new GsonBuilder().create();
 		if(found) {
-			return new ResponseEntity<String>(gson.toJson(inputComplaint), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(inputComplaint), HttpStatus.OK);
 		}else {
 			message = "Patient didn't have an appointment with this pharmacist.";
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
@@ -161,10 +161,10 @@ public class ComplaintController {
 		
 		Gson gson = new GsonBuilder().create();
 		if(found) {
-			return new ResponseEntity<String>(gson.toJson(inputComplaint), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(inputComplaint), HttpStatus.OK);
 		}else {
 			message = "Patient didn't have an appointment in this pharmacy.";
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
@@ -195,9 +195,9 @@ public class ComplaintController {
 		
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(sent), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(sent), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		
@@ -232,9 +232,9 @@ public class ComplaintController {
 		
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(sent), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(sent), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
@@ -265,9 +265,9 @@ public class ComplaintController {
 		
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(sent), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(sent), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
@@ -290,9 +290,9 @@ public class ComplaintController {
 		String message = service.sendResponse(responseDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Response has been sent successully."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Response has been sent successully."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

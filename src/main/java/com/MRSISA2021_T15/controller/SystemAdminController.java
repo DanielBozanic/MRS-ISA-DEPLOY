@@ -28,9 +28,9 @@ public class SystemAdminController {
 		String message = systemAdminService.updatePassword(passwords);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Password updated successfully."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Password updated successfully."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

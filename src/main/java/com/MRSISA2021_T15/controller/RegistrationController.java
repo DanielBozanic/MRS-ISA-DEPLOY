@@ -36,9 +36,9 @@ public class RegistrationController {
 		String message = registrationService.registerPatient(patientDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Registration successfull. To log on you need to verify your email address."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Registration successfull. To log on you need to verify your email address."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -53,9 +53,9 @@ public class RegistrationController {
 		String message = registrationService.registerSystemAdmin(systemAdminDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(success), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(success), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -65,9 +65,9 @@ public class RegistrationController {
 		String message = registrationService.registerDermatologist(dermatologistDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(success), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(success), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -77,9 +77,9 @@ public class RegistrationController {
 		String message = registrationService.registerSupplier(supplierDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(success), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(success), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -89,9 +89,9 @@ public class RegistrationController {
 		String message = registrationService.registerPharmacyAdministrator(pharmacyAdminDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(success), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(success), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

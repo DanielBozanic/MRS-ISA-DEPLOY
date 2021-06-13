@@ -69,7 +69,7 @@ public class DerAppPatientController {
 		AppService.saveDerApp(appointment);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("You scheduled an appointment with dermatologist."), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("You scheduled an appointment with dermatologist."), HttpStatus.OK);
 	}
 	
 	
@@ -120,9 +120,9 @@ public class DerAppPatientController {
 		
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("You canceled your appointment with dermatologist!"), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("You canceled your appointment with dermatologist!"), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

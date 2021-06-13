@@ -49,7 +49,7 @@ public class SupplierController {
 	public ResponseEntity<String> updateSupplierData(@RequestBody SupplierDTO supplierDto) {
 		supplierService.updateSupplierData(supplierDto);
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("Update successfull!"), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("Update successfull!"), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/updatePassword", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,9 +58,9 @@ public class SupplierController {
 		String message = supplierService.updatePassword(passwords);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson(""), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson(""), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -82,9 +82,9 @@ public class SupplierController {
 		String message = supplierService.writeOffer(offerDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Offer sent successfully."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Offer sent successfully."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -118,9 +118,9 @@ public class SupplierController {
 		String message = supplierService.updateOffer(offerDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Offer updated successfully."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Offer updated successfully."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

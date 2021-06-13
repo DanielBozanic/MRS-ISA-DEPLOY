@@ -112,7 +112,7 @@ public class PharmacistController {
 		pharm.setCountry(pDto.getCountry());
 		pharm.setPhoneNumber(pDto.getPhoneNumber());
 		pharmacistRepository.save(pharm);
-		return new ResponseEntity<String>(gson.toJson("Update Succesfull!"), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("Update Succesfull!"), HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/updatePassword", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -122,17 +122,17 @@ public class PharmacistController {
 		Gson gson = new GsonBuilder().create();
 		if (p != null) {
 			if (!encoder.matches(passwords.getOldPassword(), p.getPassword())) {
-				return new ResponseEntity<String>(gson.toJson("Wrong old password!"), HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(gson.toJson("Wrong old password!"), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
 				if (p.getFirstLogin()) {
 					p.setFirstLogin(false);
 				}
 				p.setPassword(encoder.encode(passwords.getPassword()));
 				pharmacistRepository.save(p);
-				return new ResponseEntity<String>(gson.toJson(""), HttpStatus.OK);
+				return new ResponseEntity<>(gson.toJson(""), HttpStatus.OK);
 			}
 		} else {
-			return new ResponseEntity<String>(gson.toJson("Password update unsuccessfull!"),
+			return new ResponseEntity<>(gson.toJson("Password update unsuccessfull!"),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

@@ -47,9 +47,9 @@ public class AppointmentController {
 		String message = service.makeAppointmentPharmacist(appointment);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Appointment succesfully created."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Appointment succesfully created."), HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@PostMapping(path="/dermatologist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -66,9 +66,9 @@ public class AppointmentController {
 		String message = service.makeAppointmentDermatologist(appointment);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Appointment succesfully created."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Appointment succesfully created."), HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@PutMapping(path="/dermatologistPredefined/{appointmentId}",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,9 +81,9 @@ public class AppointmentController {
 		}
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Appointment succesfully assigned to patient."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Appointment succesfully assigned to patient."), HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping(path="/getPharmacist/id={id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -123,9 +123,9 @@ public class AppointmentController {
 		String message = service.endAppointment(appointment.getAppointment(), appointment.getMeds(), appointment.getComments());
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Appointment succesfully ended, information is saved."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Appointment succesfully ended, information is saved."), HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@PostMapping(path="/endAppointmentDermatologist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -135,9 +135,9 @@ public class AppointmentController {
 		String message = service.endAppointment(appointment.getAppointment(), appointment.getMeds(), appointment.getComments());
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Appointment succesfully ended, information is saved."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Appointment succesfully ended, information is saved."), HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping(path="/employmentsDermatologist", produces = MediaType.APPLICATION_JSON_VALUE)

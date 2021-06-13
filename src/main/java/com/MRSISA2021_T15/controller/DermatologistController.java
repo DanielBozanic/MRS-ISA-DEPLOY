@@ -28,17 +28,7 @@ public class DermatologistController {
     
     @Autowired
 	private PasswordEncoder encod;
-/*
-    @RequestMapping(path="/add", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-    public @ResponseBody ResponseEntity addNewDermatologist (@RequestBody Dermatologist d) {
 
-        d.setPassword(encod.encode(d.getPassword()));
-        d.setEnabled(true);
-        dermatologistRepository.save(d);
-        return ResponseEntity.ok().build();
-    }
-*/
     @DeleteMapping(path = "/{dermatologistId}/delete")
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
     public void deleteDermatologist(@PathVariable Integer dermatologistId) {
@@ -46,7 +36,6 @@ public class DermatologistController {
     }
 
     @GetMapping(path="/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    //@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
     public @ResponseBody Iterable<Dermatologist> getAllDermatologists() {
         return dermatologistRepository.findAll();
     }
@@ -95,7 +84,7 @@ public class DermatologistController {
 		pharm.setCountry(derDto.getCountry());
 		pharm.setPhoneNumber(derDto.getPhoneNumber());
 		dermatologistRepository.save(pharm);
-		return new ResponseEntity<String>(gson.toJson("Update Succesfull!"), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("Update Succesfull!"), HttpStatus.OK);
 	}
     
     @PutMapping(value = "/updatePassword", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -105,17 +94,17 @@ public class DermatologistController {
 		Gson gson = new GsonBuilder().create();
 		if (p != null) {
 			if (!encod.matches(passwords.getOldPassword(), p.getPassword())) {
-				return new ResponseEntity<String>(gson.toJson("Wrong old password!"), HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(gson.toJson("Wrong old password!"), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
 				if (p.getFirstLogin()) {
 					p.setFirstLogin(false);
 				}
 				p.setPassword(encod.encode(passwords.getPassword()));
 				dermatologistRepository.save(p);
-				return new ResponseEntity<String>(gson.toJson(""), HttpStatus.OK);
+				return new ResponseEntity<>(gson.toJson(""), HttpStatus.OK);
 			}
 		} else {
-			return new ResponseEntity<String>(gson.toJson("Password update unsuccessfull!"),
+			return new ResponseEntity<>(gson.toJson("Password update unsuccessfull!"),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

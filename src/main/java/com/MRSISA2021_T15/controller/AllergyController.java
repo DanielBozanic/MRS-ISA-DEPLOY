@@ -231,7 +231,7 @@ public class AllergyController {
 			service.addAllergy(medicine, p);
 		}
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("You added new allergy."), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("You added new allergy."), HttpStatus.OK);
 		
 	}
 }

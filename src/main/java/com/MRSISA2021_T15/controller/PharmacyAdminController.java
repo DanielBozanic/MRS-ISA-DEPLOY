@@ -54,9 +54,9 @@ public class PharmacyAdminController {
         String message = pharmacyAdminService.updatePharmacyAdminData(pharmacyAdminDto);
         Gson gson = new GsonBuilder().create();
         if (message.equals("")) {
-            return new ResponseEntity<String>(gson.toJson("Update successfull."), HttpStatus.OK);
+            return new ResponseEntity<>(gson.toJson("Update successfull."), HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -66,9 +66,9 @@ public class PharmacyAdminController {
         String message = pharmacyService.updatePharmacyData(pharmacyDto);
         Gson gson = new GsonBuilder().create();
         if (message.equals("")) {
-            return new ResponseEntity<String>(gson.toJson("Update successfull."), HttpStatus.OK);
+            return new ResponseEntity<>(gson.toJson("Update successfull."), HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -78,9 +78,9 @@ public class PharmacyAdminController {
         String message = pharmacyAdminService.updatePassword(passwords);
         Gson gson = new GsonBuilder().create();
         if (message.equals("")) {
-            return new ResponseEntity<String>(gson.toJson(""), HttpStatus.OK);
+            return new ResponseEntity<>(gson.toJson(""), HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @GetMapping(value = "/getPharmacyAdminData", produces = MediaType.APPLICATION_JSON_VALUE)

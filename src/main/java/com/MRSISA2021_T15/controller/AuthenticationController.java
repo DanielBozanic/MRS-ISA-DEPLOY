@@ -64,9 +64,9 @@ public class AuthenticationController {
 
 			return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, user.getId(), user.getUsername(), user.getRoles().get(0).getName(), user.getFirstLogin()));
 		} catch (DisabledException de) {
-			return new ResponseEntity<UserTokenState>(HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		} catch (BadCredentialsException bdc) {
-			return new ResponseEntity<UserTokenState>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	

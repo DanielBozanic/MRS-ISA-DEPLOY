@@ -232,7 +232,7 @@ public class SupplierServiceImpl implements SupplierService {
 		if (supplierDb != null) {
 			if (supplierDb.getFirstLogin()) {
 				message = login;
-				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
 				MedicineSupply ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(medicineSupplyDto.getMedicine().getMedicineCode(), supplier.getId());
 				if (ms != null) {
@@ -243,7 +243,7 @@ public class SupplierServiceImpl implements SupplierService {
 					}
 					if (sum > Math.abs(medicineSupplyDto.getQuantity())) {
 						message = "This medicine has more pending offers than entered quantity!";
-						return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+						return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 					} else {
 						ms.setQuantity(Math.abs(medicineSupplyDto.getQuantity()));
 						medicineSupplyRepository.save(ms);
@@ -259,6 +259,6 @@ public class SupplierServiceImpl implements SupplierService {
 				}
 			}
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.OK);
 	}
 }

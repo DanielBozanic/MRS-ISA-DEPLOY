@@ -86,9 +86,9 @@ public class MedicinePharmacyController {
 		
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("You ordered your medicine. Thank you for purchase. :)"), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("You ordered your medicine. Thank you for purchase. :)"), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -132,9 +132,9 @@ public class MedicinePharmacyController {
 		
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("You canceled your medicine. :)"), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("You canceled your medicine. :)"), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

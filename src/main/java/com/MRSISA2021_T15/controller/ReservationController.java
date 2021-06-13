@@ -38,8 +38,8 @@ public class ReservationController {
 		String message = service.giveOut(reservationDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Medicine succesfully given out."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Medicine succesfully given out."), HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

@@ -42,9 +42,9 @@ public class MedicineController {
 		String message = medicineService.addMedicine(medicineDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("The medicine has been added successfully."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("The medicine has been added successfully."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	@DeleteMapping(path = "/{medicineId}/delete")

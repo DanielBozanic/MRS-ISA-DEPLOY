@@ -80,7 +80,7 @@ public class FarAppPatientController {
 		appointment.setPatient(patient);
 		serviceApp.newPharmaciesApp(appointment);
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("You made an appoinment with a pharmacist. Thank you for the trust!"), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson("You made an appoinment with a pharmacist. Thank you for the trust!"), HttpStatus.OK);
 	}
 	
 	
@@ -117,9 +117,9 @@ public class FarAppPatientController {
 		
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("You canceled your appointment with pharmacist!"), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("You canceled your appointment with pharmacist!"), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

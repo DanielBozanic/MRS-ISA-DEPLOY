@@ -37,9 +37,9 @@ public class PharmacyController {
 		String message = pharmacyService.registerPharmacy(pharmacyDto);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("The pharmacy has been registered successfully."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("The pharmacy has been registered successfully."), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -55,13 +55,6 @@ public class PharmacyController {
 	public List<Pharmacy> getPharmacies() {
 		return pharmacyService.getPharmacies();
 	}
-	
-	//@GetMapping(value = "/getPharmacyForDermatologist", produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasRole('ROLE_PHARMACIST')")
-	//public Pharmacy getPharmacyforDermatologist() {
-	//	Pharmacist p = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	//	return empRepo.findByPharmacistId(p.getId()).getPharmacy();
-	//}
 
 	@GetMapping(value = "/getPharmacy", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Pharmacy getPharmacy(@RequestBody PharmacyDTO pharmacyDto){

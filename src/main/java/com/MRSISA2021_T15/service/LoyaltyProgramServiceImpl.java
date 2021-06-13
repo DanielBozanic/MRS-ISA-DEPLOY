@@ -42,7 +42,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
-				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
 				Category ca = categoryRepository.findByCategoryName(categoryDto.getCategoryName());
 				if (ca != null) {
@@ -60,7 +60,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 				}
 			}
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.OK);
 	}
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
@@ -73,7 +73,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
-				return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
 				AppointmentConsultationPoints acp = appointmentConsultationPointsRepository.findByType(acpDto.getType());
 				if (acp != null) {
@@ -89,7 +89,7 @@ public class LoyaltyProgramServiceImpl implements LoyaltyProgramService {
 				}
 			}
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.OK);
 	}
 
 	@Override

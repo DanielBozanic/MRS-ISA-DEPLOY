@@ -84,7 +84,7 @@ public class RatingController {
 		ratingService.saveDermatologist(dermatologistDto);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson(review), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson(review), HttpStatus.OK);
 	}
 	
 	
@@ -95,7 +95,7 @@ public class RatingController {
 		ratingService.savePharmacist(pharmacistDto);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson(review), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson(review), HttpStatus.OK);
 	}
 	
 	
@@ -107,7 +107,7 @@ public class RatingController {
 		ratingService.savePharmacy(pharmacyDto);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson(review), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson(review), HttpStatus.OK);
 	}
 	
 	
@@ -119,7 +119,7 @@ public class RatingController {
 		ratingService.saveMedicine(medicineDto);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson(review), HttpStatus.OK);
+		return new ResponseEntity<>(gson.toJson(review), HttpStatus.OK);
 	}
 	
 	

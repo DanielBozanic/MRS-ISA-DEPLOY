@@ -34,9 +34,9 @@ public class AbsenceController {
 		String message = service.createAbsencePharmacist(absence);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Absence succesfully created. An admin will review your request."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Absence succesfully created. An admin will review your request."), HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@PostMapping(path="/dermatologist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,8 +49,8 @@ public class AbsenceController {
 		String message = service.createAbsenceDermatologist(absence);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
-			return new ResponseEntity<String>(gson.toJson("Absence succesfully created. An admin will review your request."), HttpStatus.OK);
+			return new ResponseEntity<>(gson.toJson("Absence succesfully created. An admin will review your request."), HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
