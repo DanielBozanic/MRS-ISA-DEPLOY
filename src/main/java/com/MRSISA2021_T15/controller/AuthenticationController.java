@@ -19,7 +19,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -53,13 +52,13 @@ public class AuthenticationController {
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserTokenState> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) {
 		try {
-			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+			var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					authenticationRequest.getUsername().toLowerCase(), authenticationRequest.getPassword()));
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 
-			User user = (User) authentication.getPrincipal();
-			String jwt = tokenUtils.generateToken(user.getUsername());
+			var user = (User) authentication.getPrincipal();
+			var jwt = tokenUtils.generateToken(user.getUsername());
 			int expiresIn = tokenUtils.getExpiredIn();
 
 			return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, user.getId(), user.getUsername(), user.getRoles().get(0).getName(), user.getFirstLogin()));
@@ -74,11 +73,11 @@ public class AuthenticationController {
 	public void createFirstSystemAdmin() {
 		List<SystemAdmin> systemAdmins = (List<SystemAdmin>) systemAdminRepository.findAll();
 		if (systemAdmins.isEmpty()) {
-			SystemAdmin systemAdmin = new SystemAdmin();
+			var systemAdmin = new SystemAdmin();
 			systemAdmin.setUsername("admin");
 			systemAdmin.setPassword(passwordEncoder.encode("ADMIN"));
-			List<Role> roles = new ArrayList<Role>();
-			Role role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).orElse(null);
+			List<Role> roles = new ArrayList<>();
+			var role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).orElse(null);
 			if (role != null) {
 				roles.add(role);
 				systemAdmin.setRoles(roles);

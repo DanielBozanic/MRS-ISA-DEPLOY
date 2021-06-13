@@ -17,8 +17,7 @@ public class CanceledAppService {
 	CanceledPharmaAppointmentRepository canceledR;
 	
 	public List<CanceledPharAppoinment> getPatientAllCanceledApp(Patient p){
-		ArrayList<CanceledPharAppoinment> returnList = new ArrayList<CanceledPharAppoinment>();
-		
+		List<CanceledPharAppoinment> returnList = new ArrayList<>();
 		List<CanceledPharAppoinment> list = canceledR.findAll();
 		for(CanceledPharAppoinment app : list) {
 			if(app.getPatient().getId().equals(p.getId())) {

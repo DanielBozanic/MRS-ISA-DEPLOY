@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.MRSISA2021_T15.dto.AbsenceDTO;
 import com.MRSISA2021_T15.model.Absence;
 import com.MRSISA2021_T15.service.AbsenceService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
@@ -27,12 +26,12 @@ public class AbsenceController {
 	@PostMapping(path="/pharmacist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
 	public @ResponseBody ResponseEntity<String> createAbsencePharmacist(@RequestBody AbsenceDTO absenceDto) throws InterruptedException {
-		Absence absence = new Absence();
+		var absence = new Absence();
 		absence.setStart(absenceDto.getStart());
 		absence.setEnd(absenceDto.getEnd());
 		absence.setDescription(absenceDto.getDescription());
 		String message = service.createAbsencePharmacist(absence);
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Absence succesfully created. An admin will review your request."), HttpStatus.OK);
 		}
@@ -42,12 +41,12 @@ public class AbsenceController {
 	@PostMapping(path="/dermatologist",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
 	public @ResponseBody ResponseEntity<String> createAbsenceDermatologist(@RequestBody AbsenceDTO absenceDto) throws InterruptedException {
-		Absence absence = new Absence();
+		var absence = new Absence();
 		absence.setStart(absenceDto.getStart());
 		absence.setEnd(absenceDto.getEnd());
 		absence.setDescription(absenceDto.getDescription());
 		String message = service.createAbsenceDermatologist(absence);
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Absence succesfully created. An admin will review your request."), HttpStatus.OK);
 		}

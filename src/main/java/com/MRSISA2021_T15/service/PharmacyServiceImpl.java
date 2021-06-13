@@ -25,13 +25,13 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Override
 	public String registerPharmacy(PharmacyDTO pharmacyDto) {
-		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systeAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
+		var systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var systeAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systeAdminDb != null) {
 			if (systeAdminDb.getFirstLogin()) {
 				return "You are logging in for the first time, you must change password before you can use this functionality!";
 			}  else {
-				Pharmacy pharmacy = new Pharmacy();
+				var pharmacy = new Pharmacy();
 				pharmacy.setName(pharmacyDto.getName());
 				pharmacy.setAddress(pharmacyDto.getAddress());
 				pharmacy.setCity(pharmacyDto.getCity());
@@ -54,18 +54,18 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Override
 	public Pharmacy getPharmacyData() {
-		PharmacyAdmin pharmacyAdmin = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var pharmacyAdmin = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(pharmacyAdmin);
 		return pharmacyAdmin.getPharmacy();
 	}
 
 	@Override
 	public String updatePharmacyData(PharmacyDTO pharmacyDto) {
-		String message = "";
-		PharmacyAdmin currentUser = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		PharmacyAdmin currentUserDb = (PharmacyAdmin) userRepository.findById(currentUser.getId()).orElse(null);
+		var message = "";
+		var currentUser = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var currentUserDb = (PharmacyAdmin) userRepository.findById(currentUser.getId()).orElse(null);
 		if (currentUserDb != null) {
-			Pharmacy updatedPharmacy = currentUserDb.getPharmacy();
+			var updatedPharmacy = currentUserDb.getPharmacy();
 			updatedPharmacy.setName(pharmacyDto.getName());
 			updatedPharmacy.setAddress(pharmacyDto.getAddress());
 			updatedPharmacy.setAppointmentPrice(pharmacyDto.getAppointmentPrice());

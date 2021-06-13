@@ -1,11 +1,9 @@
 package com.MRSISA2021_T15.controller;
 
-
 import com.MRSISA2021_T15.dto.ChangePassword;
 import com.MRSISA2021_T15.dto.DermatologistDTO;
 import com.MRSISA2021_T15.model.Dermatologist;
 import com.MRSISA2021_T15.repository.DermatologistRepository;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +43,6 @@ public class DermatologistController {
         ArrayList<Optional<Dermatologist>> returnList = new ArrayList<>();
         returnList.add(dermatologistRepository.findById(dermatologistId));
         return returnList;
-
     }
     
     @PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
@@ -56,7 +53,7 @@ public class DermatologistController {
     @GetMapping(path="/{string}/findByString", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
     public ArrayList<Dermatologist> getDermatologistByString(@PathVariable String string){
-        Iterable<Dermatologist> dermatologistList = dermatologistRepository.findAll();
+        var dermatologistList = dermatologistRepository.findAll();
         ArrayList<Dermatologist> returnList = new ArrayList<>();
         for(Dermatologist dermatologist: dermatologistList){
             if((dermatologist.getName() != null && dermatologist.getName().toLowerCase().contains(string.toLowerCase()))||
@@ -69,13 +66,13 @@ public class DermatologistController {
                     (dermatologist.getPhoneNumber() != null && dermatologist.getPhoneNumber().contains(string.toLowerCase()))))
                 returnList.add(dermatologist);
         }
-    return returnList;
+        return returnList;
     }
 
     @PutMapping(value="/update", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
 	public ResponseEntity<String> putDermatologist(@RequestBody DermatologistDTO derDto){
-    	Gson gson = new GsonBuilder().create();
+    	var gson = new GsonBuilder().create();
 		Dermatologist pharm = (Dermatologist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		pharm.setName(derDto.getName());
 		pharm.setSurname(derDto.getSurname());
@@ -91,7 +88,7 @@ public class DermatologistController {
 	@PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
 	public ResponseEntity<String> updatePassword(@RequestBody ChangePassword passwords) {
 		Dermatologist p = (Dermatologist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (p != null) {
 			if (!encod.matches(passwords.getOldPassword(), p.getPassword())) {
 				return new ResponseEntity<>(gson.toJson("Wrong old password!"), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.MRSISA2021_T15.dto.ReservationDTO;
 import com.MRSISA2021_T15.service.ReservationService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
@@ -35,8 +34,8 @@ public class ReservationController {
 	@PostMapping(path="/post",  consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
 	public @ResponseBody ResponseEntity<String> createAbsencePharmacist(@RequestBody ReservationDTO reservationDto) {
-		String message = service.giveOut(reservationDto);
-		Gson gson = new GsonBuilder().create();
+		var message = service.giveOut(reservationDto);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Medicine succesfully given out."), HttpStatus.OK);
 		}

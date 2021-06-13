@@ -15,17 +15,11 @@ public class FarAppPatientService {
 	@Autowired
 	private EmploymentRepository eRepository;
 	
-	
 	public List<EmploymentPharmacist> findAllPharmacist(){
 		return eRepository.findAllPharmacist();
 	}
 	
-	
 	public List<EmploymentPharmacist> findPharmacyByTime(){
 		return eRepository.findAllPharmacist();
 	}
-	
-	
-	
-	
 }

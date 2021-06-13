@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.MRSISA2021_T15.dto.ChangePassword;
 import com.MRSISA2021_T15.service.SystemAdminService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
@@ -25,8 +24,8 @@ public class SystemAdminController {
 	@PutMapping(value = "/updatePassword", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
 	public ResponseEntity<String> updatePassword(@RequestBody ChangePassword passwords) {
-		String message = systemAdminService.updatePassword(passwords);
-		Gson gson = new GsonBuilder().create();
+		var message = systemAdminService.updatePassword(passwords);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Password updated successfully."), HttpStatus.OK);
 		} else {

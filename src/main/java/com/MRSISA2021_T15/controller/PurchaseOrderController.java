@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/purchaseOrder")
@@ -26,8 +27,8 @@ public class PurchaseOrderController {
 
     @GetMapping(value = "/activePurchaseOrders", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-    public ArrayList<PurchaseOrder> getActivePurchaseOrders(){
-        ArrayList<PurchaseOrder> returnList = new ArrayList<>();
+    public List<PurchaseOrder> getActivePurchaseOrders(){
+        List<PurchaseOrder> returnList = new ArrayList<>();
         for(PurchaseOrder po: purchaseOrderRepository.findAll()){
             if(LocalDate.now().isBefore(po.getDueDateOffer()) || LocalDate.now().isEqual(po.getDueDateOffer())){
                 returnList.add(po);
@@ -39,8 +40,8 @@ public class PurchaseOrderController {
 
     @GetMapping(value = "/{purchaseOrderId}/getPurchaseOrder", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-    public ArrayList<PurchaseOrderMedicine> getPurchaseOrder(@PathVariable Integer purchaseOrderId){
-        ArrayList<PurchaseOrderMedicine> returnList = new ArrayList<>();
+    public List<PurchaseOrderMedicine> getPurchaseOrder(@PathVariable Integer purchaseOrderId){
+        List<PurchaseOrderMedicine> returnList = new ArrayList<>();
         for(PurchaseOrderMedicine pom: purchaseOrderMedicineRepository.findAll())
             if(pom.getPurchaseOrder().getId().equals(purchaseOrderId))
                 returnList.add(pom);

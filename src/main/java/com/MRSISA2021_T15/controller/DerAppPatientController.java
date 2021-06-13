@@ -22,7 +22,6 @@ import com.MRSISA2021_T15.model.Patient;
 import com.MRSISA2021_T15.model.Pharmacy;
 import com.MRSISA2021_T15.service.AppointmentService;
 import com.MRSISA2021_T15.service.PharmacySearchService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
@@ -36,16 +35,11 @@ public class DerAppPatientController {
 	
 	private String cancel = "You can't cancel your appointment under 24h before it's beginning!";
 	
-	
-	
-	
 	@GetMapping(value = "/getAllPharamacies", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public List<Pharmacy>getAll(){
 		return service.findAll();
 	}
-	
-	
 	
 	@GetMapping(value = "/getAllFreeDerApp", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
@@ -53,13 +47,11 @@ public class DerAppPatientController {
 		return AppService.findAllFreeDermatologicalApp();
 	}
 	
-	
-	
 	@PostMapping(value = "/send", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> send(@RequestBody AppointmentDermatologistDTO appointmentDto){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		AppointmentDermatologist appointment = new AppointmentDermatologist();
+		var appointment = new AppointmentDermatologist();
 		appointment.setDiscount(appointmentDto.getDiscount());
 		appointment.setStart(appointmentDto.getStart());
 		appointment.setEnd(appointmentDto.getEnd());
@@ -68,7 +60,7 @@ public class DerAppPatientController {
 		appointment.setPrice(appointmentDto.getPrice());
 		AppService.saveDerApp(appointment);
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		return new ResponseEntity<>(gson.toJson("You scheduled an appointment with dermatologist."), HttpStatus.OK);
 	}
 	
@@ -94,8 +86,8 @@ public class DerAppPatientController {
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> delete(@RequestBody AppointmentDermatologistDTO appointmentDto){
 		
-		String message = "";
-		LocalDateTime now = LocalDateTime.now();
+		var message = "";
+		var now = LocalDateTime.now();
 		if(now.getYear() == appointmentDto.getStart().getYear()) {
 			if(now.getMonthValue() == appointmentDto.getStart().getMonthValue()) {
 				if(now.getDayOfMonth() == appointmentDto.getStart().getDayOfMonth()) {
@@ -118,16 +110,11 @@ public class DerAppPatientController {
 			AppService.deleteDermatologicalApp(appointmentDto);
 		}
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("You canceled your appointment with dermatologist!"), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
-	
-	
-	
-	
-	
+	}	
 }

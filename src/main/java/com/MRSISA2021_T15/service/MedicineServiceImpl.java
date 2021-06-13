@@ -34,9 +34,9 @@ public class MedicineServiceImpl implements MedicineService {
 	@Transactional
 	@Override
 	public String addMedicine(MedicineDTO medicineDto) {
-		String message = "";
+		var message = "";
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
+		var systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
@@ -44,7 +44,7 @@ public class MedicineServiceImpl implements MedicineService {
 				if (medicineRepository.findByMedicineCode(medicineDto.getMedicineCode().toLowerCase()) != null) {
 					message = "A medicine with this code already exists!";
 				} else {
-					Medicine medicine = new Medicine();
+					var medicine = new Medicine();
 					medicine.setAdditionalComments(medicineDto.getAdditionalComments());
 					medicine.setComposition(medicineDto.getComposition());
 					medicine.setForm(medicineDto.getForm());
@@ -60,7 +60,7 @@ public class MedicineServiceImpl implements MedicineService {
 					List<Integer> substituteMedicineIds = medicine.getSubstituteMedicineIds();
 					if (substituteMedicineIds != null) {
 						for (Integer id : substituteMedicineIds) {
-							SubstituteMedicine substituteMedicine = new SubstituteMedicine();
+							var substituteMedicine = new SubstituteMedicine();
 							substituteMedicine.setMedicine(medicine);
 							Medicine sm = medicineRepository.findById(id).orElse(null);
 							if (sm != null) {
@@ -78,7 +78,7 @@ public class MedicineServiceImpl implements MedicineService {
 	@Transactional(readOnly = true)
 	@Override
 	public HashMap<Integer, String> getMedicineList() {
-		HashMap<Integer, String> medicineList = new HashMap<Integer, String>();
+		HashMap<Integer, String> medicineList = new HashMap<>();
 		Iterable<Medicine> medicine = medicineRepository.findAll();
 		for (Medicine m : medicine) {
 			medicineList.put(m.getId(), m.getName());
@@ -88,7 +88,7 @@ public class MedicineServiceImpl implements MedicineService {
 
 	@Override
 	public HashSet<MedicineType> getMedicineTypes() {
-		HashSet<MedicineType> medicineTypes = new HashSet<MedicineType>();
+		HashSet<MedicineType> medicineTypes = new HashSet<>();
 		for (MedicineType mt : MedicineType.values()) {
 			medicineTypes.add(mt);
 		}
@@ -97,7 +97,7 @@ public class MedicineServiceImpl implements MedicineService {
 
 	@Override
 	public HashSet<MedicineForm> getMedicineForms() {
-		HashSet<MedicineForm> medicineForms = new HashSet<MedicineForm>();
+		HashSet<MedicineForm> medicineForms = new HashSet<>();
 		for (MedicineForm mf : MedicineForm.values()) {
 			medicineForms.add(mf);
 		}

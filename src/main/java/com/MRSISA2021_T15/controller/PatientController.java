@@ -25,7 +25,6 @@ import com.MRSISA2021_T15.model.EReceiptSearch;
 import com.MRSISA2021_T15.model.Patient;
 import com.MRSISA2021_T15.model.Pharmacy;
 import com.MRSISA2021_T15.service.PatientService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.zxing.NotFoundException;
 
@@ -45,8 +44,8 @@ public class PatientController {
 	@PutMapping(value = "/changeData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> changeData(@RequestBody PatientDTO patientDto){
-		String message = service.updatePatientData(patientDto);
-		Gson gson = new GsonBuilder().create();
+		var message = service.updatePatientData(patientDto);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Update successfull."), HttpStatus.OK);
 		} else {
@@ -57,8 +56,8 @@ public class PatientController {
 	@PutMapping(value = "/updatePassword", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> updatePassword(@RequestBody ChangePassword passwords) {
-		String message = service.updatePassword(passwords);
-		Gson gson = new GsonBuilder().create();
+		var message = service.updatePassword(passwords);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson(""), HttpStatus.OK);
 		} else {
@@ -70,7 +69,7 @@ public class PatientController {
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> subscribeToPharamacy(@RequestBody PharmacyDTO pharmacyDto) {
 		service.subscribeToPharamacy(pharmacyDto);
-		Gson gson = new GsonBuilder().create();	
+		var gson = new GsonBuilder().create();	
 		return new ResponseEntity<>(gson.toJson("Subscribed to pharmacy successfully."), HttpStatus.OK);
 	}
 	
@@ -78,7 +77,7 @@ public class PatientController {
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> unsubscribeToPharamacy(@RequestBody PharmacyDTO pharmacyDto) {
 		service.unsubscribeToPharamacy(pharmacyDto);
-		Gson gson = new GsonBuilder().create();	
+		var gson = new GsonBuilder().create();	
 		return new ResponseEntity<>(gson.toJson("Unsubscribed from pharmacy successfully."), HttpStatus.OK);
 	}
 	
@@ -97,8 +96,8 @@ public class PatientController {
 	@PostMapping(value = "/issueEReceipt", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> issueEReceipt(@RequestBody EReceiptSearch eReceiptSearch) {
-		String message = service.issueEReceipt(eReceiptSearch);
-		Gson gson = new GsonBuilder().create();
+		var message = service.issueEReceipt(eReceiptSearch);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Medicine issued successfully."), HttpStatus.OK);
 		} else {

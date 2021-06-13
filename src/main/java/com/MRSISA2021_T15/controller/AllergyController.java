@@ -35,7 +35,6 @@ import com.MRSISA2021_T15.repository.UserRepository;
 import com.MRSISA2021_T15.service.AllergyService;
 import com.MRSISA2021_T15.service.MedicinePharmacyService;
 import com.MRSISA2021_T15.service.SubstituteMedicineService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
@@ -64,11 +63,6 @@ public class AllergyController {
 	JavaMailSender emailsending;
 	@Autowired
 	Environment envi;
-	
-	
-	
-	
-	
 	
 	@GetMapping(value = "/checkForAllergiesPharmacist/pharmacy={pharmacyId}medicine={medicineId}patient={patientId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
@@ -115,7 +109,7 @@ public class AllergyController {
 	}
 	
 	public List<MedicineQuantity> dummySubs(Integer medicineId, Integer patientId, List<MedicinePharmacy> medps){
-		boolean allergic = false;
+		var allergic = false;
 		List<Medicine> subs1 = service2.getForMedicine(medicineId);
 		ArrayList<MedicineQuantity> subs = new ArrayList<>();
 		List<Allergy> allergies = service.getForPatient(patientId);
@@ -129,7 +123,7 @@ public class AllergyController {
 			if(!allergic) {
 				for(MedicinePharmacy m : medps) {
 					if(m.getMedicine().getId().equals(medicine.getId())) {
-						MedicineQuantity med = new MedicineQuantity();
+						var med = new MedicineQuantity();
 						med.setMedicine(medicine);
 						med.setQuantity(m.getAmount());
 						subs.add(med);
@@ -139,7 +133,7 @@ public class AllergyController {
 			allergic = false;
 		}
 		if(subs.size() == 0) {
-			MedicineQuantity dummy = new MedicineQuantity();
+			var dummy = new MedicineQuantity();
 			dummy.setMedicine(new Medicine());
 			dummy.getMedicine().setName("ERROR");
 			subs.add(dummy);
@@ -149,7 +143,7 @@ public class AllergyController {
 	
 	
 	public void saveNeededs(Medicine medicine, Pharmacy pharmacy) throws InterruptedException {
-		MedicineNeeded med = new MedicineNeeded();
+		var med = new MedicineNeeded();
 		med.setMedicine(medicine);
 		med.setPharmacy(pharmacy);
 		med.setRequested(LocalDateTime.now());
@@ -166,7 +160,7 @@ public class AllergyController {
 	public void mailing(Pharmacy pharmacy, Medicine medicine) {
 		for (PharmacyAdmin pharmacyAdmin : adminsrepo.findAllPharmacyAdmins()) {
 			if(pharmacyAdmin.getPharmacy().getId().equals(pharmacy.getId())) {
-				SimpleMailMessage mailMessage = new SimpleMailMessage();
+				var mailMessage = new SimpleMailMessage();
 				mailMessage.setTo(pharmacyAdmin.getEmail());
 				mailMessage.setSubject("Medicine not in stock");
 				mailMessage.setFrom(envi.getProperty("spring.mail.username"));
@@ -192,7 +186,7 @@ public class AllergyController {
 		
 		List<Medicine> returnMedicine = new ArrayList<Medicine>();
 		
-		boolean flag = false;
+		var flag = false;
 		
 		for(Medicine m: medicines){
 			for(Allergy a : allergies) {
@@ -226,11 +220,11 @@ public class AllergyController {
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String>addAllergy(@RequestBody MedicineDTO medicineDto){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Medicine medicine = medicineRepository.findById(medicineDto.getId()).orElse(null);
+		var medicine = medicineRepository.findById(medicineDto.getId()).orElse(null);
 		if (medicine != null) {
 			service.addAllergy(medicine, p);
 		}
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		return new ResponseEntity<>(gson.toJson("You added new allergy."), HttpStatus.OK);
 		
 	}

@@ -6,7 +6,6 @@ import com.MRSISA2021_T15.model.Pharmacy;
 import com.MRSISA2021_T15.repository.EmploymentRepository;
 import com.MRSISA2021_T15.repository.PharmacyRepository;
 import com.MRSISA2021_T15.service.PharmacyService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,8 +33,8 @@ public class PharmacyController {
 	@PostMapping(value = "/registerPharmacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
 	public ResponseEntity<String> registerPharmacy(@RequestBody PharmacyDTO pharmacyDto) {
-		String message = pharmacyService.registerPharmacy(pharmacyDto);
-		Gson gson = new GsonBuilder().create();
+		var message = pharmacyService.registerPharmacy(pharmacyDto);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("The pharmacy has been registered successfully."), HttpStatus.OK);
 		} else {

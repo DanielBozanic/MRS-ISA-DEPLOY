@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.MRSISA2021_T15.model.User;
 import com.MRSISA2021_T15.repository.UserRepository;
 
 @Service
@@ -19,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(username.toLowerCase());
+		var user = userRepository.findByUsername(username.toLowerCase());
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
 		} else {

@@ -28,7 +28,6 @@ import com.MRSISA2021_T15.repository.PurchaseOrderMedicineRepository;
 import com.MRSISA2021_T15.repository.PurchaseOrderRepository;
 import com.MRSISA2021_T15.repository.PurchaseOrderSupplierRepository;
 import com.MRSISA2021_T15.repository.UserRepository;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Service
@@ -57,8 +56,8 @@ public class SupplierServiceImpl implements SupplierService {
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public void updateSupplierData(SupplierDTO supplierDto) {
-		Supplier currentUser = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).orElse(null);
+		var currentUser = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).orElse(null);
 		if (updatedSupplier != null) {
 			if (!supplierDto.getName().equals("")) {
 				updatedSupplier.setName(supplierDto.getName());
@@ -85,9 +84,9 @@ public class SupplierServiceImpl implements SupplierService {
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public String updatePassword(ChangePassword passwords) {
-		String message = "";
-		Supplier currentUser = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).orElse(null);
+		var message = "";
+		var currentUser = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var updatedSupplier = (Supplier) userRepository.findById(currentUser.getId()).orElse(null);
 		if (updatedSupplier != null) {
 			if (!passwordEncoder.matches(passwords.getOldPassword(), updatedSupplier.getPassword())) {
 				message = "Wrong old password!";
@@ -111,7 +110,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Transactional(readOnly = true)
 	@Override
 	public List<MedicineSupply> getMedicineSupply() {
-		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return medicineSupplyRepository.findAllBySupplierId(supplier.getId());
 	}
 	
@@ -124,9 +123,9 @@ public class SupplierServiceImpl implements SupplierService {
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public String writeOffer(PurchaseOrderSupplierDTO offerDto) {
-		String message = "";
-		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
+		var message = "";
+		var supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb !=  null) {
 			if (supplierDb.getFirstLogin()) {
 				message =  login;
@@ -135,24 +134,24 @@ public class SupplierServiceImpl implements SupplierService {
 			} else if (LocalDate.now().isAfter(offerDto.getDeliveryDate())) {
 				message = "Delivery date must be after today's date!";
 			} else {
-				PurchaseOrderSupplier pos = purchaseOrderSupplierRepository.findBySupplierIdAndPurchaseOrderId(offerDto.getPurchaseOrder().getId(), supplier.getId());
+				var pos = purchaseOrderSupplierRepository.findBySupplierIdAndPurchaseOrderId(offerDto.getPurchaseOrder().getId(), supplier.getId());
 				if (pos == null) {
 					List<PurchaseOrderMedicine> medicine = purchaseOrderMedicineRepository.findAllByPurchaseOrder(offerDto.getPurchaseOrder());
 					List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplier.getId());
 					boolean offerOk = true;
 					for (PurchaseOrderMedicine pom : medicine) {
-						Integer sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(pom.getMedicine().getId(), pendingPurchaseOrderIds);
+						var sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(pom.getMedicine().getId(), pendingPurchaseOrderIds);
 						if (sum == null) {
 							sum = 0;
 						}
-						MedicineSupply ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(pom.getMedicine().getMedicineCode(), supplier.getId());
+						var ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(pom.getMedicine().getMedicineCode(), supplier.getId());
 						if (sum + pom.getQuantity() > ms.getQuantity()) {
 							offerOk = false;
 							break;
 						}
 					}
 					if (offerOk) {
-						PurchaseOrderSupplier offer = new PurchaseOrderSupplier();
+						var offer = new PurchaseOrderSupplier();
 						offer.setPurchaseOrder(offerDto.getPurchaseOrder());
 						offer.setDeliveryDate(offerDto.getDeliveryDate());
 						offer.setPrice(offerDto.getPrice());
@@ -192,14 +191,14 @@ public class SupplierServiceImpl implements SupplierService {
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public String updateOffer(PurchaseOrderSupplierDTO offerDto) {
-		String message = "";
-		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
+		var message = "";
+		var supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb != null) {
 			if (supplierDb.getFirstLogin()) {
 				message =  login;
 			} else {
-				PurchaseOrderSupplier offerToUpdate = purchaseOrderSupplierRepository.findByIdAndSupplierIdPessimisticWrite(offerDto.getId(), supplier.getId());
+				var offerToUpdate = purchaseOrderSupplierRepository.findByIdAndSupplierIdPessimisticWrite(offerDto.getId(), supplier.getId());
 				if (offerToUpdate != null) {
 					if (LocalDate.now().isAfter(offerDto.getDeliveryDate())) {
 						message = "Delivery date must be after today's date!";
@@ -225,19 +224,19 @@ public class SupplierServiceImpl implements SupplierService {
 	@Transactional(isolation = Isolation.READ_COMMITTED) 
 	@Override
 	public ResponseEntity<String> updateMedicineStock(MedicineSupplyDTO medicineSupplyDto) {
-		String message = "";
-		Gson gson = new GsonBuilder().create();
-		Supplier supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Supplier supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
+		var message = "";
+		var gson = new GsonBuilder().create();
+		var supplier = (Supplier) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var supplierDb = (Supplier) userRepository.findById(supplier.getId()).orElse(null);
 		if (supplierDb != null) {
 			if (supplierDb.getFirstLogin()) {
 				message = login;
 				return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
-				MedicineSupply ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(medicineSupplyDto.getMedicine().getMedicineCode(), supplier.getId());
+				var ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(medicineSupplyDto.getMedicine().getMedicineCode(), supplier.getId());
 				if (ms != null) {
 					List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplier.getId());
-					Integer sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(ms.getMedicine().getId(), pendingPurchaseOrderIds);
+					var sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(ms.getMedicine().getId(), pendingPurchaseOrderIds);
 					if (sum == null) {
 						sum = 0;
 					}
@@ -250,7 +249,7 @@ public class SupplierServiceImpl implements SupplierService {
 						message = "Medicine stock updated.";
 					}
 				} else {
-					MedicineSupply medicineSupply = new MedicineSupply();
+					var medicineSupply = new MedicineSupply();
 					medicineSupply.setMedicine(medicineSupplyDto.getMedicine());
 					medicineSupply.setSupplier(supplier);
 					medicineSupply.setQuantity(Math.abs(medicineSupplyDto.getQuantity()));

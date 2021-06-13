@@ -34,9 +34,9 @@ public class CalendarController {
 	public Collection<Event> calendarPharmacist(){
 		Pharmacist p = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Appointment> appointments = service.findAllPharmacist(p.getId());
-		ArrayList<Event> events = new ArrayList<Event>();
+		List<Event> events = new ArrayList<>();
 		for (Appointment appointment : appointments) {
-			Event event = new Event();
+			var event = new Event();
 			event.setTitle(with + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName());
 			event.setStart(appointment.getStart());
 			event.setEnd(appointment.getEnd());
@@ -50,9 +50,9 @@ public class CalendarController {
 	public Collection<Event> calendarPharmacistToday(){
 		Pharmacist p = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Appointment> appointments = service.findAllPharmacistToday(p.getId());
-		ArrayList<Event> events = new ArrayList<Event>();
+		List<Event> events = new ArrayList<>();
 		for (Appointment appointment : appointments) {
-			Event event = new Event();
+			var event = new Event();
 			event.setId(appointment.getId());
 			event.setTitle(with + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName());
 			event.setStart(appointment.getStart());
@@ -67,10 +67,10 @@ public class CalendarController {
 	public Collection<Event> calendarDermatologist(@PathVariable("pharmacyId") Integer pharmacyId){
 		Dermatologist d = (Dermatologist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Appointment> appointments = service.findAllDermatologist(d.getId());
-		ArrayList<Event> events = new ArrayList<Event>();
+		List<Event> events = new ArrayList<>();
 		for (Appointment appointment : appointments) {
 			if(appointment.getPharmacy().getId().equals(pharmacyId)) {
-				Event event = new Event();
+				var event = new Event();
 				if(appointment.getPatient() == null) {
 					event.setTitle(predef + appointment.getPharmacy().getName());
 				}else {
@@ -89,9 +89,9 @@ public class CalendarController {
 	public Collection<Event> calendarDermatologist(){
 		Dermatologist d = (Dermatologist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Appointment> appointments = service.findAllDermatologist(d.getId());
-		ArrayList<Event> events = new ArrayList<Event>();
+		List<Event> events = new ArrayList<>();
 		for (Appointment appointment : appointments) {
-				Event event = new Event();
+				var event = new Event();
 				if(appointment.getPatient() == null) {
 					event.setTitle(predef + appointment.getPharmacy().getName());
 				}else {
@@ -109,9 +109,9 @@ public class CalendarController {
 	public Collection<Event> calendarDermatologistToday(){
 		Dermatologist d = (Dermatologist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Appointment> appointments = service.findAllDermatologistToday(d.getId());
-		ArrayList<Event> events = new ArrayList<Event>();
+		List<Event> events = new ArrayList<>();
 		for (Appointment appointment : appointments) {
-				Event event = new Event();
+				var event = new Event();
 				if(appointment.getPatient() == null) {
 					continue;
 				}else {
@@ -130,10 +130,10 @@ public class CalendarController {
 	public Collection<Event> calendarDermatologistPredefined(){
 		Dermatologist d = (Dermatologist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Appointment> appointments = service.findAllDermatologist(d.getId());
-		ArrayList<Event> events = new ArrayList<Event>();
+		List<Event> events = new ArrayList<>();
 		for (Appointment appointment : appointments) {
 				if(appointment.getPatient() == null) {
-					Event event = new Event();
+					var event = new Event();
 					event.setTitle(predef + appointment.getPharmacy().getName());
 					event.setStart(appointment.getStart());
 					event.setEnd(appointment.getEnd());
@@ -148,10 +148,10 @@ public class CalendarController {
 	public Collection<Event> calendarDermatologistPredefined(@PathVariable("pId") Integer pharmacyId){
 		Dermatologist d = (Dermatologist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Appointment> appointments = service.findAllDermatologist(d.getId());
-		ArrayList<Event> events = new ArrayList<Event>();
+		List<Event> events = new ArrayList<>();
 		for (Appointment appointment : appointments) {
 			if(appointment.getPharmacy().getId().equals(pharmacyId) && appointment.getPatient() == null) {
-				Event event = new Event();
+				var event = new Event();
 				event.setId(appointment.getId());
 				event.setTitle(predef + appointment.getPharmacy().getName());
 				event.setStart(appointment.getStart());

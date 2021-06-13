@@ -4,7 +4,6 @@ import com.MRSISA2021_T15.dto.MedicineDTO;
 import com.MRSISA2021_T15.model.*;
 import com.MRSISA2021_T15.repository.*;
 import com.MRSISA2021_T15.service.MedicineService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +33,11 @@ public class MedicineController {
 	@Autowired
 	private MedicineNeededRepository medicineNeededRepository;
 
-
-
 	@PostMapping(value = "/addMedicine", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
 	public ResponseEntity<String> addMedicine(@RequestBody MedicineDTO medicineDto) {
-		String message = medicineService.addMedicine(medicineDto);
-		Gson gson = new GsonBuilder().create();
+		var message = medicineService.addMedicine(medicineDto);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("The medicine has been added successfully."), HttpStatus.OK);
 		} else {
@@ -95,9 +92,9 @@ public class MedicineController {
 
 	@GetMapping(path="/{pharmacyId}/getMedicineFromPharmacy", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-	public ArrayList<Medicine> getMedicineFromPharmacy(@PathVariable Integer pharmacyId){
+	public List<Medicine> getMedicineFromPharmacy(@PathVariable Integer pharmacyId){
 		List<MedicinePharmacy> medicinePharmacies = medicinePharmacyRepository.findByPharmacyId(pharmacyId);
-		ArrayList<Medicine> returnList = new ArrayList<>();
+		List<Medicine> returnList = new ArrayList<>();
 		for (MedicinePharmacy mp : medicinePharmacies)
 			returnList.add(mp.getMedicine());
 		return returnList;
@@ -131,8 +128,8 @@ public class MedicineController {
 	
 	@PutMapping(path="/{medicineId}/update")
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-	public ResponseEntity edit(@PathVariable Integer medicineId, @RequestBody MedicineDTO mDto) throws NotFoundException {
-		Medicine med = medicineRepository.findById(medicineId).orElseThrow(() -> new NotFoundException("Ne postoji id"));
+	public ResponseEntity<Object> edit(@PathVariable Integer medicineId, @RequestBody MedicineDTO mDto) throws NotFoundException {
+		var med = medicineRepository.findById(medicineId).orElseThrow(() -> new NotFoundException("Ne postoji id"));
 		med.setName(mDto.getName());
 		med.setAdditionalComments(mDto.getAdditionalComments());
 		med.setComposition((mDto.getComposition()));
@@ -146,8 +143,8 @@ public class MedicineController {
 
 	@PutMapping(path="/{medicineId}/updateAdditionalComments")
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-	public ResponseEntity editAdditionalComments(@PathVariable Integer medicineId, @RequestBody MedicineDTO mDto) throws NotFoundException {
-		Medicine med = medicineRepository.findById(medicineId).orElseThrow(() -> new NotFoundException("Ne postoji id"));
+	public ResponseEntity<Object> editAdditionalComments(@PathVariable Integer medicineId, @RequestBody MedicineDTO mDto) throws NotFoundException {
+		var med = medicineRepository.findById(medicineId).orElseThrow(() -> new NotFoundException("Ne postoji id"));
 		med.setAdditionalComments(mDto.getAdditionalComments());
 		medicineRepository.save(med);
 		return ResponseEntity.ok().build();

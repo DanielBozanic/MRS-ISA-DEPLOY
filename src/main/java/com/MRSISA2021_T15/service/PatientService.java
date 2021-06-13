@@ -42,7 +42,6 @@ import com.google.gson.reflect.TypeToken;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
-import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.MRSISA2021_T15.dto.ChangePassword;
@@ -132,8 +131,8 @@ public class PatientService {
 	}
 	
 	public String updatePatientData(PatientDTO p) {
-		String message = "";
-		Patient currentUser = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var message = "";
+		var currentUser = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser != null) {
 			currentUser.setName(p.getName());
 			currentUser.setSurname(p.getSurname());
@@ -149,8 +148,8 @@ public class PatientService {
 	}
 	
 	public String updatePassword(ChangePassword passwords) {
-		String message = "";
-		Patient currentUser = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var message = "";
+		var currentUser = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser != null) {
 			if (!passwordEncoder.matches(passwords.getOldPassword(), currentUser.getPassword())) {
 				message = "Wrong old password!";
@@ -170,21 +169,21 @@ public class PatientService {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public String subscribeToPharamacy(PharmacyDTO pharmacyDto) {
-		String message = "";
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
+		var message = "";
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
 				message = verified;
 			} else {
-				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacyDto.getId(), patient.getId());
+				var patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacyDto.getId(), patient.getId());
 				if (patientSubPharmacy != null) {
 					patientSubPharmacy.setSubscribed(true);
 					patientSubPharmacyRepository.save(patientSubPharmacy);
 				} else {
-					PatientSubPharmacy psp = new PatientSubPharmacy();
+					var psp = new PatientSubPharmacy();
 					psp.setPatient(patientDb);
-					Pharmacy pharmacy = pharmacyRepository.findById(pharmacyDto.getId()).orElse(null);
+					var pharmacy = pharmacyRepository.findById(pharmacyDto.getId()).orElse(null);
 					if (pharmacy != null) {
 						psp.setPharmacy(pharmacy);
 						psp.setSubscribed(true);
@@ -198,14 +197,14 @@ public class PatientService {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public String unsubscribeToPharamacy(PharmacyDTO pharmacyDto) {
-		String message = "";
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
+		var message = "";
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
 				message = verified;;
 			} else {
-				PatientSubPharmacy patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacyDto.getId(), patient.getId());
+				var patientSubPharmacy = patientSubPharmacyRepository.findByPharmacyIdAndPatientId(pharmacyDto.getId(), patient.getId());
 				if (patientSubPharmacy != null) {
 					patientSubPharmacy.setSubscribed(false);
 					patientSubPharmacyRepository.save(patientSubPharmacy);
@@ -219,7 +218,7 @@ public class PatientService {
 	
 	@Transactional(readOnly = true)
 	public List<Pharmacy> getSubscribedPharmacies() {
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return patientSubPharmacyRepository.getSubscribedPharmaciesForPatient(patient.getId());
 	}
 	
@@ -230,7 +229,7 @@ public class PatientService {
 		for (PatientSubPharmacy psp: subscribedPatients) {
 			List<Promotion> promotions = promotionRepository.getPromotionByPharmacyId(psp.getPharmacy().getId(), LocalDate.now());
 			for (Promotion p : promotions) {
-				SimpleMailMessage mailMessage = new SimpleMailMessage();
+				var mailMessage = new SimpleMailMessage();
 	            mailMessage.setTo(psp.getPatient().getEmail());
 	            mailMessage.setSubject("Pharmacy " + psp.getPharmacy().getName() + " PROMOTION!!!!");
 	            if (env.getProperty("spring.mail.username") != null) {
@@ -249,19 +248,19 @@ public class PatientService {
 		InputStream is = new ByteArrayInputStream(file.getBytes());
         BufferedImage newBi = ImageIO.read(is);
         Image img = newBi.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        var bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         Graphics2D bGr = bimage.createGraphics();
         bGr.drawImage(img, 0, 0, null);
         bGr.dispose();
-        HybridBinarizer hb = new HybridBinarizer(new BufferedImageLuminanceSource(bimage));
-		BinaryBitmap binaryBitmap = new BinaryBitmap(hb);
-		Result result = new MultiFormatReader().decode(binaryBitmap);
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        var hb = new HybridBinarizer(new BufferedImageLuminanceSource(bimage));
+		var binaryBitmap = new BinaryBitmap(hb);
+		var result = new MultiFormatReader().decode(binaryBitmap);
+		var bos = new ByteArrayOutputStream();
         ImageIO.write(bimage, "png", bos);
-        String image = Base64.getEncoder().encodeToString(bos.toByteArray());
+        var image = Base64.getEncoder().encodeToString(bos.toByteArray());
         bos.close();
-		String jsonString = result.getText();
-		Gson gson = new Gson();
+		var jsonString = result.getText();
+		var gson = new Gson();
 		List<EReceiptMedicineDetails> requiredMedicine = 
 				(List<EReceiptMedicineDetails>) gson.fromJson(jsonString, new TypeToken<List<EReceiptMedicineDetails>>(){}.getType());
 		List<Pharmacy> pharmacies = (List<Pharmacy>) pharmacyRepository.findAll();
@@ -269,14 +268,14 @@ public class PatientService {
 		for (Pharmacy p : pharmacies) {
 			List<MedicinePharmacy> tempList = new ArrayList<MedicinePharmacy>();
 			for (EReceiptMedicineDetails ermd: requiredMedicine) {
-				MedicinePharmacy pharmacyWithRequiredMedicine = medicinePharmacyRepository.getPharmacyByIdAndMedicineCode(p.getId(), 
+				var pharmacyWithRequiredMedicine = medicinePharmacyRepository.getPharmacyByIdAndMedicineCode(p.getId(), 
 						ermd.getMedicineCode(), Math.abs(ermd.getQuantity()));
 				if (pharmacyWithRequiredMedicine != null) {
 					tempList.add(pharmacyWithRequiredMedicine);
 				}
 			}
 			if (tempList.size() == requiredMedicine.size()) {
-				EReceiptSearch ers = new EReceiptSearch();
+				var ers = new EReceiptSearch();
 				ers.setPharmacy(p);
 				ers.seteReceiptMedicineDetails(requiredMedicine);
 				ers.setQrCode(image);
@@ -296,16 +295,16 @@ public class PatientService {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public String issueEReceipt(EReceiptSearch eReceiptSearch) {
-		String message = "";
+		var message = "";
 		List<String> medicineCodes = new ArrayList<String>();
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		if (patientDb != null) {
 			if (!patientDb.isEnabled()) {
 				message = verified;
 			} else {
 				for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
-					MedicinePharmacy pharmacyWithRequiredMedicine = medicinePharmacyRepository.getPharmacyByIdAndMedicineCodePessimisticRead
+					var pharmacyWithRequiredMedicine = medicinePharmacyRepository.getPharmacyByIdAndMedicineCodePessimisticRead
 					(
 							eReceiptSearch.getPharmacy().getId(), 
 							ermd.getMedicineCode(), 
@@ -324,11 +323,11 @@ public class PatientService {
 						}
 					}
 				}
-				EReceipt qrCodeUsed = eReceiptRepository.findByPatientIdAndQrCode(patientDb.getId(), eReceiptSearch.getQrCode());
+				var qrCodeUsed = eReceiptRepository.findByPatientIdAndQrCode(patientDb.getId(), eReceiptSearch.getQrCode());
 				if (qrCodeUsed != null) {
 					message = "This QR code has already been used!";
 				} else {
-					EReceipt eReceipt = new EReceipt();
+					var eReceipt = new EReceipt();
 					eReceipt.seteReceiptCode(UUID.randomUUID().toString());
 					eReceipt.setIssueDate(LocalDate.now());
 					eReceipt.setPatient(patientDb);
@@ -346,7 +345,7 @@ public class PatientService {
 						eReceiptAndMedicineDetailsRepository.save(eramd);
 					}
 					if (patientDb.getCategoryName().equals(CategoryName.REGULAR)) {
-						Category c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+						var c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
 						if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c.getRequiredNumberOfPoints())) {
 							patientDb.setCategoryName(CategoryName.SILVER);
 							eReceipt.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
@@ -354,8 +353,8 @@ public class PatientService {
 							eReceipt.setDiscount(0.0);
 						}
 					} else if (patientDb.getCategoryName().equals(CategoryName.SILVER)) {
-						Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
-						Category c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+						var c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+						var c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
 						if (Math.abs(patientDb.getCollectedPoints()) >= Math.abs(c1.getRequiredNumberOfPoints())) {
 							patientDb.setCategoryName(CategoryName.GOLD);
 							eReceipt.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
@@ -363,7 +362,7 @@ public class PatientService {
 							eReceipt.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
 						}
 					} else if (patientDb.getCategoryName().equals(CategoryName.GOLD)) {
-						Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+						var c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
 						eReceipt.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
 					}
 					eReceiptRepository.save(eReceipt);
@@ -378,13 +377,13 @@ public class PatientService {
 						}
 					}
 					medicinePharmacyRepository.saveAll(toUpdatePharmacyStock);
-					SimpleMailMessage mailMessage = new SimpleMailMessage();
+					var mailMessage = new SimpleMailMessage();
 			        mailMessage.setTo(patientDb.getEmail());
 			        mailMessage.setSubject("Medicine issue via EReceipt from pharmacy " + eReceiptSearch.getPharmacy().getName());
 			        if (env.getProperty("spring.mail.username") != null) {
 			        	mailMessage.setFrom(env.getProperty("spring.mail.username"));
 			        }
-			        String mailText = "You have been issued the following medication: \n";
+			        var mailText = "You have been issued the following medication: \n";
 			        for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
 			        	mailText += "\t" + ermd.getMedicineName() + ", Quantity: " + Math.abs(ermd.getQuantity()) + "\n";
 			        }
@@ -400,8 +399,8 @@ public class PatientService {
 
 	@Transactional(readOnly = true)
 	public Integer getDiscountByPatientCategory() {
-		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Patient patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
+		var patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var patientDb = (Patient) repository.findById(patient.getId()).orElse(null);
 		Category c = null;
 		if (patientDb != null) {
 			c = categoryRepository.findByCategoryName(patientDb.getCategoryName());

@@ -64,7 +64,7 @@ public class RatingService {
 		
 		
 		for(int i = 0; i<medicineByERecept.size(); i++) {
-			String nameOfMedicine = medicineByERecept.get(i).getMedicineName();
+			var nameOfMedicine = medicineByERecept.get(i).getMedicineName();
 			
 			for(int j = 0; j<allMedicineInBase.size(); j++) {
 				if(nameOfMedicine.equals(allMedicineInBase.get(j).getName())) {
@@ -93,7 +93,7 @@ public class RatingService {
 	
 	
 	public void saveDermatologist(DermatologistDTO dermatologistDto) {
-		Dermatologist der = userRepository.findDermatologistWithId(dermatologistDto.getId());
+		var der = userRepository.findDermatologistWithId(dermatologistDto.getId());
 		if(der != null) {
 			der.setRating(dermatologistDto.getRating());
 			der.setNumOfRating(dermatologistDto.getNumOfRating());
@@ -103,7 +103,7 @@ public class RatingService {
 	}
 	
 	public void savePharmacist(PharmacistDTO pharmacistDto) {
-		Pharmacist phar = userRepository.findPharmacistWithId(pharmacistDto.getId());
+		var phar = userRepository.findPharmacistWithId(pharmacistDto.getId());
 		if(phar != null) {
 			phar.setRating(pharmacistDto.getRating());
 			phar.setNumOfRating(pharmacistDto.getNumOfRating());
@@ -113,7 +113,7 @@ public class RatingService {
 	
 	
 	public void savePharmacy(PharmacyDTO pharmacyDto) {
-		Pharmacy phar = pharmacyRepository.findPharmacyWithId(pharmacyDto.getId());
+		var phar = pharmacyRepository.findPharmacyWithId(pharmacyDto.getId());
 		if(phar != null) {
 			phar.setRating(pharmacyDto.getRating());
 			phar.setNumOfRating(pharmacyDto.getNumOfRating());
@@ -124,7 +124,7 @@ public class RatingService {
 	
 	
 	public void saveMedicine(MedicineDTO medicineDto) {
-		Medicine med = medicineRepository.findMedicineWithId(medicineDto.getId());
+		var med = medicineRepository.findMedicineWithId(medicineDto.getId());
 		if(med != null) {
 			med.setAverageRating(medicineDto.getAverageRating());
 			med.setNumOfRating(medicineDto.getNumOfRating());
@@ -136,7 +136,7 @@ public class RatingService {
 	
 	@Scheduled(fixedDelayString = "PT24H")
 	public void deletePenals() throws InterruptedException {
-		LocalDateTime now = LocalDateTime.now();
+		var now = LocalDateTime.now();
 		
 		if(now.getDayOfMonth() == 1) {
 			for(Patient p : userRepository.findAllPatients()) {

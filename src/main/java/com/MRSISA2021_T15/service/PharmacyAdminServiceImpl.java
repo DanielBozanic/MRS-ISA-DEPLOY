@@ -24,8 +24,8 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
 
     @Override
     public String updatePassword(ChangePassword passwords) {
-        String message = "";
-        PharmacyAdmin currentUser = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var message = "";
+        var currentUser = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (currentUser != null) {
             if (!passwordEncoder.matches(passwords.getOldPassword(), currentUser.getPassword())) {
                 message = "Wrong old password!";
@@ -41,8 +41,8 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
 
     @Override
     public String updatePharmacyAdminData(PharmacyAdminDTO pharmacyAdminDto) {
-        String message = "";
-        PharmacyAdmin currentUser = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var message = "";
+        var currentUser = (PharmacyAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (currentUser != null) {
             currentUser.setName(pharmacyAdminDto.getName());
             currentUser.setSurname(pharmacyAdminDto.getSurname());

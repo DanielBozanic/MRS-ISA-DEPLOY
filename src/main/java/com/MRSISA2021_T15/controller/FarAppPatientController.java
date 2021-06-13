@@ -24,7 +24,6 @@ import com.MRSISA2021_T15.model.Patient;
 import com.MRSISA2021_T15.service.AppointmentService;
 import com.MRSISA2021_T15.service.CanceledAppService;
 import com.MRSISA2021_T15.service.FarAppPatientService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
@@ -40,8 +39,6 @@ public class FarAppPatientController {
 	CanceledAppService cancelS;
 	
 	private String cancel = "You can't cancel your appointment under 24h before it's beginning!";
-	
-	
 	
 	@GetMapping(value = "/getAllCanceledApp", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
@@ -65,13 +62,11 @@ public class FarAppPatientController {
 		return serviceApp.getPharmacisApp();
 	}
 	
-	
-	
 	@PostMapping(value = "/newAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> newAppointment(@RequestBody AppointmentPharmacistDTO appointmentDto){
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		AppointmentPharmacist appointment = new AppointmentPharmacist();
+		var appointment = new AppointmentPharmacist();
 		appointment.setDiscount(appointmentDto.getDiscount());
 		appointment.setStart(appointmentDto.getStart());
 		appointment.setEnd(appointmentDto.getEnd());
@@ -79,7 +74,7 @@ public class FarAppPatientController {
 		appointment.setPrice(appointmentDto.getPrice());
 		appointment.setPatient(patient);
 		serviceApp.newPharmaciesApp(appointment);
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		return new ResponseEntity<>(gson.toJson("You made an appoinment with a pharmacist. Thank you for the trust!"), HttpStatus.OK);
 	}
 	
@@ -91,8 +86,8 @@ public class FarAppPatientController {
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> delete(@RequestBody AppointmentPharmacistDTO appointmentDto){
 		
-		String message = "";
-		LocalDateTime now = LocalDateTime.now();
+		var message = "";
+		var now = LocalDateTime.now();
 		if(now.getYear() == appointmentDto.getStart().getYear()) {
 			if(now.getMonthValue() == appointmentDto.getStart().getMonthValue()) {
 				if(now.getDayOfMonth() == appointmentDto.getStart().getDayOfMonth()) {
@@ -115,16 +110,13 @@ public class FarAppPatientController {
 			serviceApp.deletePharmaciestApp(appointmentDto);
 		}
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("You canceled your appointment with pharmacist!"), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
-	
 	
 	@GetMapping(value = "/getPatientPharApp", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")

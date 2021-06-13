@@ -23,9 +23,9 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public String updatePassword(ChangePassword passwords) {
-		String message = "";
-		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin updatedSystemAdmin = (SystemAdmin) userRepository.findById(currentUser.getId()).orElse(null);
+		var message = "";
+		var currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var updatedSystemAdmin = (SystemAdmin) userRepository.findById(currentUser.getId()).orElse(null);
 		if (updatedSystemAdmin != null) {
 			if (!passwordEncoder.matches(passwords.getOldPassword(), updatedSystemAdmin.getPassword())) {
 				message = "Wrong old password!";

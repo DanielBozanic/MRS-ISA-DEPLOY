@@ -31,7 +31,7 @@ public class AllergyService {
 	
 	
 	public void addAllergy(Medicine medicine, Patient patient) {
-		Allergy a = new Allergy();
+		var a = new Allergy();
 		a.setMedicine(medicine);
 		a.setPatient(patient);
 		repository.save(a);

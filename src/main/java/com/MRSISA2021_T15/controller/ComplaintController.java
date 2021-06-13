@@ -35,19 +35,18 @@ import com.MRSISA2021_T15.model.Pharmacy;
 import com.MRSISA2021_T15.service.AppointmentService;
 import com.MRSISA2021_T15.service.ComplaintService;
 import com.MRSISA2021_T15.service.PatientService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 
 @RestController
 @RequestMapping("/complaint")
 public class ComplaintController {
+	
 	@Autowired
-	ComplaintService service;
+	private ComplaintService service;
 	@Autowired
-	AppointmentService service2;
+	private AppointmentService service2;
 	@Autowired
-	PatientService service3;
+	private PatientService service3;
 	
 	private final String inputComplaint = "You can input complaint";
 	private final String sent = "Your complaint is sent. Thank you for your words.";
@@ -75,7 +74,7 @@ public class ComplaintController {
 	List<Complaint>getpharmacyComplaint(){
 		
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<Complaint> list = new ArrayList<Complaint>();
+		List<Complaint> list = new ArrayList<>();
 		List<Complaint> complaints = service.findAll();
 		
 		for(Complaint c : complaints) {
@@ -84,7 +83,7 @@ public class ComplaintController {
 			}
 		}
 		
-		Complaint c = new Complaint();
+		var c = new Complaint();
 		c.setId(0);
 		if(list.isEmpty()) {
 			list.add(c);
@@ -96,8 +95,8 @@ public class ComplaintController {
 	@PutMapping(value = "/checkDermatologist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String>checkDermatologist(@RequestBody DermatologistDTO dermatologistDto){
-		String message = "";
-		boolean found = false;
+		var message = "";
+		var found = false;
 		
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Patient>patients = service2.findAllDAwithPatientId(p.getId(), dermatologistDto.getId());
@@ -106,7 +105,7 @@ public class ComplaintController {
 			found = true;
 		}
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if(found) {
 			return new ResponseEntity<>(gson.toJson(inputComplaint), HttpStatus.OK);
 		}else {
@@ -120,8 +119,8 @@ public class ComplaintController {
 	@PutMapping(value = "/checkPharmacist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String>checkPharmacist(@RequestBody PharmacistDTO pharmacistDto){
-		String message = "";
-		boolean found = false;
+		var message = "";
+		var found = false;
 		
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Patient>patients = service2.findAllPAwithPatientId(p.getId(), pharmacistDto.getId());
@@ -131,7 +130,7 @@ public class ComplaintController {
 			found = true;
 		}
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if(found) {
 			return new ResponseEntity<>(gson.toJson(inputComplaint), HttpStatus.OK);
 		}else {
@@ -146,8 +145,8 @@ public class ComplaintController {
 	@PutMapping(value = "/checkPharmacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String>checkPharmacy(@RequestBody PharmacyDTO pharmacyDto){
-		String message = "";
-		boolean found = false;
+		var message = "";
+		var found = false;
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		List<Appointment>appos = service2.findAllPatientsId(p.getId());
@@ -159,7 +158,7 @@ public class ComplaintController {
 			}
 		}
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if(found) {
 			return new ResponseEntity<>(gson.toJson(inputComplaint), HttpStatus.OK);
 		}else {
@@ -174,15 +173,15 @@ public class ComplaintController {
 	@PostMapping(value = "/addComplaintToDermatologist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> addComplaintToDermatologist(@RequestBody ComplaintDermatologistDTO complaintDto){
-		String message = "";
+		var message = "";
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ComplaintDermatologist complaint = new ComplaintDermatologist();
+		var complaint = new ComplaintDermatologist();
 		complaint.setText(complaintDto.getText());
 		complaint.setPatient(p);
 		
-		boolean found = false;
+		var found = false;
 		
-		Dermatologist derma = service3.findDermatologistWithId(complaintDto.getDermatologist().getId());
+		var derma = service3.findDermatologistWithId(complaintDto.getDermatologist().getId());
 		if (derma!=null) {
 			found = true;
 			complaint.setDermatologist(derma);
@@ -193,7 +192,7 @@ public class ComplaintController {
 			message = "Your complaint could not be saved.";
 		}
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson(sent), HttpStatus.OK);
 		} else {
@@ -203,20 +202,16 @@ public class ComplaintController {
 		
 	}
 	
-	
-	//@PostMapping(value = "/addComplaintToPharmacist/{patientUsername}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PostMapping(value = "/addComplaintToPharmacist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> addComplaintToPharmacist(@RequestBody ComplaintPharmacistDTO complaintDto){
-		
-		
-		String message = "";
+		var message = "";
 		Patient pa = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ComplaintPharmacist complaint = new ComplaintPharmacist();
+		var complaint = new ComplaintPharmacist();
 		complaint.setText(complaintDto.getText());
 		complaint.setPatient(pa);
 		
-		boolean found = false;
+		var found = false;
 		List<Pharmacist> pharmacists = service3.findAllPharmacist();
 		for(Pharmacist p : pharmacists) {
 			if(p.getId().equals(complaint.getPharmacist().getId())) {
@@ -230,7 +225,7 @@ public class ComplaintController {
 			message = "Something went wrong";
 		}
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson(sent), HttpStatus.OK);
 		} else {
@@ -242,14 +237,13 @@ public class ComplaintController {
 	@PostMapping(value = "/addComplaintToPharmacy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> addComplaintToPharmacy(@RequestBody ComplaintPharmacyDTO complaintDto){
-		
-		String message = "";
+		var message = "";
 		Patient pa = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ComplaintPharmacy complaint = new ComplaintPharmacy();
+		var complaint = new ComplaintPharmacy();
 		complaint.setText(complaintDto.getText());
 		complaint.setPatient(pa);
 		
-		boolean found = false;
+		var found = false;
 		List<Pharmacy> pharmacies = service.findAllPharmacy();
 		for(Pharmacy p : pharmacies) {
 			if(p.getId().equals(complaint.getPharmacy().getId())) {
@@ -263,7 +257,7 @@ public class ComplaintController {
 			message = "Something went wrong";
 		}
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson(sent), HttpStatus.OK);
 		} else {
@@ -287,8 +281,8 @@ public class ComplaintController {
 	@PutMapping(value = "/sendResponse", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SYSTEM_ADMIN')")
 	public ResponseEntity<String> sendResponse(@RequestBody ComplaintDTO responseDto) {
-		String message = service.sendResponse(responseDto);
-		Gson gson = new GsonBuilder().create();
+		var message = service.sendResponse(responseDto);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Response has been sent successully."), HttpStatus.OK);
 		} else {

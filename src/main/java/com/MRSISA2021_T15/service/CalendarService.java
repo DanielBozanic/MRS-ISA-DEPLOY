@@ -24,10 +24,10 @@ public class CalendarService {
 	@Transactional(readOnly = true)
 	public List<Appointment> findAllPharmacistToday(Integer id) {
 		List<Appointment> appointments = repository.findAllPharmacistIdPessimisticRead(id);
-		ArrayList<Appointment> todays = new ArrayList<>();
-		LocalDateTime now = LocalDateTime.now();
-		LocalDateTime nowPlusDay = now.plusDays(1);
-		LocalDateTime tomorrow = LocalDateTime.of(nowPlusDay.getYear(), nowPlusDay.getMonth(),
+		List<Appointment> todays = new ArrayList<>();
+		var now = LocalDateTime.now();
+		var nowPlusDay = now.plusDays(1);
+		var tomorrow = LocalDateTime.of(nowPlusDay.getYear(), nowPlusDay.getMonth(),
 				nowPlusDay.getDayOfMonth(), 0, 0);
 		for (Appointment appointment : appointments) {
 			if (!appointment.isDone()) {
@@ -46,10 +46,10 @@ public class CalendarService {
 	@Transactional(readOnly = true)
 	public List<Appointment> findAllDermatologistToday(Integer id) {
 		List<Appointment> appointments = repository.findAllDermatologistIdPessimisticRead(id);
-		ArrayList<Appointment> todays = new ArrayList<>();
-		LocalDateTime now = LocalDateTime.now();
-		LocalDateTime nowPlusDay = now.plusDays(1);
-		LocalDateTime tomorrow = LocalDateTime.of(nowPlusDay.getYear(), nowPlusDay.getMonth(),
+		List<Appointment> todays = new ArrayList<>();
+		var now = LocalDateTime.now();
+		var nowPlusDay = now.plusDays(1);
+		var tomorrow = LocalDateTime.of(nowPlusDay.getYear(), nowPlusDay.getMonth(),
 				nowPlusDay.getDayOfMonth(), 0, 0);
 		for (Appointment appointment : appointments) {
 			if (!appointment.isDone()) {

@@ -46,8 +46,8 @@ public class AppointmentService {
 	private String time = "Start can't be after end!";
 	private String past = "Can't schedule appointment into past!";
 	
-  @Autowired
-  private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 	@Autowired
 	private AppointmentConsultationPointsRepository appointmentConsultationPointsRepository;
 	@Autowired
@@ -109,7 +109,7 @@ public class AppointmentService {
 		List<Appointment> appointmentsPharmacist = findAllPharmacist(appointment.getPharmacist().getId());
 		List<Absence> absences = repo3.findAll();
 		Pharmacist p = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		EmploymentPharmacist employment = repo2.findByPharmacistIdPessimisticRead(p.getId());
+		var employment = repo2.findByPharmacistIdPessimisticRead(p.getId());
 
 		if (appointment.getStart().getHour() < employment.getStart()
 				|| appointment.getEnd().getHour() >= employment.getEnd()) {
@@ -188,13 +188,13 @@ public class AppointmentService {
 			return past;
 		}
 		
-		String dermatologistAbsent = "This dermatologist is absent at that time!";
-		String busy = "This dermatologist has already an appointment planned at that time!";
-		String patientBusy = "This patient has already an appointment planned at that time!";
+		var dermatologistAbsent = "This dermatologist is absent at that time!";
+		var busy = "This dermatologist has already an appointment planned at that time!";
+		var patientBusy = "This patient has already an appointment planned at that time!";
 		
-		List<Appointment> appointmentsPatient = findAllPatients(appointment.getPatient().getId());
-		List<Appointment> appointmentsPharmacist = findAllDermatologist(appointment.getDermatologist().getId());
-		List<Absence> absences = repo3.findAll();
+		var appointmentsPatient = findAllPatients(appointment.getPatient().getId());
+		var appointmentsPharmacist = findAllDermatologist(appointment.getDermatologist().getId());
+		var absences = repo3.findAll();
 
 		for (EmploymentDermatologist employment : repo2.findByDermatologistIdPessimisticRead(appointment.getDermatologist().getId())) {
 			if (employment.getPharmacy().getId().equals(appointment.getPharmacy().getId())) {
@@ -271,7 +271,7 @@ public class AppointmentService {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public String makeAppointmentDermatologistPredefined(Integer id, Patient patient) {
-		Appointment appointment = repository.findWithId(id);
+		var appointment = repository.findWithId(id);
 		
 		if (appointment == null) {
 			return "This appointment doesnt exist!";
@@ -302,10 +302,10 @@ public class AppointmentService {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public String endAppointment(Appointment appointment, MedicineQuantity[] meds, String comments) {
-		String msg = "";
+		var msg = "";
 		
-		List<Allergy> allergies =  allergyrepo.findAllPatientsPessimisticRead(appointment.getPatient().getId());
-		List<MedicinePharmacy> medicines = repo4.findByPharmacyIdPessimisticW(appointment.getPharmacy().getId());
+		var allergies =  allergyrepo.findAllPatientsPessimisticRead(appointment.getPatient().getId());
+		var medicines = repo4.findByPharmacyIdPessimisticW(appointment.getPharmacy().getId());
 		
 		for (MedicineQuantity medicine : meds) {
 			
@@ -330,8 +330,8 @@ public class AppointmentService {
 		}
 		
 		if (msg.equals("")) {
-			AppointmentInfo ai = new AppointmentInfo();
-			Reservation r = new Reservation();
+			var ai = new AppointmentInfo();
+			var r = new Reservation();
 			
 			Patient patient = (Patient) userRepository.findById(appointment.getPatient().getId()).orElse(null);
 			if (patient != null) {
@@ -351,7 +351,7 @@ public class AppointmentService {
 				}
 				
 				if (patient.getCategoryName().equals(CategoryName.REGULAR)) {
-					Category c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+					var c = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
 					if (patient.getCollectedPoints() >= Math.abs(c.getRequiredNumberOfPoints())) {
 						patient.setCategoryName(CategoryName.SILVER);
 						appointment.setDiscount((100.0 - Math.abs(c.getDiscount())) / 100.0);
@@ -361,8 +361,8 @@ public class AppointmentService {
 						r.setDiscount(0.0);
 					}
 				} else if (patient.getCategoryName().equals(CategoryName.SILVER)) {
-					Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
-					Category c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
+					var c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+					var c2 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.SILVER);
 					if (patient.getCollectedPoints() >= Math.abs(c1.getRequiredNumberOfPoints())) {
 						patient.setCategoryName(CategoryName.GOLD);
 						appointment.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
@@ -372,7 +372,7 @@ public class AppointmentService {
 						r.setDiscount((100.0 - Math.abs(c2.getDiscount())) / 100.0);
 					}
 				} else if (patient.getCategoryName().equals(CategoryName.GOLD)) {
-					Category c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
+					var c1 = categoryRepository.findByCategoryNamePessimisticWrite(CategoryName.GOLD);
 					appointment.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
 					r.setDiscount((100.0 - Math.abs(c1.getDiscount())) / 100.0);
 				}
@@ -391,7 +391,7 @@ public class AppointmentService {
 				r.setPatient(appointment.getPatient());
 				r.setPharmacy(appointment.getPharmacy());
 				r.setTotal(0);
-				Reservation last = repo8.findFirstByOrderByIdDesc();
+				var last = repo8.findFirstByOrderByIdDesc();
 				if(last == null) {
 					r.setReservationId("Res1");
 				}else {
@@ -399,10 +399,12 @@ public class AppointmentService {
 				}
 				repo8.save(r);
 				
-				SimpleMailMessage mailMessage = new SimpleMailMessage();
+				var mailMessage = new SimpleMailMessage();
 				mailMessage.setTo(appointment.getPatient().getEmail());
 				mailMessage.setSubject("Medication reservation");
-				mailMessage.setFrom(en.getProperty("spring.mail.username"));
+				if (en.getProperty("spring.mail.username") != null) {
+					mailMessage.setFrom(en.getProperty("spring.mail.username"));
+				}
 				mailMessage.setText("Medication has been reserved for you in pharmacy " + appointment.getPharmacy().getName() +  ". You can pick it up till one day before " 
 				+ r.getEnd() + ". When you come pick it up, you will have to give the pharmacist this identifier " + r.getReservationId() + ". Have a nice day!");
 				emailsend.sendEmail(mailMessage);
@@ -420,12 +422,12 @@ public class AppointmentService {
 				}
 				repo5.save(medicine);
 				
-				MedicineAppointment ma = new MedicineAppointment();
+				var ma = new MedicineAppointment();
 				ma.setMedicine(medicine);
 				ma.setAppointmentInfo(ai);
 				repo6.save(ma);
 				
-				ReservationItem ri = new ReservationItem();
+				var ri = new ReservationItem();
 				ri.setMedicine(medicine);
 				ri.setReservation(r);
 				repo9.save(ri);
@@ -438,8 +440,8 @@ public class AppointmentService {
 
 	
 	public List<AppointmentDermatologist>findAllFreeDermatologicalApp(){
-		LocalDateTime now = LocalDateTime.now();
-		List<AppointmentDermatologist> returnList = new ArrayList<AppointmentDermatologist>();
+		var now = LocalDateTime.now();
+		List<AppointmentDermatologist> returnList = new ArrayList<>();
 		
 		for(AppointmentDermatologist a : repository.findAllFreeDermatologicalApp()) {
 			if(now.compareTo(a.getStart()) < 0) {
@@ -457,8 +459,8 @@ public class AppointmentService {
 	
 	
 	public List<AppointmentDermatologist> findAllDerAppWithPatientId(Integer id){
-		LocalDateTime now = LocalDateTime.now();
-		List<AppointmentDermatologist> returnList = new ArrayList<AppointmentDermatologist>();
+		var now = LocalDateTime.now();
+		List<AppointmentDermatologist> returnList = new ArrayList<>();
 		
 		for(AppointmentDermatologist a : repository.findAllDerAppWithPatientId(id)) {
 			if(now.compareTo(a.getStart()) < 0) {
@@ -472,8 +474,8 @@ public class AppointmentService {
 	
 	
 	public List<AppointmentDermatologist> findAllPastDerAppWithPatientId(Integer id){
-		LocalDateTime now = LocalDateTime.now();
-		List<AppointmentDermatologist> returnList = new ArrayList<AppointmentDermatologist>();
+		var now = LocalDateTime.now();
+		List<AppointmentDermatologist> returnList = new ArrayList<>();
 		
 		for(AppointmentDermatologist a : repository.findAllDerAppWithPatientId(id)) {
 			if(now.compareTo(a.getStart()) > 0) {
@@ -487,8 +489,8 @@ public class AppointmentService {
 	
 	
 	public List<AppointmentPharmacist> findAllPharAppWithPatientId(Integer id){
-		LocalDateTime now = LocalDateTime.now();
-		List<AppointmentPharmacist> returnList = new ArrayList<AppointmentPharmacist>();
+		var now = LocalDateTime.now();
+		List<AppointmentPharmacist> returnList = new ArrayList<>();
 		
 		for(AppointmentPharmacist a : repository.findAllPharAppWithPatientId(id)) {
 			if(now.compareTo(a.getStart()) < 0) {
@@ -501,8 +503,8 @@ public class AppointmentService {
 	
 	
 	public List<AppointmentPharmacist> findAllPastPharAppWithPatientId(Integer id){
-		LocalDateTime now = LocalDateTime.now();
-		List<AppointmentPharmacist> returnList = new ArrayList<AppointmentPharmacist>();
+		var now = LocalDateTime.now();
+		List<AppointmentPharmacist> returnList = new ArrayList<>();
 		
 		for(AppointmentPharmacist a : repository.findAllPharAppWithPatientId(id)) {
 			if(now.compareTo(a.getStart()) > 0) {
@@ -514,10 +516,12 @@ public class AppointmentService {
 	
 
 	public void sendEmailAppointment(Appointment appointment) {
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		var mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(appointment.getPatient().getEmail());
 		mailMessage.setSubject("New appointment scheduled");
-		mailMessage.setFrom(en.getProperty("spring.mail.username"));
+		if (en.getProperty("spring.mail.username") != null) {
+			mailMessage.setFrom(en.getProperty("spring.mail.username"));
+		}
 		mailMessage.setText("New appointment scheduled in pharmacy " + appointment.getPharmacy().getName() 
 				+ ". It is scheduled to be from " + appointment.getStart() + " to " + appointment.getEnd() + ". Have a nice day!");
 		emailsend.sendEmail(mailMessage);
@@ -525,11 +529,6 @@ public class AppointmentService {
 	
 	
 	public List<AppointmentPharmacist> getPharmacisApp() {
-		List<AppointmentPharmacist> l = appointmentRepository.getAllPharmacistApp();
-		System.out.println("mama");
-		for(int i = 0; i<l.size(); i++) {
-			System.out.println(l.get(i).getId());
-		}
 		return appointmentRepository.getAllPharmacistApp();
 	}
 	
@@ -542,21 +541,19 @@ public class AppointmentService {
 	
 	
 	public void deleteDermatologicalApp(AppointmentDermatologistDTO appointmentDto) {
-		Appointment app = appointmentRepository.findDerAppWithId(appointmentDto.getId());
+		var app = appointmentRepository.findDerAppWithId(appointmentDto.getId());
 		app.setPatient(null);
 		appointmentRepository.save(app);
 	}
 	
-	
-	//ovdje stavi upis u onu tabelu
 	public void deletePharmaciestApp(AppointmentPharmacistDTO appointmentDto) {
-		Appointment app = appointmentRepository.findById(appointmentDto.getId()).orElse(null);
+		var app = appointmentRepository.findById(appointmentDto.getId()).orElse(null);
 		
 		if (app != null) {
 			appointmentRepository.delete(app);
 		}
 		
-		CanceledPharAppoinment canceled = new CanceledPharAppoinment();
+		var canceled = new CanceledPharAppoinment();
 		canceled.setPatient(appointmentDto.getPatient());
 		canceled.setPharmacist(appointmentDto.getPharmacist());
 		canceled.setPharmacy(appointmentDto.getPharmacy());

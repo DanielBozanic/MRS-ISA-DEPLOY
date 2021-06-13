@@ -91,20 +91,20 @@ public class ComplaintService {
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public String sendResponse(ComplaintDTO responseDto) {
-		String message = "";
+		var message = "";
 		SystemAdmin systemAdmin = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		SystemAdmin systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
+		var systemAdminDb = (SystemAdmin) userRepository.findById(systemAdmin.getId()).orElse(null);
 		if (systemAdminDb != null) {
 			if (systemAdminDb.getFirstLogin()) {
 				message = "You are logging in for the first time, you must change password before you can use this functionality!";
 			} else {
-				Complaint complaint = complaintRepository.findByIdPessimisticWrite(responseDto.getId());
+				var complaint = complaintRepository.findByIdPessimisticWrite(responseDto.getId());
 				if (complaint != null) {
 					if (complaint.getSystemAdmin() == null) {
 						complaint.setResponse(responseDto.getResponse());
 						complaint.setSystemAdmin(systemAdminDb);
 						complaintRepository.save(complaint);
-						SimpleMailMessage mailMessage = new SimpleMailMessage();
+						var mailMessage = new SimpleMailMessage();
 				        mailMessage.setTo(complaint.getPatient().getEmail());
 				        mailMessage.setSubject("Response to complaint number " + complaint.getId());
 				        if (env.getProperty("spring.mail.username") != null) {

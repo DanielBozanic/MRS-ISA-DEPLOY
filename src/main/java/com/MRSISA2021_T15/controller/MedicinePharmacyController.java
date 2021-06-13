@@ -5,7 +5,6 @@ import com.MRSISA2021_T15.dto.ReservationItemDTO;
 import com.MRSISA2021_T15.model.*;
 import com.MRSISA2021_T15.service.MedicinePharmacyService;
 import com.MRSISA2021_T15.service.ReservationService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,10 +33,10 @@ public class MedicinePharmacyController {
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
 	public List<MedicineQuantity> getMedicinePharmacist(@PathVariable("pharmacyId") Integer id, @PathVariable("start") String start) {
 		List<MedicinePharmacy> medicines = mService.medcineInPharmacy(id);
-		ArrayList<MedicineQuantity> meds = new ArrayList<>();
+		List<MedicineQuantity> meds = new ArrayList<>();
 		for (MedicinePharmacy medicine : medicines) {
 			if(medicine.getMedicine().getName().startsWith(start)) {
-				MedicineQuantity med = new MedicineQuantity();
+				var med = new MedicineQuantity();
 				med.setMedicine(medicine.getMedicine());
 				med.setQuantity(medicine.getAmount());
 				meds.add(med);
@@ -50,10 +49,10 @@ public class MedicinePharmacyController {
 	@PreAuthorize("hasRole('ROLE_DERMATOLOGIST')")
 	public List<MedicineQuantity> getMedicineDermatologist(@PathVariable("pharmacyId") Integer id, @PathVariable("start") String start) {
 		List<MedicinePharmacy> medicines = mService.medcineInPharmacy(id);
-		ArrayList<MedicineQuantity> meds = new ArrayList<>();
+		List<MedicineQuantity> meds = new ArrayList<>();
 		for (MedicinePharmacy medicine : medicines) {
 			if(medicine.getMedicine().getName().startsWith(start)) {
-				MedicineQuantity med = new MedicineQuantity();
+				var med = new MedicineQuantity();
 				med.setMedicine(medicine.getMedicine());
 				med.setQuantity(medicine.getAmount());
 				meds.add(med);
@@ -79,12 +78,12 @@ public class MedicinePharmacyController {
 	public ResponseEntity<String>orderMedicine(@RequestBody OrderedMedicineDTO orderDto){
 		Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		String message = "";
+		var message = "";
 		mService.updateQuantity(orderDto);
 		reservationService.saveReservation(patient, orderDto);
 		
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("You ordered your medicine. Thank you for purchase. :)"), HttpStatus.OK);
 		} else {
@@ -130,7 +129,7 @@ public class MedicinePharmacyController {
 		}
 		
 		
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("You canceled your medicine. :)"), HttpStatus.OK);
 		} else {

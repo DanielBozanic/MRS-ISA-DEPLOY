@@ -59,13 +59,13 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Transactional
 	@Override
 	public String registerPatient(PatientDTO patientDto) {
-		String message = "";
+		var message = "";
 		if (registrationRepository.findByEmail(patientDto.getEmail().toLowerCase()) != null) {
 			message = exists;
 		} else if (registrationRepository.findByUsername(patientDto.getUsername().toLowerCase()) != null) {
 			message = usernameExists;
 		} else {
-			Patient patient = new Patient();
+			var patient = new Patient();
 			patient.setAddress(patientDto.getAddress());
 			patient.setCity(patientDto.getCity());
 			patient.setCountry(patientDto.getCountry());
@@ -85,9 +85,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 				roles.add(role);
 				patient.setRoles(roles);
 				registrationRepository.save(patient);
-				ConfirmationToken confirmationToken = new ConfirmationToken(patient);
+				var confirmationToken = new ConfirmationToken(patient);
 				confirmationTokenRepository.save(confirmationToken);
-				SimpleMailMessage mailMessage = new SimpleMailMessage();
+				var mailMessage = new SimpleMailMessage();
 	            mailMessage.setTo(patient.getEmail());
 	            mailMessage.setSubject("Verify account");
 	            if (env.getProperty("spring.mail.username") != null) {
@@ -104,9 +104,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public ModelAndView confirmAccount(ModelAndView modelAndView, String confirmationToken) {
-		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+		var token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
         if (token != null) {
-            Patient patient = (Patient) registrationRepository.findByEmail(token.getUser().getEmail());
+            var patient = (Patient) registrationRepository.findByEmail(token.getUser().getEmail());
             patient.setEnabled(true);
             registrationRepository.save(patient); 
             modelAndView.setViewName("accountVerified");
@@ -119,8 +119,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Override
 	public String registerSystemAdmin(SystemAdminDTO systemAdminDto) {
-		String message = "";
-		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var message = "";
+		var currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
 			message = login;
 		} else {
@@ -129,7 +129,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 			} else if (registrationRepository.findByUsername(systemAdminDto.getUsername().toLowerCase()) != null) {
 				message = usernameExists;
 			} else {
-				SystemAdmin systemAdmin = new SystemAdmin();
+				var systemAdmin = new SystemAdmin();
 				systemAdmin.setAddress(systemAdminDto.getAddress());
 				systemAdmin.setCity(systemAdminDto.getCity());
 				systemAdmin.setCountry(systemAdminDto.getCountry());
@@ -142,7 +142,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				systemAdmin.setEnabled(true);
 				systemAdmin.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).orElse(null);
+				var role = roleRepository.findById(Constants.ROLE_SYSTEM_ADMIN).orElse(null);
 				if (role != null) {
 					roles.add(role);
 					systemAdmin.setRoles(roles);
@@ -155,8 +155,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Override
 	public String registerDermatologist(DermatologistDTO dermatologistDto) {
-		String message = "";
-		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var message = "";
+		var currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
 			message =  login;
 		} else {
@@ -165,7 +165,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 			} else if (registrationRepository.findByUsername(dermatologistDto.getUsername().toLowerCase()) != null) {
 				message = usernameExists;
 			} else {
-				Dermatologist dermatologist = new Dermatologist();
+				var dermatologist = new Dermatologist();
 				dermatologist.setAddress(dermatologistDto.getAddress());
 				dermatologist.setCity(dermatologistDto.getCity());
 				dermatologist.setCountry(dermatologistDto.getCountry());
@@ -178,7 +178,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				dermatologist.setEnabled(true);
 				dermatologist.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = roleRepository.findById(Constants.ROLE_DERMATOLOGIST).orElse(null);
+				var role = roleRepository.findById(Constants.ROLE_DERMATOLOGIST).orElse(null);
 				if (role != null) {
 					roles.add(role);
 					dermatologist.setRoles(roles);
@@ -191,8 +191,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Override
 	public String registerSupplier(SupplierDTO supplierDto) {
-		String message = "";
-		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var message = "";
+		var currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
 			message =  login;
 		} else {
@@ -201,7 +201,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 			} else if (registrationRepository.findByUsername(supplierDto.getUsername().toLowerCase()) != null) {
 				message = usernameExists;
 			} else {
-				Supplier supplier = new Supplier();
+				var supplier = new Supplier();
 				supplier.setAddress(supplierDto.getAddress());
 				supplier.setCity(supplierDto.getCity());
 				supplier.setCountry(supplierDto.getCountry());
@@ -214,7 +214,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				supplier.setEnabled(true);
 				supplier.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = roleRepository.findById(Constants.ROLE_SUPPLIER).orElse(null);
+				var role = roleRepository.findById(Constants.ROLE_SUPPLIER).orElse(null);
 				if (role != null) {
 					roles.add(role);
 					supplier.setRoles(roles);
@@ -227,8 +227,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Override
 	public String registerPharmacyAdministrator(PharmacyAdminDTO pharmacyAdminDto) {
-		String message = "";
-		SystemAdmin currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		var message = "";
+		var currentUser = (SystemAdmin) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (currentUser.getFirstLogin()) {
 			message =  login;
 		} else {
@@ -237,7 +237,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 			} else if (registrationRepository.findByUsername(pharmacyAdminDto.getUsername().toLowerCase()) != null) {
 				message = usernameExists;
 			} else {
-				PharmacyAdmin pharmacyAdmin = new PharmacyAdmin();
+				var pharmacyAdmin = new PharmacyAdmin();
 				pharmacyAdmin.setAddress(pharmacyAdminDto.getAddress());
 				pharmacyAdmin.setCity(pharmacyAdminDto.getCity());
 				pharmacyAdmin.setCountry(pharmacyAdminDto.getCountry());
@@ -251,7 +251,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				pharmacyAdmin.setEnabled(true);
 				pharmacyAdmin.setFirstLogin(true);
 				List<Role> roles = new ArrayList<Role>();
-				Role role = roleRepository.findById(Constants.ROLE_PHARMACY_ADMIN).orElse(null);
+				var role = roleRepository.findById(Constants.ROLE_PHARMACY_ADMIN).orElse(null);
 				if (role != null) {
 					roles.add(role);
 					pharmacyAdmin.setRoles(roles);

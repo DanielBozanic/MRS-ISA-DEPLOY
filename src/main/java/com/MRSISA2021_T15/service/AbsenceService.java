@@ -73,7 +73,8 @@ public class AbsenceService {
 		absence.setApproved(false);
 		abs.save(absence);
 		
-		Thread thread = new Thread() {
+		var thread = new Thread() {
+			@Override
 			public void run() {
 				sendMailPharmacist(p, absence);
 			}
@@ -116,7 +117,8 @@ public class AbsenceService {
 		absence.setApproved(false);
 		abs.save(absence);
 		
-		Thread thread = new Thread() {
+		var thread = new Thread() {
+			@Override
 			public void run() {
 				sendMailDermatologist( p, absence);
 			}
@@ -130,32 +132,34 @@ public class AbsenceService {
 		Employment employment = emp.findByPharmacistId(p.getId());
 		for (PharmacyAdmin pharmacyAdmin : us.findAllPharmacyAdmins()) {
 			if(pharmacyAdmin.getPharmacy().getId().equals(employment.getPharmacy().getId())) {
-				SimpleMailMessage mailMessage = new SimpleMailMessage();
+				var mailMessage = new SimpleMailMessage();
 				mailMessage.setTo(pharmacyAdmin.getEmail());
 				mailMessage.setSubject("New absence request");
-				mailMessage.setFrom(environment.getProperty("spring.mail.username"));
+				if (environment.getProperty("spring.mail.username") != null) {
+					mailMessage.setFrom(environment.getProperty("spring.mail.username"));
+				}
 				mailMessage.setText("New absence request from pharmacist " + p.getName() + " " + p.getSurname() 
 				+ ". The pharmacist wishes to be absent from " + absence.getStart() + " to " +  absence.getEnd() 
 				+ ". The description of the reason he wnats to be absent is:\n" + absence.getDescription()
 				+ ". \nPlease approve it or reject it.");
 				emails.send(mailMessage);
-				//Thread.sleep(3000);
 			}
 		}
 	}
 	
 	public void sendMailDermatologist(Dermatologist p, Absence absence) {
 		for (SystemAdmin systemAdmin : us.findAllSystemAdmins()) {
-			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			var mailMessage = new SimpleMailMessage();
 			mailMessage.setTo(systemAdmin.getEmail());
 			mailMessage.setSubject("New absence request");
-			mailMessage.setFrom(environment.getProperty("spring.mail.username"));
+			if (environment.getProperty("spring.mail.username") != null) {
+				mailMessage.setFrom(environment.getProperty("spring.mail.username"));
+			}
 			mailMessage.setText("New absence request from dermatologist " + p.getName() + " " + p.getSurname() 
 			+ ". The dermatologist wishes to be absent from " + absence.getStart() + " to " +  absence.getEnd() 
 			+ ". The description of the reason he wnats to be absent is:\n" + absence.getDescription()
 			+". \nPlease approve it or reject it.");
 			emails.send(mailMessage);
-			//Thread.sleep(3000);
 		}
 	}
 }

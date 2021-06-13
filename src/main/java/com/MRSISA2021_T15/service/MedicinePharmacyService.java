@@ -42,7 +42,7 @@ public class MedicinePharmacyService {
 	}
 	
 	public List<MedicinePharmacy> searchMedicineByName(String name) {
-		List<MedicinePharmacy> retVal = new ArrayList<MedicinePharmacy>();
+		List<MedicinePharmacy> retVal = new ArrayList<>();
 		List<MedicinePharmacy> allMedicinePharmacy = (List<MedicinePharmacy>) repo.findAll();
 		for (MedicinePharmacy mp: allMedicinePharmacy) {
 			if (mp.getMedicine().getName().toLowerCase().contains(name.toLowerCase())) {
@@ -53,15 +53,15 @@ public class MedicinePharmacyService {
 	}
 	
 	public void updateQuantity(OrderedMedicineDTO orderDto) {
-		MedicinePharmacy mpb = repo.findUsingId(orderDto.getMedicinePharmacy().getId());
-		int number = mpb.getAmount() - orderDto.getAmount();
+		var mpb = repo.findUsingId(orderDto.getMedicinePharmacy().getId());
+		var number = mpb.getAmount() - orderDto.getAmount();
 		mpb.setAmount(number);
 		repo.save(mpb);
 	}
 	
 	public List<ReservationItem>getAllReservationItem(Patient p){
-		LocalDateTime now = LocalDateTime.now();
-		List<ReservationItem> returnList = new ArrayList<ReservationItem>();
+		var now = LocalDateTime.now();
+		List<ReservationItem> returnList = new ArrayList<>();
 		List<ReservationItem> list = (List<ReservationItem>) reservationRepo.findAll();
 		for(ReservationItem ri: list) {
 			if(p.getId().equals(ri.getReservation().getPatient().getId()) && now.compareTo(ri.getReservation().getEnd()) < 0 && ri.getReservation().getPickedUp() == null) {
@@ -73,25 +73,13 @@ public class MedicinePharmacyService {
 	
 	
 	public void deleteMedicine(ReservationItemDTO itemDto) {
-		Integer pharmacyId = itemDto.getReservation().getPharmacy().getId();
-		Integer medicineId = itemDto.getMedicine().getMedicine().getId();
-		
-		
-		
-		MedicinePharmacy mp = repo.findByExact(pharmacyId, medicineId);
-		System.out.println("123");
-		System.out.println(medicineId);
-		System.out.println(mp.getAmount() + itemDto.getMedicine().getQuantity());
-		
+		var pharmacyId = itemDto.getReservation().getPharmacy().getId();
+		var medicineId = itemDto.getMedicine().getMedicine().getId();
+		var mp = repo.findByExact(pharmacyId, medicineId);
 		mp.setAmount(mp.getAmount() + itemDto.getMedicine().getQuantity());
-		
-		System.out.println(mp.getAmount());
 		repo.save(mp);
-		
 		reservationRepo.deleteById(itemDto.getId());
 		mr.deleteById(itemDto.getMedicine().getId());
 		rr.deleteById(itemDto.getReservation().getId());
-		
-		
 	}
 }

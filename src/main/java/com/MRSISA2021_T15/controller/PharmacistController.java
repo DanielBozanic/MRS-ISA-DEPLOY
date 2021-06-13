@@ -4,7 +4,6 @@ import com.MRSISA2021_T15.dto.ChangePassword;
 import com.MRSISA2021_T15.dto.PharmacistDTO;
 import com.MRSISA2021_T15.model.Pharmacist;
 import com.MRSISA2021_T15.repository.PharmacistRepository;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
@@ -33,8 +32,8 @@ public class PharmacistController {
 
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_PHARMACY_ADMIN')")
-	public @ResponseBody ResponseEntity addNewPharmacist(@RequestBody PharmacistDTO pDto) {
-		Pharmacist p = new Pharmacist();
+	public @ResponseBody ResponseEntity<Object> addNewPharmacist(@RequestBody PharmacistDTO pDto) {
+		var p = new Pharmacist();
 		p.setAddress(pDto.getAddress());
 		p.setCity(pDto.getCity());
 		p.setCountry(pDto.getCountry());
@@ -103,7 +102,7 @@ public class PharmacistController {
 	@PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
 	public ResponseEntity<String> putPharmacist(@RequestBody PharmacistDTO pDto) {
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		Pharmacist pharm = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		pharm.setName(pDto.getName());
 		pharm.setSurname(pDto.getSurname());
@@ -119,7 +118,7 @@ public class PharmacistController {
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
 	public ResponseEntity<String> updatePassword(@RequestBody ChangePassword passwords) {
 		Pharmacist p = (Pharmacist) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		if (p != null) {
 			if (!encoder.matches(passwords.getOldPassword(), p.getPassword())) {
 				return new ResponseEntity<>(gson.toJson("Wrong old password!"), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -28,7 +28,6 @@ import com.MRSISA2021_T15.model.Supplier;
 import com.MRSISA2021_T15.repository.MedicineRepository;
 import com.MRSISA2021_T15.repository.PurchaseOrderRepository;
 import com.MRSISA2021_T15.service.SupplierService;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
@@ -48,15 +47,15 @@ public class SupplierController {
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
 	public ResponseEntity<String> updateSupplierData(@RequestBody SupplierDTO supplierDto) {
 		supplierService.updateSupplierData(supplierDto);
-		Gson gson = new GsonBuilder().create();
+		var gson = new GsonBuilder().create();
 		return new ResponseEntity<>(gson.toJson("Update successfull!"), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/updatePassword", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
 	public ResponseEntity<String> updatePassword(@RequestBody ChangePassword passwords) {
-		String message = supplierService.updatePassword(passwords);
-		Gson gson = new GsonBuilder().create();
+		var message = supplierService.updatePassword(passwords);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson(""), HttpStatus.OK);
 		} else {
@@ -79,8 +78,8 @@ public class SupplierController {
 	@PostMapping(value = "/writeOffer", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
 	public ResponseEntity<String> writeOffer(@RequestBody PurchaseOrderSupplierDTO offerDto) {
-		String message = supplierService.writeOffer(offerDto);
-		Gson gson = new GsonBuilder().create();
+		var message = supplierService.writeOffer(offerDto);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Offer sent successfully."), HttpStatus.OK);
 		} else {
@@ -115,8 +114,8 @@ public class SupplierController {
 	@PutMapping(value = "/updateOffer", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_SUPPLIER')")
 	public ResponseEntity<String> updateOffer(@RequestBody PurchaseOrderSupplierDTO offerDto) {
-		String message = supplierService.updateOffer(offerDto);
-		Gson gson = new GsonBuilder().create();
+		var message = supplierService.updateOffer(offerDto);
+		var gson = new GsonBuilder().create();
 		if (message.equals("")) {
 			return new ResponseEntity<>(gson.toJson("Offer updated successfully."), HttpStatus.OK);
 		} else {
