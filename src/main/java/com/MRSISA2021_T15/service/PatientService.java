@@ -233,7 +233,9 @@ public class PatientService {
 				SimpleMailMessage mailMessage = new SimpleMailMessage();
 	            mailMessage.setTo(psp.getPatient().getEmail());
 	            mailMessage.setSubject("Pharmacy " + psp.getPharmacy().getName() + " PROMOTION!!!!");
-	            mailMessage.setFrom(env.getProperty("spring.mail.username"));
+	            if (env.getProperty("spring.mail.username") != null) {
+	            	mailMessage.setFrom(env.getProperty("spring.mail.username"));
+	            }
 	            mailMessage.setText(p.getDescription() + ", \nPromotion lasts from " + p.getStartingDate() + " to " + p.getEndingDate());
 	            emailSenderService.sendEmail(mailMessage);
 	            Thread.sleep(3000);
@@ -379,7 +381,9 @@ public class PatientService {
 					SimpleMailMessage mailMessage = new SimpleMailMessage();
 			        mailMessage.setTo(patientDb.getEmail());
 			        mailMessage.setSubject("Medicine issue via EReceipt from pharmacy " + eReceiptSearch.getPharmacy().getName());
-			        mailMessage.setFrom(env.getProperty("spring.mail.username"));
+			        if (env.getProperty("spring.mail.username") != null) {
+			        	mailMessage.setFrom(env.getProperty("spring.mail.username"));
+			        }
 			        String mailText = "You have been issued the following medication: \n";
 			        for (EReceiptMedicineDetails ermd : eReceiptSearch.geteReceiptMedicineDetails()) {
 			        	mailText += "\t" + ermd.getMedicineName() + ", Quantity: " + Math.abs(ermd.getQuantity()) + "\n";

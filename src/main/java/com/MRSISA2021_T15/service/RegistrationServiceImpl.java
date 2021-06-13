@@ -90,7 +90,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 				SimpleMailMessage mailMessage = new SimpleMailMessage();
 	            mailMessage.setTo(patient.getEmail());
 	            mailMessage.setSubject("Verify account");
-	            mailMessage.setFrom(env.getProperty("spring.mail.username"));
+	            if (env.getProperty("spring.mail.username") != null) {
+	            	mailMessage.setFrom(env.getProperty("spring.mail.username"));
+	            }
 	            mailMessage.setText("To verify your account, please click here: "
 	            		+ "http://localhost:8080/registration/confirmAccount?token=" + confirmationToken.getConfirmationToken());
 	            emailSenderService.sendEmail(mailMessage);

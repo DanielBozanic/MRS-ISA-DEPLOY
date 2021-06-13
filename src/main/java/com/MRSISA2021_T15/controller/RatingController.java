@@ -38,7 +38,7 @@ public class RatingController {
 
 	@GetMapping(value = "/getDermatologistToRate", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Dermatologist> getAllDermatologists(){
+	public List<Dermatologist> getAllDermatologists(){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return ratingService.findAllDoneDerAppOfPatient(p);
 	}
@@ -46,7 +46,7 @@ public class RatingController {
 	
 	@GetMapping(value = "/getPharmacistsToRate", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Pharmacist> getPharmacistsToRate(){
+	public List<Pharmacist> getPharmacistsToRate(){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return ratingService.findAllDonePharAppOfPatient(p);
 	}
@@ -54,14 +54,14 @@ public class RatingController {
 	
 	@GetMapping(value = "/getPharmaciesToRate", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Pharmacy> getPharmaciesToRate(){
+	public List<Pharmacy> getPharmaciesToRate(){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return ratingService.findAllPharmaciesThatPatientHadApp(p);
 	}
 	
 	@GetMapping(value = "/getMedicineToRate", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Medicine> getMedicineToRate(){
+	public List<Medicine> getMedicineToRate(){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return ratingService.findAllMedicinesThatPatientCanRate(p);
 	}
@@ -70,7 +70,7 @@ public class RatingController {
 	
 	@GetMapping(value = "/getPenalties", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	Patient getPenalties(){
+	public Patient getPenalties(){
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return p;
 	}
