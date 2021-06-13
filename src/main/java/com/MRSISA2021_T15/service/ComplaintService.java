@@ -107,7 +107,9 @@ public class ComplaintService {
 						SimpleMailMessage mailMessage = new SimpleMailMessage();
 				        mailMessage.setTo(complaint.getPatient().getEmail());
 				        mailMessage.setSubject("Response to complaint number " + complaint.getId());
-				        mailMessage.setFrom(env.getProperty("spring.mail.username"));
+				        if (env.getProperty("spring.mail.username") != null) {
+				        	mailMessage.setFrom(env.getProperty("spring.mail.username"));
+				        }
 				        mailMessage.setText("Your complaint: " + complaint.getText() + "\n\nResponse: " + complaint.getResponse() + "\n\nBest regards,\n" + complaint.getSystemAdmin().getName());
 				        emailSenderService.sendEmail(mailMessage);
 					} else {

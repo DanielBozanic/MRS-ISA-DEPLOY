@@ -52,67 +52,24 @@ public class ComplaintController {
 	private final String inputComplaint = "You can input complaint";
 	private final String sent = "Your complaint is sent. Thank you for your words.";
 	
-	
 	@GetMapping(value = "/getAllDermatologists", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Dermatologist> getAllDermatologists(){
+	public List<Dermatologist> getAllDermatologists(){
 		return service.findAllDermatologist();
 	}
 	
-	
 	@GetMapping(value = "/getAllPharmacist", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Pharmacist> getAllPharmacist(){
+	public List<Pharmacist> getAllPharmacist(){
 		return service.findAllPharmacist();
 	}
 	
-	
 	@GetMapping(value = "/getAllPharmacy", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
-	List<Pharmacy> getAllPharmacy(){
+	public List<Pharmacy> getAllPharmacy(){
 		return service.findAllPharmacy();
 	}
 	
-	
-	/*
-	
-	@GetMapping(value = "/getdermatologicalComplaint/{patientUsername}", produces = MediaType.APPLICATION_JSON_VALUE)
-	List<ComplaintDermatologist>getdermatologicalComplaint(@PathVariable("patientUsername") String patientUsername){
-		List<ComplaintDermatologist> complaints =  service.findAllDerC();
-		List<ComplaintDermatologist> list = new ArrayList<ComplaintDermatologist>();
-		for(ComplaintDermatologist d : complaints) {
-			if(d.getPatient().getUsername().equals(patientUsername)) {
-				list.add(d);
-			}
-		}
-		return list;
-	}
-	
-	
-	@GetMapping(value = "/getpharmacistComplaint/{patientUsername}", produces = MediaType.APPLICATION_JSON_VALUE)
-	List<ComplaintPharmacist>getpharmacistComplaint(@PathVariable("patientUsername") String patientUsername){
-		List<ComplaintPharmacist> complaints =  service.findAllPhaC();
-		List<ComplaintPharmacist> list = new ArrayList<ComplaintPharmacist>();
-		for(ComplaintPharmacist d : complaints) {
-			if(d.getPatient().getUsername().equals(patientUsername)) {
-				list.add(d);
-			}
-		}
-		return list;
-	}
-	
-	@GetMapping(value = "/getpharmacyComplaint/{patientUsername}", produces = MediaType.APPLICATION_JSON_VALUE)
-	List<ComplaintPharmacy>getpharmacyComplaint(@PathVariable("patientUsername") String patientUsername){
-		List<ComplaintPharmacy> complaints =  service.findAllPhaYC();
-		List<ComplaintPharmacy> list = new ArrayList<ComplaintPharmacy>();
-		for(ComplaintPharmacy d : complaints) {
-			if(d.getPatient().getName().equals(patientUsername)) {
-				list.add(d);
-			}
-		}
-		return list;
-	}
-	*/
 	@GetMapping(value = "/getComplaints", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	List<Complaint>getpharmacyComplaint(){
@@ -135,9 +92,6 @@ public class ComplaintController {
 		
 		return list;
 	}
-	
-	
-	
 	
 	@PutMapping(value = "/checkDermatologist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
@@ -220,8 +174,6 @@ public class ComplaintController {
 	@PostMapping(value = "/addComplaintToDermatologist", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	public ResponseEntity<String> addComplaintToDermatologist(@RequestBody ComplaintDermatologistDTO complaintDto){
-		System.out.print(complaintDto.getText());
-		
 		String message = "";
 		Patient p = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ComplaintDermatologist complaint = new ComplaintDermatologist();

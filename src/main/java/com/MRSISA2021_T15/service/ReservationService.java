@@ -99,7 +99,9 @@ public class ReservationService {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			mailMessage.setTo(reservation.getPatient().getEmail());
 			mailMessage.setSubject("Successfull pickup");
-			mailMessage.setFrom(envir.getProperty("spring.mail.username"));
+			if (envir.getProperty("spring.mail.username") != null) {
+				mailMessage.setFrom(envir.getProperty("spring.mail.username"));
+			}
 			mailMessage.setText("You have successfully picked up your medications contained in reservation with identifier " + reservation.getReservationId() 
 			+ ". We hope you will visit us again at " + reservation.getPharmacy().getName() + ".");
 			emailsS.sendEmail(mailMessage);
