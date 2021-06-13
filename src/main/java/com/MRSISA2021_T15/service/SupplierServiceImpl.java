@@ -151,6 +151,7 @@ public class SupplierServiceImpl implements SupplierService {
 					}
 					if (offerOk) {
 						PurchaseOrderSupplier offer = new PurchaseOrderSupplier();
+						offer.setPurchaseOrder(offerDto.getPurchaseOrder());
 						offer.setDeliveryDate(offerDto.getDeliveryDate());
 						offer.setPrice(offerDto.getPrice());
 						offer.setOfferStatus(OfferStatus.PENDING);
@@ -250,7 +251,7 @@ public class SupplierServiceImpl implements SupplierService {
 					MedicineSupply medicineSupply = new MedicineSupply();
 					medicineSupply.setMedicine(medicineSupplyDto.getMedicine());
 					medicineSupply.setSupplier(supplier);
-					medicineSupply.setQuantity(Math.abs(medicineSupply.getQuantity()));
+					medicineSupply.setQuantity(Math.abs(medicineSupplyDto.getQuantity()));
 					medicineSupplyRepository.save(medicineSupply);
 					message = "Medicine is added to stock.";
 				}
