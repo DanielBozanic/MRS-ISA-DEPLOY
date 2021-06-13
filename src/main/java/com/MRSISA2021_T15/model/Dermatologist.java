@@ -8,6 +8,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,17 +18,22 @@ public class Dermatologist extends User{
 	
 	private static final long serialVersionUID = 1L;
 
+	@Transient
 	@JsonIgnore
 	@OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<AppointmentDermatologist> appointments;
 	
+	@Transient
 	@JsonIgnore
 	@OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ComplaintDermatologist> complaints;
 	
+	@Transient
 	@JsonIgnore
 	@OneToMany(mappedBy = "dermatologist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EmploymentDermatologist> employments;
+	
+	@Transient
 	@JsonIgnore
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Absence> absence;

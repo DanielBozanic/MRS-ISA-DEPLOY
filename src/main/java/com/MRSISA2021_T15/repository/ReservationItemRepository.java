@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.MRSISA2021_T15.model.Appointment;
 import com.MRSISA2021_T15.model.Medicine;
 import com.MRSISA2021_T15.model.Pharmacy;
 import com.MRSISA2021_T15.model.ReservationItem;

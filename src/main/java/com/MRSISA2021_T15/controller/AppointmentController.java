@@ -43,6 +43,7 @@ public class AppointmentController {
 		appointment.setPatient(appointmentDto.getPatient());
 		appointment.setPharmacist(appointmentDto.getPharmacist());
 		appointment.setPrice(appointmentDto.getPrice());
+		appointment.setPharmacy(appointmentDto.getPharmacy());
 		String message = service.makeAppointmentPharmacist(appointment);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
@@ -61,6 +62,7 @@ public class AppointmentController {
 		appointment.setPatient(appointmentDto.getPatient());
 		appointment.setDermatologist(appointmentDto.getDermatologist());
 		appointment.setPrice(appointmentDto.getPrice());
+		appointment.setPharmacy(appointmentDto.getPharmacy());
 		String message = service.makeAppointmentDermatologist(appointment);
 		Gson gson = new GsonBuilder().create();
 		if (message.equals("")) {
@@ -154,6 +156,7 @@ public class AppointmentController {
 		ad.setPatient(adDto.getPatient());
 		ad.setDermatologist(adDto.getDermatologist());
 		ad.setPrice(adDto.getPrice());
+		ad.setPharmacy(adDto.getPharmacy());
 		List<Appointment> allAppointments = appointmentRepository.findAllDermatologistId(ad.getDermatologist().getId());
 		boolean isValid = true;
 
@@ -173,7 +176,7 @@ public class AppointmentController {
 	public @ResponseBody List<AppointmentDermatologist> getPredefinedDermatologistAppointments(@PathVariable Integer pharmacyId) {
 		List<Appointment> appointmentList = appointmentRepository.findAll();
 		List<Appointment> appointmentPharmacyList = new ArrayList<>();
-		List returnList = new ArrayList<AppointmentDermatologist>();
+		List<AppointmentDermatologist> returnList = new ArrayList<AppointmentDermatologist>();
 		for ( Appointment a : appointmentList) {
 			if (a.getPharmacy().getId().equals(pharmacyId)) {
 				appointmentPharmacyList.add(a);
@@ -181,7 +184,7 @@ public class AppointmentController {
 		}
 		for (Appointment ap : appointmentPharmacyList){
 			if (ap.getPatient() == null )
-				returnList.add(ap);
+				returnList.add((AppointmentDermatologist)ap);
 		}
 		return returnList;
 	}

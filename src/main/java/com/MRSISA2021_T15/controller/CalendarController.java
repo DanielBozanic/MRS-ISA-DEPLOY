@@ -26,6 +26,9 @@ public class CalendarController {
 	@Autowired
 	private CalendarService service;
 	
+	private final String predef = "Predefined Appointment in ";
+	private final String with = "Appointment with "; 
+	
 	@GetMapping(value = "/calendarPharmacist", produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_PHARMACIST')")
 	public Collection<Event> calendarPharmacist(){
@@ -34,7 +37,7 @@ public class CalendarController {
 		ArrayList<Event> events = new ArrayList<Event>();
 		for (Appointment appointment : appointments) {
 			Event event = new Event();
-			event.setTitle("Appointment with" + " " + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName());
+			event.setTitle(with + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName());
 			event.setStart(appointment.getStart());
 			event.setEnd(appointment.getEnd());
 			events.add(event);
@@ -51,7 +54,7 @@ public class CalendarController {
 		for (Appointment appointment : appointments) {
 			Event event = new Event();
 			event.setId(appointment.getId());
-			event.setTitle("Appointment with" + " " + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName());
+			event.setTitle(with + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName());
 			event.setStart(appointment.getStart());
 			event.setEnd(appointment.getEnd());
 			events.add(event);
@@ -69,9 +72,9 @@ public class CalendarController {
 			if(appointment.getPharmacy().getId().equals(pharmacyId)) {
 				Event event = new Event();
 				if(appointment.getPatient() == null) {
-					event.setTitle("Predefined Appointment in " + appointment.getPharmacy().getName());
+					event.setTitle(predef + appointment.getPharmacy().getName());
 				}else {
-					event.setTitle("Appointment with " + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName() + " in " + appointment.getPharmacy().getName());
+					event.setTitle(with + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName() + " in " + appointment.getPharmacy().getName());
 				}
 				event.setStart(appointment.getStart());
 				event.setEnd(appointment.getEnd());
@@ -90,9 +93,9 @@ public class CalendarController {
 		for (Appointment appointment : appointments) {
 				Event event = new Event();
 				if(appointment.getPatient() == null) {
-					event.setTitle("Predefined Appointment in " + appointment.getPharmacy().getName());
+					event.setTitle(predef + appointment.getPharmacy().getName());
 				}else {
-					event.setTitle("Appointment with " + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName() + " in " + appointment.getPharmacy().getName());
+					event.setTitle(with + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName() + " in " + appointment.getPharmacy().getName());
 				}
 				event.setStart(appointment.getStart());
 				event.setEnd(appointment.getEnd());
@@ -112,7 +115,7 @@ public class CalendarController {
 				if(appointment.getPatient() == null) {
 					continue;
 				}else {
-					event.setTitle("Appointment with " + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName() + " in " + appointment.getPharmacy().getName());
+					event.setTitle(with + appointment.getPatient().getSurname() + " " +  appointment.getPatient().getName() + " in " + appointment.getPharmacy().getName());
 				}
 				event.setId(appointment.getId());
 				event.setStart(appointment.getStart());
@@ -131,7 +134,7 @@ public class CalendarController {
 		for (Appointment appointment : appointments) {
 				if(appointment.getPatient() == null) {
 					Event event = new Event();
-					event.setTitle("Predefined Appointment in " + appointment.getPharmacy().getName());
+					event.setTitle(predef + appointment.getPharmacy().getName());
 					event.setStart(appointment.getStart());
 					event.setEnd(appointment.getEnd());
 					events.add(event);
@@ -150,7 +153,7 @@ public class CalendarController {
 			if(appointment.getPharmacy().getId().equals(pharmacyId) && appointment.getPatient() == null) {
 				Event event = new Event();
 				event.setId(appointment.getId());
-				event.setTitle("Predefined Appointment in " + appointment.getPharmacy().getName());
+				event.setTitle(predef + appointment.getPharmacy().getName());
 				event.setStart(appointment.getStart());
 				event.setEnd(appointment.getEnd());
 				events.add(event);

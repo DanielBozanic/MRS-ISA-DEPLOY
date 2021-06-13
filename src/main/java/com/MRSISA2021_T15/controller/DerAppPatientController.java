@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MRSISA2021_T15.dto.AppointmentDermatologistDTO;
-import com.MRSISA2021_T15.model.Appointment;
 import com.MRSISA2021_T15.model.AppointmentDermatologist;
-import com.MRSISA2021_T15.model.ComplaintDermatologist;
 import com.MRSISA2021_T15.model.Patient;
 import com.MRSISA2021_T15.model.Pharmacy;
 import com.MRSISA2021_T15.service.AppointmentService;
@@ -35,6 +33,8 @@ public class DerAppPatientController {
 	
 	@Autowired
 	private AppointmentService AppService;
+	
+	private String cancel = "You can't cancel your appointment under 24h before it's beginning!";
 	
 	
 	
@@ -69,7 +69,7 @@ public class DerAppPatientController {
 		AppService.saveDerApp(appointment);
 		
 		Gson gson = new GsonBuilder().create();
-		return new ResponseEntity<String>(gson.toJson("You schedule appointment with dermatologist."), HttpStatus.OK);
+		return new ResponseEntity<String>(gson.toJson("You scheduled an appointment with dermatologist."), HttpStatus.OK);
 	}
 	
 	
@@ -99,15 +99,15 @@ public class DerAppPatientController {
 		if(now.getYear() == appointmentDto.getStart().getYear()) {
 			if(now.getMonthValue() == appointmentDto.getStart().getMonthValue()) {
 				if(now.getDayOfMonth() == appointmentDto.getStart().getDayOfMonth()) {
-					message = "You can't cancel your appointment under 24h before it's beggining!";
+					message = cancel;
 				}else if(now.getDayOfMonth() + 1 == appointmentDto.getStart().getDayOfMonth()) { //ako je otkazujem dan prije
 					//provjeri sate i minute onda
 					if(now.getHour() > appointmentDto.getStart().getHour()) {
-						message = "You can't cancel your appointment under 24h before it's beggining!";
+						message = cancel;
 					}else if(now.getHour() == appointmentDto.getStart().getHour()) {
 						//ovdje provjeri minute
 						if(now.getMinute() >  appointmentDto.getStart().getMinute()) { //moze tacno 24 od pocetka da otkaze
-							message = "You can't cancel your appointment under 24h before it's beggining!";
+							message = cancel;
 						}
 					}
 				}

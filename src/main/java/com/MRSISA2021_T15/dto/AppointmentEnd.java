@@ -1,6 +1,5 @@
 package com.MRSISA2021_T15.dto;
 
-import com.MRSISA2021_T15.model.Appointment;
 import com.MRSISA2021_T15.model.AppointmentPharmacist;
 import com.MRSISA2021_T15.model.MedicineQuantity;
 

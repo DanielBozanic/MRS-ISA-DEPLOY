@@ -19,7 +19,7 @@ public class EmploymentController {
     @GetMapping(path="/getPharmacyEmployees/{pharmacyId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<Employment> getPharmacyEmployees(@PathVariable Integer pharmacyId) {
         List<Employment> employmentList = employmentRepository.findAll();
-        List returnList = new ArrayList<Employment>();
+        List<Employment> returnList = new ArrayList<Employment>();
         for (Employment e : employmentList) {
             if (e.getPharmacy().getId().equals(pharmacyId)) {
                 returnList.add(e);

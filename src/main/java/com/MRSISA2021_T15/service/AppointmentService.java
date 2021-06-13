@@ -42,6 +42,10 @@ public class AppointmentService {
 	EmailSenderService emailsend;
 	@Autowired
 	Environment en;
+	
+	private String time = "Start can't be after end!";
+	private String past = "Can't schedule appointment into past!";
+	
   @Autowired
   private CategoryRepository categoryRepository;
 	@Autowired
@@ -92,11 +96,15 @@ public class AppointmentService {
 	public String makeAppointmentPharmacist(AppointmentPharmacist appointment) {
 		
 		if(appointment.getStart().isAfter(appointment.getEnd())) {
-			return "Start can't be after end!";	
+			return time;	
 		}else if(appointment.getStart().isBefore(LocalDateTime.now()) || appointment.getStart().isEqual(LocalDateTime.now())) {
-			return "Can't schedule appointment into past!";
+			return past;
 		}
 		
+		String pharmacistAbsent = "This pharmacist is absent at that time!";
+		String busy = "This pharmacist has already an appointment planned at that time!";
+		String patientBusy = "This patient has already an appointment planned at that time!";
+				
 		List<Appointment> appointmentsPatient = findAllPatients(appointment.getPatient().getId());
 		List<Appointment> appointmentsPharmacist = findAllPharmacist(appointment.getPharmacist().getId());
 		List<Absence> absences = repo3.findAll();
@@ -112,19 +120,19 @@ public class AppointmentService {
 			if (absence.getDoctor().getId().equals(appointment.getPharmacist().getId())) {
 				if (appointment.getStart().isEqual(absence.getStart())
 						|| appointment.getStart().isEqual(absence.getEnd())) {
-					return "This pharmacist is absent at that time!";
+					return pharmacistAbsent;
 				} else if (appointment.getEnd().isEqual(absence.getStart())
 						|| appointment.getEnd().isEqual(absence.getEnd())) {
-					return "This pharmacist is absent at that time!";
+					return pharmacistAbsent;
 				} else if (appointment.getStart().isAfter(absence.getStart())
 						&& appointment.getStart().isBefore(absence.getEnd())) {
-					return "This pharmacist is absent at that time!";
+					return pharmacistAbsent;
 				} else if (appointment.getEnd().isBefore(absence.getEnd())
 						&& appointment.getEnd().isAfter(absence.getStart())) {
-					return "This pharmacist is absent at that time!";
+					return pharmacistAbsent;
 				} else if (appointment.getStart().isBefore(absence.getStart())
 						&& appointment.getEnd().isAfter(absence.getEnd())) {
-					return "This pharmacist is absent at that time!";
+					return pharmacistAbsent;
 				}
 			}
 		}
@@ -132,38 +140,38 @@ public class AppointmentService {
 		for (Appointment appointment2 : appointmentsPharmacist) {
 			if (appointment.getStart().isEqual(appointment2.getStart())
 					|| appointment.getStart().isEqual(appointment2.getEnd())) {
-				return "This pharmacist has already an appointment planned at that time!";
+				return busy;
 			} else if (appointment.getEnd().isEqual(appointment2.getStart())
 					|| appointment.getEnd().isEqual(appointment2.getEnd())) {
-				return "This pharmacist has already an appointment planned at that time!";
+				return busy;
 			} else if (appointment.getStart().isAfter(appointment2.getStart())
 					&& appointment.getStart().isBefore(appointment2.getEnd())) {
-				return "This pharmacist has already an appointment planned at that time!";
+				return busy;
 			} else if (appointment.getEnd().isBefore(appointment2.getEnd())
 					&& appointment.getEnd().isAfter(appointment2.getStart())) {
-				return "This pharmacist has already an appointment planned at that time!";
+				return busy;
 			} else if (appointment.getStart().isBefore(appointment2.getStart())
 					&& appointment.getEnd().isAfter(appointment2.getEnd())) {
-				return "This pharmacist has already an appointment planned at that time!";
+				return busy;
 			}
 		}
 
 		for (Appointment appointment2 : appointmentsPatient) {
 			if (appointment.getStart().isEqual(appointment2.getStart())
 					|| appointment.getStart().isEqual(appointment2.getEnd())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			} else if (appointment.getEnd().isEqual(appointment2.getStart())
 					|| appointment.getEnd().isEqual(appointment2.getEnd())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			} else if (appointment.getStart().isAfter(appointment2.getStart())
 					&& appointment.getStart().isBefore(appointment2.getEnd())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			} else if (appointment.getEnd().isBefore(appointment2.getEnd())
 					&& appointment.getEnd().isAfter(appointment2.getStart())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			} else if (appointment.getStart().isBefore(appointment2.getStart())
 					&& appointment.getEnd().isAfter(appointment2.getEnd())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			}
 		}
 		repository.save(appointment);
@@ -175,10 +183,14 @@ public class AppointmentService {
 	public String makeAppointmentDermatologist(AppointmentDermatologist appointment) {
 		
 		if(appointment.getStart().isAfter(appointment.getEnd())) {
-			return "Start can't be after end!";	
+			return time;
 		}else if(appointment.getStart().isBefore(LocalDateTime.now()) || appointment.getStart().isEqual(LocalDateTime.now())) {
-			return "Can't schedule appointment into past!";
+			return past;
 		}
+		
+		String dermatologistAbsent = "This dermatologist is absent at that time!";
+		String busy = "This dermatologist has already an appointment planned at that time!";
+		String patientBusy = "This patient has already an appointment planned at that time!";
 		
 		List<Appointment> appointmentsPatient = findAllPatients(appointment.getPatient().getId());
 		List<Appointment> appointmentsPharmacist = findAllDermatologist(appointment.getDermatologist().getId());
@@ -198,19 +210,19 @@ public class AppointmentService {
 			if (absence.getDoctor().getId().equals(appointment.getDermatologist().getId())) {
 				if (appointment.getStart().isEqual(absence.getStart())
 						|| appointment.getStart().isEqual(absence.getEnd())) {
-					return "This dermatologist is absent at that time!";
+					return dermatologistAbsent;
 				} else if (appointment.getEnd().isEqual(absence.getStart())
 						|| appointment.getEnd().isEqual(absence.getEnd())) {
-					return "This dermatologist is absent at that time!";
+					return dermatologistAbsent;
 				} else if (appointment.getStart().isAfter(absence.getStart())
 						&& appointment.getStart().isBefore(absence.getEnd())) {
-					return "This dermatologist is absent at that time!";
+					return dermatologistAbsent;
 				} else if (appointment.getEnd().isBefore(absence.getEnd())
 						&& appointment.getEnd().isAfter(absence.getStart())) {
-					return "This dermatologist is absent at that time!";
+					return dermatologistAbsent;
 				} else if (appointment.getStart().isBefore(absence.getStart())
 						&& appointment.getEnd().isAfter(absence.getEnd())) {
-					return "This dermatologist is absent at that time!";
+					return dermatologistAbsent;
 				}
 			}
 		}
@@ -218,38 +230,38 @@ public class AppointmentService {
 		for (Appointment appointment2 : appointmentsPharmacist) {
 			if (appointment.getStart().isEqual(appointment2.getStart())
 					|| appointment.getStart().isEqual(appointment2.getEnd())) {
-				return "This dermatologist has already an appointment planned at that time!";
+				return busy;
 			} else if (appointment.getEnd().isEqual(appointment2.getStart())
 					|| appointment.getEnd().isEqual(appointment2.getEnd())) {
-				return "This dermatologist has already an appointment planned at that time!";
+				return busy;
 			} else if (appointment.getStart().isAfter(appointment2.getStart())
 					&& appointment.getStart().isBefore(appointment2.getEnd())) {
-				return "This dermatologist has already an appointment planned at that time!";
+				return busy;
 			} else if (appointment.getEnd().isBefore(appointment2.getEnd())
 					&& appointment.getEnd().isAfter(appointment2.getStart())) {
-				return "This dermatologist has already an appointment planned at that time!";
+				return busy;
 			} else if (appointment.getStart().isBefore(appointment2.getStart())
 					&& appointment.getEnd().isAfter(appointment2.getEnd())) {
-				return "This dermatologist has already an appointment planned at that time!";
+				return busy;
 			}
 		}
 
 		for (Appointment appointment2 : appointmentsPatient) {
 			if (appointment.getStart().isEqual(appointment2.getStart())
 					|| appointment.getStart().isEqual(appointment2.getEnd())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			} else if (appointment.getEnd().isEqual(appointment2.getStart())
 					|| appointment.getEnd().isEqual(appointment2.getEnd())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			} else if (appointment.getStart().isAfter(appointment2.getStart())
 					&& appointment.getStart().isBefore(appointment2.getEnd())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			} else if (appointment.getEnd().isBefore(appointment2.getEnd())
 					&& appointment.getEnd().isAfter(appointment2.getStart())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			} else if (appointment.getStart().isBefore(appointment2.getStart())
 					&& appointment.getEnd().isAfter(appointment2.getEnd())) {
-				return "This patient has already an appointment planned at that time!";
+				return patientBusy;
 			}
 		}
 		repository.save(appointment);
@@ -264,9 +276,9 @@ public class AppointmentService {
 		if (appointment == null) {
 			return "This appointment doesnt exist!";
 		}else if(appointment.getStart().isAfter(appointment.getEnd())) {
-			return "Start can't be after end!";	
+			return time;
 		}else if(appointment.getStart().isBefore(LocalDateTime.now()) || appointment.getStart().isEqual(LocalDateTime.now())) {
-			return "Can't schedule appointment into past!";
+			return past;
 		}else if (appointment.getPatient() != null) {
 			return "This appointment is already assigned";
 		}
