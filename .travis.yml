@@ -8,14 +8,12 @@ services:
 before_install:
 - mysql -e 'CREATE DATABASE mrsisa2021_t15';
 - chmod +x mvnw
+- echo "MAVEN_OPTS='-Xmx3g -Xss2m'" > ~/.mavenrc
 
 addons:
   sonarcloud:
   organization: danielbozanic
   token: $SONAR_TOKEN
-
-before_script:
-  - echo "MAVEN_OPTS='-Xmx3g -Xss2m'"
 
 script:
 - "./mvnw clean install -DskipTests=false -B"
