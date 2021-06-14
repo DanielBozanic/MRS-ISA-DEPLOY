@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/mrs-isa-deploy-0.0.1-SNAPSHOT.war --server.port=$PORT $JAR_OPTS
+web: java $JAVA_OPTS -jar target/backend-0.0.1-SNAPSHOT.war --server.port=$PORT $JAR_OPTS
