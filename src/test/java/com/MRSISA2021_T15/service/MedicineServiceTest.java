@@ -25,7 +25,7 @@ class MedicineServiceTest {
 	private Medicine medicineMock;
 	
 	@Test
-	void addMedicine() {
+	void addMedicineTest() {
 		Medicine medicine = new Medicine();
 		medicine.setAdditionalComments("");
 		medicine.setComposition("");

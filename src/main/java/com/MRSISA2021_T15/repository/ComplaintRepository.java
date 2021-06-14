@@ -23,5 +23,8 @@ public interface ComplaintRepository extends CrudRepository<Complaint, Integer> 
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("select c from Complaint c where c.id = ?1")
 	Complaint findByIdPessimisticWrite(Integer id);
+	
+	@Query("select c from Complaint c where c.patient.id = ?1")
+	List<Complaint> findByPatientId(Integer id);
 
 }
