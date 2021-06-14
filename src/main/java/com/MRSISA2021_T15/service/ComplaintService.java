@@ -98,27 +98,33 @@ public class ComplaintService {
 			if (systemAdminDb.getFirstLogin()) {
 				message = "You are logging in for the first time, you must change password before you can use this functionality!";
 			} else {
-				var complaint = complaintRepository.findByIdPessimisticWrite(responseDto.getId());
-				if (complaint != null) {
-					if (complaint.getSystemAdmin() == null) {
-						complaint.setResponse(responseDto.getResponse());
-						complaint.setSystemAdmin(systemAdminDb);
-						complaintRepository.save(complaint);
-						var mailMessage = new SimpleMailMessage();
-				        mailMessage.setTo(complaint.getPatient().getEmail());
-				        mailMessage.setSubject("Response to complaint number " + complaint.getId());
-				        if (env.getProperty("spring.mail.username") != null) {
-				        	mailMessage.setFrom(env.getProperty("spring.mail.username"));
-				        }
-				        mailMessage.setText("Your complaint: " + complaint.getText() + "\n\nResponse: " + complaint.getResponse() + "\n\nBest regards,\n" + complaint.getSystemAdmin().getName());
-				        emailSenderService.sendEmail(mailMessage);
-					} else {
-						message = "This complaint has already been answered!";
-					}
-				} else {
-					message = "Complaint with given id is not found!";
-				}
+				message = sendResponseToDatabase(responseDto, systemAdminDb);
 			}
+		}
+		return message;
+	}
+	
+	public String sendResponseToDatabase(ComplaintDTO responseDto, SystemAdmin systemAdminDb) {
+		var message = "";
+		var complaint = complaintRepository.findByIdPessimisticWrite(responseDto.getId());
+		if (complaint != null) {
+			if (complaint.getSystemAdmin() == null) {
+				complaint.setResponse(responseDto.getResponse());
+				complaint.setSystemAdmin(systemAdminDb);
+				complaintRepository.save(complaint);
+				var mailMessage = new SimpleMailMessage();
+		        mailMessage.setTo(complaint.getPatient().getEmail());
+		        mailMessage.setSubject("Response to complaint number " + complaint.getId());
+		        if (env.getProperty("spring.mail.username") != null) {
+		        	mailMessage.setFrom(env.getProperty("spring.mail.username"));
+		        }
+		        mailMessage.setText("Your complaint: " + complaint.getText() + "\n\nResponse: " + complaint.getResponse() + "\n\nBest regards,\n" + complaint.getSystemAdmin().getName());
+		        emailSenderService.sendEmail(mailMessage);
+			} else {
+				message = "This complaint has already been answered!";
+			}
+		} else {
+			message = "Complaint with given id is not found!";
 		}
 		return message;
 	}

@@ -134,38 +134,44 @@ public class SupplierServiceImpl implements SupplierService {
 			} else if (LocalDate.now().isAfter(offerDto.getDeliveryDate())) {
 				message = "Delivery date must be after today's date!";
 			} else {
-				var pos = purchaseOrderSupplierRepository.findBySupplierIdAndPurchaseOrderId(offerDto.getPurchaseOrder().getId(), supplier.getId());
-				if (pos == null) {
-					List<PurchaseOrderMedicine> medicine = purchaseOrderMedicineRepository.findAllByPurchaseOrder(offerDto.getPurchaseOrder());
-					List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplier.getId());
-					var offerOk = true;
-					for (PurchaseOrderMedicine pom : medicine) {
-						var sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(pom.getMedicine().getId(), pendingPurchaseOrderIds);
-						if (sum == null) {
-							sum = 0;
-						}
-						var ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(pom.getMedicine().getMedicineCode(), supplier.getId());
-						if (sum + pom.getQuantity() > ms.getQuantity()) {
-							offerOk = false;
-							break;
-						}
-					}
-					if (offerOk) {
-						var offer = new PurchaseOrderSupplier();
-						offer.setPurchaseOrder(offerDto.getPurchaseOrder());
-						offer.setDeliveryDate(offerDto.getDeliveryDate());
-						offer.setPrice(offerDto.getPrice());
-						offer.setOfferStatus(OfferStatus.PENDING);
-						offer.setSupplier(supplierDb);
-						offer.setPrice(Math.abs(offer.getPrice()));
-						purchaseOrderSupplierRepository.save(offer);
-					} else {
-						message = "You do not have enough of medicine in stock!";
-					}
-				} else {
-					message = "Supplier has already given an offer for this order!";
+				message = writeOfferToDatabase(offerDto, supplierDb);
+			}
+		}
+		return message;
+	}
+	
+	public String writeOfferToDatabase(PurchaseOrderSupplierDTO offerDto, Supplier supplierDb) {
+		var message = "";
+		var pos = purchaseOrderSupplierRepository.findBySupplierIdAndPurchaseOrderId(offerDto.getPurchaseOrder().getId(), supplierDb.getId());
+		if (pos == null) {
+			List<PurchaseOrderMedicine> medicine = purchaseOrderMedicineRepository.findAllByPurchaseOrder(offerDto.getPurchaseOrder());
+			List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplierDb.getId());
+			var offerOk = true;
+			for (PurchaseOrderMedicine pom : medicine) {
+				var sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(pom.getMedicine().getId(), pendingPurchaseOrderIds);
+				if (sum == null) {
+					sum = 0;
+				}
+				var ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(pom.getMedicine().getMedicineCode(), supplierDb.getId());
+				if (sum + pom.getQuantity() > ms.getQuantity()) {
+					offerOk = false;
+					break;
 				}
 			}
+			if (offerOk) {
+				var offer = new PurchaseOrderSupplier();
+				offer.setPurchaseOrder(offerDto.getPurchaseOrder());
+				offer.setDeliveryDate(offerDto.getDeliveryDate());
+				offer.setPrice(offerDto.getPrice());
+				offer.setOfferStatus(OfferStatus.PENDING);
+				offer.setSupplier(supplierDb);
+				offer.setPrice(Math.abs(offer.getPrice()));
+				purchaseOrderSupplierRepository.save(offer);
+			} else {
+				message = "You do not have enough of medicine in stock!";
+			}
+		} else {
+			message = "Supplier has already given an offer for this order!";
 		}
 		return message;
 	}

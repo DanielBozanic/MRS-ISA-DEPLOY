@@ -159,7 +159,7 @@ insert into purchase_order_supplier (purchase_order_id, supplier_id, delivery_da
 insert into purchase_order_supplier (purchase_order_id, supplier_id, delivery_date, price, offer_status) values (2, 10, '2021-08-10', 900, 1);
 insert into purchase_order_supplier (purchase_order_id, supplier_id, delivery_date, price, offer_status) values (3, 10, '2021-08-26', 700, 2);
 
-insert into complaints (complaint_type, text, patient_id, dermatologist_id, pharmacist_id, pharmacy_id) values ('COMPLAINT_DERMATOLOGIST', 'Dermatologist has given me the wrong medicine!', 1, 6, null, null);
+insert into complaints (complaint_type, text, patient_id, dermatologist_id, pharmacist_id, pharmacy_id, system_admin_id, response) values ('COMPLAINT_DERMATOLOGIST', 'Dermatologist has given me the wrong medicine!', 1, 6, null, null, 14, 'some response');
 insert into complaints (complaint_type, text, patient_id, dermatologist_id, pharmacist_id, pharmacy_id) values ('COMPLAINT_DERMATOLOGIST', 'Can you please fire dermatologist Peter? He is very unprofessional!', 1, 6, null, null);
 
 insert into category (category_name, required_number_of_points, discount) values (0, 0, 0);

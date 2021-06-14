@@ -41,33 +41,39 @@ public class MedicineServiceImpl implements MedicineService {
 			if (systemAdminDb.getFirstLogin()) {
 				message =  "You are logging in for the first time, you must change password before you can use this functionality!";
 			} else {
-				if (medicineRepository.findByMedicineCode(medicineDto.getMedicineCode().toLowerCase()) != null) {
-					message = "A medicine with this code already exists!";
-				} else {
-					var medicine = new Medicine();
-					medicine.setAdditionalComments(medicineDto.getAdditionalComments());
-					medicine.setComposition(medicineDto.getComposition());
-					medicine.setForm(medicineDto.getForm());
-					medicine.setManufacturer(medicineDto.getManufacturer());
-					medicine.setMedicineType(medicineDto.getMedicineType());
-					medicine.setName(medicineDto.getName());
-					medicine.setPoints(medicineDto.getPoints());
-					medicine.setSubstituteMedicineIds(medicineDto.getSubstituteMedicineIds());
-					medicine.setMedicineCode(medicineDto.getMedicineCode().toLowerCase());
-					medicine.setPoints(Math.abs(medicineDto.getPoints()));
-					medicine.setPrescription(medicineDto.getPrescription());
-					medicineRepository.save(medicine);
-					List<Integer> substituteMedicineIds = medicine.getSubstituteMedicineIds();
-					if (substituteMedicineIds != null) {
-						for (Integer id : substituteMedicineIds) {
-							var substituteMedicine = new SubstituteMedicine();
-							substituteMedicine.setMedicine(medicine);
-							Medicine sm = medicineRepository.findById(id).orElse(null);
-							if (sm != null) {
-								substituteMedicine.setSubstituteMedicine(sm);
-								substituteMedicineRepository.save(substituteMedicine);
-							}
-						}
+				message = addMedicineInDatabase(medicineDto);
+			}
+		}
+		return message;
+	}
+	
+	public String addMedicineInDatabase(MedicineDTO medicineDto) {
+		var message = "";
+		if (medicineRepository.findByMedicineCode(medicineDto.getMedicineCode().toLowerCase()) != null) {
+			message = "A medicine with this code already exists!";
+		} else {
+			var medicine = new Medicine();
+			medicine.setAdditionalComments(medicineDto.getAdditionalComments());
+			medicine.setComposition(medicineDto.getComposition());
+			medicine.setForm(medicineDto.getForm());
+			medicine.setManufacturer(medicineDto.getManufacturer());
+			medicine.setMedicineType(medicineDto.getMedicineType());
+			medicine.setName(medicineDto.getName());
+			medicine.setPoints(medicineDto.getPoints());
+			medicine.setSubstituteMedicineIds(medicineDto.getSubstituteMedicineIds());
+			medicine.setMedicineCode(medicineDto.getMedicineCode().toLowerCase());
+			medicine.setPoints(Math.abs(medicineDto.getPoints()));
+			medicine.setPrescription(medicineDto.getPrescription());
+			medicineRepository.save(medicine);
+			List<Integer> substituteMedicineIds = medicine.getSubstituteMedicineIds();
+			if (substituteMedicineIds != null) {
+				for (Integer id : substituteMedicineIds) {
+					var substituteMedicine = new SubstituteMedicine();
+					substituteMedicine.setMedicine(medicine);
+					Medicine sm = medicineRepository.findById(id).orElse(null);
+					if (sm != null) {
+						substituteMedicine.setSubstituteMedicine(sm);
+						substituteMedicineRepository.save(substituteMedicine);
 					}
 				}
 			}
