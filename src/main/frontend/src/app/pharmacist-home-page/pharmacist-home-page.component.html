@@ -1,0 +1,16 @@
+<div>
+    <section>
+        <div class="wave"></div>
+        <ul>
+            <li> <a mat-button (click) = "profile()"> MY PROFILE</a> </li>
+            <li> <a mat-button (click) = "patients()" [disabled] = "firstLogin"> VIEW EXAMINED PATIENTS</a></li>
+            <li> <a mat-button (click) = "allPatients()" [disabled] = "firstLogin"> VIEW ALL PATIENTS</a></li>
+            <li> <a mat-button (click) = "calendar()" [disabled] = "firstLogin"> WORK CALENDAR</a></li>
+            <li> <a mat-button (click) = "absence()" [disabled] = "firstLogin"> ABSENCE FORM </a></li>
+            <li> <a mat-button (click) = "appointments()" [disabled] = "firstLogin"> APPOINTMENTS </a></li>
+            <li> <a mat-button (click) = "reservations()" [disabled] = "firstLogin">GIVE OUT MEDICATION</a></li>
+            <li> <a mat-button (click) = "medicine()" [disabled] = "firstLogin">VIEW MEDICINE</a></li>
+            <li> <a mat-button (click) = "logout()">LOGOUT</a></li>
+        </ul>
+    </section>
+</div>

@@ -1,0 +1,100 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+
+      
+    <mat-toolbar> <strong class='list_item'>Options </strong></mat-toolbar>
+    <hr>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/PatientPastDermaApp"><strong class='list_item'>ALL DERMATOLOGICAL EXAMINATIONS</strong></a>
+      <br />
+      <br />
+      <a mat-list-item routerLink="/PatientPastPharApp"><strong class='list_item'> PHARMACISTS VISITS</strong></a>
+      <br />
+      <br />
+      <a mat-list-item routerLink="/PatientScheduledDermaApp"><strong class='list_item'>SCHEDULED DERMATOLOGICAL EXAMINATIONS</strong></a>
+      <br />
+      <br />
+      <a mat-list-item routerLink="/PatientScheduleFarmaApp3"><strong class='list_item'>SCHEDULED PHARMACISTS VISITS</strong></a>
+      <br />
+      <a mat-list-item routerLink= "/PatientsERecepts"><strong class='list_item'>E-RECIPES</strong></a>
+      <br />
+      <a mat-list-item routerLink = "/Allergies"><strong class='list_item'>ADD ALLERGIES</strong></a>
+      <br />
+      <a mat-list-item routerLink = "/AllergiesOfPatient"><strong class='list_item'>YOUR ALLERGIES</strong></a>
+      <br />
+      <a mat-list-item routerLink = "/PatiensMedicines"><strong class='list_item'>MEDICINES</strong></a>
+      <br />
+      <a mat-list-item routerLink = "/subscribedPharmacies"><strong class='list_item'>SUBSCRIBED PHARMACIES</strong></a>
+      <br />
+      <a mat-list-item routerLink="/patientsComplaintsData"><strong class='list_item'>YOUR COMPLAINTS</strong></a>
+      <br />
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <mat-toolbar-row>
+        <span>MY PROFILE</span>
+        <span style = "flex: 1 1 auto;"></span>
+        <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+        <a mat-button routerLink = "/PatientChangeData">CHANGE DATA</a>
+        <a mat-button routerLink = "/Penalties">PENALTIES</a>
+        <a mat-button routerLink = "/login">LOGOUT</a>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    
+
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar></div>
+          <mat-card-title>{{patient.username}}</mat-card-title>
+          <mat-card-subtitle>{{patient.id}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="profileIcon.jpg">
+        <mat-card-content>
+          <p>
+            NAME: {{patient.name}}
+            <br />
+            <br />
+            SURNAME: {{patient['surname']}}
+            <br />
+            <br />
+            ADRESS:  {{patient['address']}}
+            <br />
+            <br />
+            CITY: {{patient['city']}}
+            <br />
+            <br />
+            COUNTRY: {{patient['country']}}
+            <br />
+            <br />
+            PHONE: {{patient['phoneNumber']}}
+            <br />
+            <br />
+            E-MAIL: {{patient['email']}}
+            <br />
+            <br />
+            CATEGORY: {{patient['categoryName']}}
+            <br />
+            <br />
+            COLLECTED POINTS: {{patient['collectedPoints']}}
+            <br />
+            <br />
+            DISCOUNT ON MEDICINE, APPOINTMENTS AND CONSULTATIONS: {{discount + "%"}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+      
+  </mat-sidenav-content>
+</mat-sidenav-container>

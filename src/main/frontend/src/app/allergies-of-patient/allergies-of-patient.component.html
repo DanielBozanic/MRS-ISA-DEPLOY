@@ -1,0 +1,47 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>ADD ALLERGY</span>
+        <span style = "flex: 1 1 auto;"></span>
+        <a mat-button routerLink = "/Allergies">ADD ALLERGY</a>
+        <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+        <a mat-button routerLink = "/PatientProfile">MY PROFILE</a>
+        <a mat-button routerLink = "/login">LOGOUT</a>
+    </mat-toolbar-row>
+</mat-toolbar>
+  
+
+<div class="div1" *ngIf="showTableOfAllergies">
+    <mat-card class = "table-card1">
+        <mat-card-header>
+            <span class="title_card1"><h2>YOUR ALLERGIES</h2></span>
+        </mat-card-header>
+        <img mat-card-image class="imageFront" src="assets\allergieWoman.jpg">
+
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="dataSource">
+                
+                <ng-container matColumnDef="NAME">
+                <th mat-header-cell class = "coloumnName" *matHeaderCellDef> NAME </th>
+                <td mat-cell *matCellDef="let element"> {{element.medicine.name}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="COMPOSITION">
+                    <th mat-header-cell class = "coloumnComposition" *matHeaderCellDef> COMPOSITION </th>
+                    <td mat-cell *matCellDef="let element"> {{element.medicine.composition}}</td>
+                    </ng-container>
+    
+                
+                <ng-container matColumnDef="ADDITIONAL COMMENT">
+                    <th mat-header-cell class = "coloumnComment" *matHeaderCellDef> ADDITIONAL COMMENT </th>
+                    <td mat-cell *matCellDef="let element"> {{element.medicine.additionalComments}}</td>
+                </ng-container>
+                
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+</div>

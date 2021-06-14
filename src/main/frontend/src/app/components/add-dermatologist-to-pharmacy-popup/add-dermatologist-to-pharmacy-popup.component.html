@@ -1,0 +1,21 @@
+<div [formGroup]="employmentForm">
+    <mat-label>Work hours</mat-label>
+
+    <div class="default-time-example">
+        <p>Start time</p>
+        <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field [format]="24" formControlName="start"></ngx-timepicker-field>
+        </div>
+   </div>
+    <div mat-dialog-content>
+        <p>End time</p>
+
+        <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field [format]="24" formControlName="end"></ngx-timepicker-field>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="employmentForm" cdkFocusInitial>Confirm</button>
+    </div>
+</div>

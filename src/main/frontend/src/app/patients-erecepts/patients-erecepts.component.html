@@ -1,0 +1,68 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>E-RECEPTS</span>
+        <span style = "flex: 1 1 auto;"></span>
+        <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+        <a mat-button routerLink = "/PatientProfile">MY PROFILE</a>
+        <a mat-button routerLink = "/login">LOGOUT</a>
+    </mat-toolbar-row>
+</mat-toolbar>
+  
+
+<div class="div1" *ngIf="showEmpty">
+    <mat-card class = "table-card1">
+        <mat-card-header>
+            <span class="title_card1"><h2>YOUR E-RECEIPTS</h2></span>
+        </mat-card-header>
+
+        <strong>YOU DON'T HAVE ANY E-RECEIPTS.</strong>
+    </mat-card>
+</div>
+
+
+<div class="div1" *ngIf="showTableOfERecept">
+    <mat-card class = "table-card1">
+        <mat-card-header>
+            <span class="title_card1"><h2>YOUR E-RECEIPTS</h2></span>
+        </mat-card-header>
+
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="dataSource">
+                
+                <ng-container matColumnDef="NAME">
+                    <th mat-header-cell class = "coloumnName" *matHeaderCellDef> NAME OF MEDICINE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.e_receipt_and_medicine_details.medicine_name}}</td>
+                </ng-container>
+    
+                
+                <ng-container matColumnDef="DATE">
+                    <th mat-header-cell class = "coloumnComment" *matHeaderCellDef> DATE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.e_receipt.issue_date}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="PHARMACY">
+                    <th mat-header-cell class = "coloumnComment" *matHeaderCellDef> PHARMACY </th>
+                    <td mat-cell *matCellDef="let element"> {{element.pharmacy.name}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="QUANTITY">
+                    <th mat-header-cell class = "coloumnComposition" *matHeaderCellDef> QUANTITY </th>
+                    <td mat-cell *matCellDef="let element"> {{element.e_receipt_and_medicine_details.quantity}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="TOTAL">
+                    <th mat-header-cell class = "coloumnComment" *matHeaderCellDef> TOTAL </th>
+                    <td mat-cell *matCellDef="let element"> {{element.e_receipt.total}}</td>
+                </ng-container>
+
+
+                
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+</div>

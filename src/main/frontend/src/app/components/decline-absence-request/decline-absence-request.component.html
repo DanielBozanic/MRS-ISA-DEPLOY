@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Reason for declining absence request</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label></mat-label>
+    <input matInput [(ngModel)]="data.message">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.message" cdkFocusInitial>Submit</button>
+</div>

@@ -1,0 +1,90 @@
+.field-width {
+    width: 100%;
+}
+
+.clear-button {
+    width: 78px;
+    margin-bottom: 10px;
+}
+
+.search-button {
+    margin-bottom: 10px;
+}
+
+.table-card {
+    width: 1000px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #DEEDE6
+}
+
+table {
+    width: 100%;
+}
+
+.data-table {
+    width: 100%;
+}
+
+.coloumnName {
+    width: 15%;  
+}
+
+.coloumnMedicineType {
+    width: 15%; 
+}
+
+.coloumnaverageRating{
+    width: 10%; 
+}
+
+.coloumnViewMedicineDetails {
+    width: 20%;
+}
+
+.coloumnPharmacy {
+    width: 10%;
+}
+
+.coloumnPrice {
+    width: 10%;
+}
+
+.coloumnQuantity {
+    width: 10%;
+}
+
+.buttonSchedule{
+    width: 15%;
+}
+
+.imageP{
+    width: 300px;
+    height: 200px;
+    margin-left: 55px;
+}
+
+.medicineCardDiv{
+    margin-left: 1050px;
+    margin-top: -710px;
+}
+
+.medicineCard{
+    background-color: #DEEDE6;
+    width: 410px;
+    
+}
+
+ng-container{
+    margin-left: 5px;
+}
+
+
+.centriraj{
+    margin-left: 85px;
+  }
+  
+  
+  .pomjeri_dugmice{
+    margin-left: 145px;
+  }

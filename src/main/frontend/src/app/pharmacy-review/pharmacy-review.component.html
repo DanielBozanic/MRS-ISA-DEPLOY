@@ -1,0 +1,124 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>PAST  APPOINTMENT  WITH  PHARMACISTS </span>
+        <span style = "flex: 1 1 auto;"></span>
+        <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+        <a mat-button routerLink = "/PatientProfile">MY PROFILE</a>
+        <a mat-button routerLink = "/Review">BACK</a>
+        <a mat-button routerLink = "/login">LOGOUT</a>
+      </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div *ngIf="showTable">
+    <mat-card class = "table-card">
+        <mat-card-header>
+            <span class="title_card1"><h2>YOU CAN GIVE REVIEW FOR THESE PHARMACIES</h2></span>
+        </mat-card-header>
+
+        <img mat-card-image class="imageFront" src="assets\pharmacyCardReview.jpg">
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Filter pharmacy by entering it's data.</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="NS" #input>
+        </mat-form-field>
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="dataSource">
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell class = "coloumnName" *matHeaderCellDef> NAME </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell class = "coloumnAdress" *matHeaderCellDef> ADRESS </th>
+                    <td mat-cell *matCellDef="let element"> {{element.address}}</td>
+                    </ng-container>
+    
+                <ng-container matColumnDef="city">
+                    <th mat-header-cell class = "coloumnCity" *matHeaderCellDef> CITY </th>
+                    <td mat-cell *matCellDef="let element"> {{element.city}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="country">
+                    <th mat-header-cell class = "coloumnCountry" *matHeaderCellDef> COUNTRY </th>
+                    <td mat-cell *matCellDef="let element"> {{element.country}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="rating">
+                    <th mat-header-cell class = "coloumnRating" *matHeaderCellDef>PHARMACY'S RATE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.rating}}</td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="rate">
+                    <th mat-header-cell class="columnRate" *matHeaderCellDef> RATE </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button (click) = "rate(element)" mat-raised-button color="primary">RATE</button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+</div>
+
+<div *ngIf="empty">
+    <mat-card class = "table-card">
+        <mat-card-header>
+            <span class="title_card1"><h2>YOU CAN GIVE REVIEW FOR THESE PHARMACIES</h2></span>
+        </mat-card-header>
+        <img mat-card-image class="imageFront" src="assets\pharmacyCardReview.jpg">
+        <br />
+        <div class="sadrzaj">
+            <span class="title_card1"><h2>YOU DIDN'T HAVE ANY APPOINMENT NOR YOU BUY ANY MEDICINE. <br /> 
+                FOR GIVING REVIEW YOU MUST HAVE AT LEAST ONE APPOINMENT OR BUY ONE MEDICINE.</h2></span>
+        </div>
+    </mat-card>
+</div>
+
+<div class="pharmacyDiv" *ngIf="showCard">
+    <mat-card  class="pharmacyCard">
+        <mat-card-header>
+            <mat-card-title>PHARMACY</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image class="imageP" src="assets\pharmacyReview.jpg">
+          <mat-card-content>
+
+            <div class="centriraj">
+                <h3><strong>PHARMACY'S DATA</strong></h3>
+
+                <strong>PHARMACY:</strong> <span class="pomjeri">{{chosenPharmacy.name}}</span>
+                <br />
+                <strong>ADRESS </strong> <span class="pomjeri">{{chosenPharmacy.adress}}</span>
+                <br />
+                <strong>CITY: </strong> <span class="pomjeri">{{chosenPharmacy.city}} </span>
+                 <br />
+                 <strong>COUNTRY: </strong> <span class="pomjeri">{{chosenPharmacy.country}}</span>
+                 <br />
+                <strong>PHARMACY'S RATE : </strong> <span class="pomjeri">{{chosenPharmacy.rating}}</span>
+                <br />
+
+                <br />
+                <br />
+                <label id="example-radio-group-label"><strong>Give rating to this pharmacy</strong></label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="chosenStars">
+                <mat-radio-button class="example-radio-button" *ngFor="let star of stars" [value]="star">
+                    {{star}} 
+                </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="pomjeri_dugmice">
+            <button class="orderButton" (click) = "sendRating()" mat-button>RATE</button>
+            <button class="quitButton" (click) = "quit()" mat-button>EXIT</button>
+            </div>
+          </mat-card-actions>
+    </mat-card>
+</div>

@@ -1,0 +1,16 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pom of purchaseOrderMedicineList">
+        <td>{{ pom.medicine.name }}</td>
+        <td>{{ pom.quantity }}</td>
+
+    </tbody>
+
+  </table>
+  

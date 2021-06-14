@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>PROFILE PAGE</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button (click) = "supplierWriteOffers()" [disabled] = "firstLogin">WRITE OFFERS FOR INCOMING PURCHASE ORDERS</a>
+            <a mat-button (click) = "supplierViewOffers()" [disabled] = "firstLogin">VIEW OFFERS</a>
+            <a mat-button (click) = "medicineStock()" [disabled] = "firstLogin">MEDICINE STOCK</a>
+            <a mat-button (click) = "logout()">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class = "card">
+        <mat-card-title class = "card-title">Account information</mat-card-title>
+        <form [formGroup] = "updateForm" class = "update-form">
+            <mat-form-field class = "field">
+                <mat-label>Username</mat-label>
+                <input type = "text" matInput placeholder = "Username" formControlName = "username" readonly>
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>Email</mat-label>
+                <input type = "email" matInput placeholder = "Email" formControlName = "email" readonly>
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>Name</mat-label>
+                <input type = "text" matInput placeholder = "Name" formControlName = "name">
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>Surname</mat-label>
+                <input type = "text" matInput placeholder = "Surname" formControlName = "surname">
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>Address</mat-label>
+                <input type = "text" matInput placeholder = "Address" formControlName = "address">
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>City</mat-label>
+                <input type = "text" matInput placeholder = "City" formControlName = "city">
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>Country</mat-label>
+                <input type = "text" matInput placeholder = "Country" formControlName = "country">
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>Phone number</mat-label>
+                <input type = "tel" matInput placeholder = "Phone number" formControlName = "phoneNumber">
+                <mat-error *ngIf = "hasError('phoneNumber', 'maxlength', updateForm) || hasError('phoneNumber', 'minlength', updateForm)">
+                    Phone number has to have 10 digits!
+                </mat-error>
+            </mat-form-field>
+        </form>
+        <button (click) = "update()" [disabled] = "updateForm.invalid || firstLogin" mat-raised-button color="primary">Update</button>
+    </mat-card>
+    <mat-card class = "card">
+        <mat-card-title class = "card-title">Change password</mat-card-title>
+        <form [formGroup] = "updatePasswordForm" class = "update-form">
+            <mat-form-field class = "field">
+                <mat-label>Old password</mat-label>
+                <input type = "password"  matInput placeholder = "Type in old password" formControlName = "oldPassword" required>
+                <mat-error *ngIf = "hasError('oldPassword', 'required', updatePasswordForm)">Type in old password!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>New password</mat-label>
+                <input type = "password" (input)="checkPasswords()" matInput placeholder = "Type in new password" formControlName = "password" required>
+                <mat-error *ngIf = "hasError('password', 'required', updatePasswordForm)">Type in new password!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field">
+                <mat-label>Confirm new password</mat-label>
+                <input type = "password"  (input)="checkPasswords()" matInput placeholder = "Confirm new password" formControlName = "confirmPassword" required>
+                <mat-error *ngIf = "hasError('confirmPassword', 'required', updatePasswordForm)">Type in new password again!</mat-error>
+                <mat-error *ngIf = "confirmPassword?.invalid && !hasError('confirmPassword','required', updatePasswordForm)">Passwords do not match!</mat-error>
+            </mat-form-field>
+        </form>
+        <button (click) = "updatePassword()" [disabled] = "updatePasswordForm.invalid" mat-raised-button color="primary">Update password</button>
+    </mat-card>
+</div>

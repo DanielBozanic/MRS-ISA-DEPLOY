@@ -1,0 +1,124 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>PAST  APPOINTMENT  WITH  PHARMACISTS </span>
+        <span style = "flex: 1 1 auto;"></span>
+        <a mat-button routerLink = "/UserHomePage">HOMEPAGE</a>
+        <a mat-button routerLink = "/PatientProfile">MY PROFILE</a>
+        <a mat-button routerLink = "/Review">BACK</a>
+        <a mat-button routerLink = "/login">LOGOUT</a>
+      </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div *ngIf="empty">
+    <mat-card class = "table-card">
+        <mat-card-header>
+            <span class="title_card1"><h2>YOU CAN GIVE REVIEW FOR THESE DERMATOLOGISTS</h2></span>
+        </mat-card-header>
+        <img mat-card-image class="imageFront" src="assets\dermatologists.jpg">
+        <br />
+        <div class="sadrzaj">
+            <span class="title_card1"><h2>YOU DIDN'T HAVE ANY APPOINMENT WITH DERMATOLOGIST. <br /> 
+                FOR GIVING REVIEW YOU MUST HAVE AT LEAST ONE APPOINMENT WITH DERMATOLOGIST</h2></span>
+        </div>
+    </mat-card>
+</div>
+
+
+<div *ngIf="showTable">
+    <mat-card class = "table-card">
+        <mat-card-header>
+            <span class="title_card1"><h2>YOU CAN GIVE REVIEW FOR THESE DERMATOLOGISTS</h2></span>
+        </mat-card-header>
+        <img mat-card-image class="imageFront" src="assets\dermatologists.jpg">
+        <mat-form-field class="example-full-width">
+            <mat-label>Filter dermatologist by entering his data.</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Marko" #input>
+        </mat-form-field>
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="dataSource">
+                
+            
+                <ng-container  matColumnDef="NAME">
+                <th mat-header-cell class = "coloumnName" *matHeaderCellDef> NAME </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="SURNAME">
+                    <th mat-header-cell class = "coloumnSurname" *matHeaderCellDef> SURNAME </th>
+                    <td mat-cell *matCellDef="let element"> {{element.surname}}</td>
+                    </ng-container>
+    
+                <ng-container matColumnDef="PHONE NUMBER">
+                    <th mat-header-cell class = "coloumnNumber" *matHeaderCellDef> PHONE NUMBER </th>
+                    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="E-MAIL">
+                    <th mat-header-cell class = "coloumnEmail" *matHeaderCellDef> E-MAIL </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="RATING">
+                    <th mat-header-cell class = "coloumnRating" *matHeaderCellDef> DERMATOLOG'S RATE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.rating}}</td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="RATE">
+                    <th mat-header-cell class="columnRate" *matHeaderCellDef> RATE </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button (click) = "rate(element)" mat-raised-button color="primary">RATE</button>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+</div>
+
+
+
+<div class="dermatologistDiv" *ngIf="showCard">
+    <mat-card  class="dermatologistCard">
+        <mat-card-header>
+            <span class="title_card"><h2>DERMATOLOGIST</h2></span>
+        </mat-card-header>
+        <img mat-card-image class="imageP" src="assets\dermatologProfile.jpg">
+          <mat-card-content>
+                <div class="centriraj">
+                <h3><strong>DERMATOLOGIST'S DATA</strong></h3>
+            
+                <strong>DERMATOLOGIST:</strong> <span class="pomjeri">{{chosenDermatologist.name}} {{chosenDermatologist.surname}} </span>
+                <br />
+                <strong>PHONE NUMBER: </strong> <span class="pomjeri">{{chosenDermatologist.phoneNumber}} </span>
+                <br />
+                <strong>E-MAIL: </strong> <span class="pomjeri">{{chosenDermatologist.email}} </span>
+                 <br />
+                <strong>DERMATOLOG'S RATE : </strong> <span class="pomjeri">{{chosenDermatologist.rating}}</span>
+                <br />
+
+                <br />
+                <br />
+                <label id="example-radio-group-label"><strong>Give rating to this dermatologist</strong> </label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="chosenStars">
+                <mat-radio-button class="example-radio-button" *ngFor="let star of stars" [value]="star">
+                    {{star}} 
+                </mat-radio-button>
+                </mat-radio-group>
+                </div>
+                
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="pomjeri_dugmice">
+            <button class="orderButton" (click) = "sendRating()" mat-button>RATE</button>
+            <button class="quitButton" (click) = "quit()" mat-button>EXIT</button>
+            </div>
+          </mat-card-actions>
+    </mat-card>
+</div>

@@ -1,0 +1,16 @@
+.appointment-form{
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+    
+  .field-width {
+    width: 100%;
+  }
+  
+  .card {
+    width: 500px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #DEEDE6
+  }

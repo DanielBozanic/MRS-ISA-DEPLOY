@@ -1,0 +1,27 @@
+<div [formGroup]="actionPromotionForm">
+    <div mat-dialog-content>
+        <p>Description:</p>
+        <mat-form-field>
+          <mat-label></mat-label>
+          <input matInput formControlName="description">
+        </mat-form-field>
+      </div>
+    <div mat-dialog-actions>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a starting date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="startingDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose an ending date</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="endingDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button [mat-dialog-close]="actionPromotionForm" cdkFocusInitial>Submit</button>
+    </div>
+  </div>

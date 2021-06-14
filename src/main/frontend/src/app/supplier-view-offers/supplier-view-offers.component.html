@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <mat-toolbar-row>
+            <span>VIEW OFFERS</span>
+            <span style = "flex: 1 1 auto;"></span>
+            <a mat-button routerLink = "/supplierProfilePage">MY PROFILE</a>
+            <a mat-button routerLink = "/supplierWriteOffers">WRITE OFFERS FOR INCOMING PURCHASE ORDERS</a>
+            <a mat-button routerLink = "/medicineStock">MEDICINE STOCK</a>
+            <a mat-button (click) = "logout()">LOGOUT</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-card class = "table-card">
+        <form [formGroup] = "filterForm">
+            <mat-card-title>Offers</mat-card-title>
+            <mat-form-field class = "field-width">
+                <mat-label>Filter by status</mat-label>
+                <mat-select formControlName = "selectFilter">
+                    <mat-option *ngFor = "let option of filterOptions" (click)="applyFilter(option)" [value] = "option">{{option}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button class = "clear-filter-button" (click) = "clearFilter()" mat-raised-button color="primary">Clear filter</button>
+        </form>
+        <div class = "data-table">
+            <table mat-table [dataSource]="offersDataSource">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnId">ID</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnId"> {{element.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="orderName">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnOrderName">Order name</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnOrderName"> {{element.purchaseOrder.purchaseOrderName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="dueDateOffer">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnDueDateOffer">Due date for offer</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnDueDateOffer">
+                        {{element.purchaseOrder.dueDateOffer[0] + "-" + element.purchaseOrder.dueDateOffer[1] + "-" + element.purchaseOrder.dueDateOffer[2]}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="deliveryDate">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnDeliveryDate">Delivery Date</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnDeliveryDate"> 
+                    {{element.deliveryDate[0] + "-" + element.deliveryDate[1] + "-" + element.deliveryDate[2]}}
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnPrice">Price</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnPrice"> {{element.price}} </td>
+                </ng-container>
+                <ng-container matColumnDef="offerStatus">
+                    <th mat-header-cell *matHeaderCellDef class = "coloumnOfferStatus">Status</th>
+                    <td mat-cell *matCellDef="let element" class = "coloumnOfferStatus"> {{element.offerStatus}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsOffers"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsOffers;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card>
+
+    <mat-card class = "card">
+        <mat-card-title>Update offer</mat-card-title>
+        <form [formGroup] = "offerUpdateForm" class = "offer-form">
+            <mat-form-field class = "field-width">
+                <mat-label>Select an offer</mat-label>
+                <mat-select formControlName = "id" required>
+                    <mat-option *ngFor = "let offer of offers" [value]="offer['id']">{{offer['id']}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf = "hasError('id', 'required')">Select an offer!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Delivery date</mat-label>
+                <input type = "date" (input) = "checkDate()" matInput placeholder = "Delivery date" formControlName = "deliveryDate">
+                <mat-error *ngIf = "deliveryDate?.invalid && !hasError('deliveryDate','required')">Delivery date must be after today's date!</mat-error>
+            </mat-form-field>
+            <mat-form-field class = "field-width">
+                <mat-label>Price</mat-label>
+                <input type = "number" (input) = "checkPrice()" matInput placeholder = "Price" formControlName = "price" min = "0">
+                <mat-error *ngIf = "price?.invalid && !hasError('price','required')">Price must be a postive number!</mat-error>
+            </mat-form-field>
+        </form>
+        <button (click) = "updateOffer()" [disabled] = "offerUpdateForm.invalid" mat-raised-button color="primary">Send</button>
+    </mat-card>
+</div>

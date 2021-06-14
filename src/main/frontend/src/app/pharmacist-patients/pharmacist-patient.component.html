@@ -1,0 +1,57 @@
+<div>
+    <section>
+        <div class="wave"></div>
+
+        <mat-toolbar color = "primary">
+            <mat-toolbar-row>
+                <a mat-button (click) = "back()">HOMEPAGE</a>
+                <a mat-button (click) = "profile()"> MY PROFILE</a>
+                <a mat-button (click) = "allPatients()" [disabled] = "firstLogin"> VIEW ALL PATIENTS</a>
+                <a mat-button (click) = "calendar()" [disabled] = "firstLogin"> WORK CALENDAR</a>
+                <a mat-button (click) = "appointments()" [disabled] = "firstLogin"> APPOINTMENTS </a>
+                <a mat-button (click) = "absence()" [disabled] = "firstLogin"> ABSENCE FORM </a>
+                <a mat-button (click) = "reservations()" [disabled] = "firstLogin">GIVE OUT MEDICATION</a>
+                <a mat-button (click) = "medicine()" [disabled] = "firstLogin">VIEW MEDICINE</a>
+                <a mat-button (click) = "logout()">LOGOUT</a>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <mat-card class = "card">
+            <mat-card-title>VIEW PATIENTS</mat-card-title>
+            <form [formGroup] = "patientForm" class = "patient-form">
+                <mat-form-field class = "field">
+                    <mat-label>Search patients by username:</mat-label>
+                    <input type = "text" (change) = "getPatients()" matInput placeholder = "patientSearch" formControlName = "patientSearch">
+                </mat-form-field>
+            </form>
+            <table matSort (matSortChange)="sortData($event)" name="patientsPharmacist" id="patientsPharmacist">
+                <tr>
+                    <th  mat-sort-header="id">ID</th>
+                    <th mat-sort-header="username">Username</th>
+                    <th  mat-sort-header="name">Name</th>
+                    <th  mat-sort-header="surname">Surname</th>
+                    <th mat-sort-header="email">Email</th>
+                    <th mat-sort-header="address">address</th>
+                    <th mat-sort-header="city">City</th>
+                    <th mat-sort-header="country">Country</th>
+                    <th mat-sort-header="phoneNumber">PhoneNumber</th>
+                    <th mat-sort-header="date">Last Examination Date</th>
+                </tr>
+                <tr *ngFor="let patient of patients">
+                    <td>{{patient['patient']['id']}}</td>
+                    <td>{{patient['patient']['username']}}</td>
+                    <td>{{patient['patient']['name']}}</td>
+                    <td>{{patient['patient']['surname']}}</td>
+                    <td>{{patient['patient']['email']}}</td>
+                    <td>{{patient['patient']['city']}}</td>
+                    <td>{{patient['patient']['country']}}</td>
+                    <td>{{patient['patient']['address']}}</td>
+                    <td>{{patient['patient']['phoneNumber']}}</td>
+                    <td>{{patient['date'].toUTCString()}}</td>
+                 </tr>
+            </table>
+        
+        </mat-card>
+    
+    </section>
+</div>

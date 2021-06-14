@@ -1,0 +1,13 @@
+<div [formGroup]="actionPromotionForm">
+    <div mat-dialog-content>
+        <p>Edit additional comments:</p>
+        <mat-form-field>
+          <mat-label></mat-label>
+          <input matInput formControlName="additionalComments">
+        </mat-form-field>
+      </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button [mat-dialog-close]="actionPromotionForm" cdkFocusInitial>Submit</button>
+    </div>
+  </div>

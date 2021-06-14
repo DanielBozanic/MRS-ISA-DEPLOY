@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+  }
+
+.card{
+  background-color: #DEEDE6;
+  width: 1400px;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.imageFront{
+  margin-top: 5px;
+  margin-left: 50px;
+  width: 1300px;
+  height: 600px;
+}
+
+.h2{
+  margin-left: 420px;
+}

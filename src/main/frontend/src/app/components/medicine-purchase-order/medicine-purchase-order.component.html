@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<div>
+    <mat-toolbar color = "primary">
+        <span>Create purchase order</span>
+        <span style = "flex: 1 1 auto;"></span>
+
+        <a mat-button (click) = "back()">Back</a>
+        <a mat-button (click) = "logout()">Logout</a>
+       
+
+    </mat-toolbar>
+
+    <mat-card class = "table-card">
+
+        <div class = "data-table">
+            <table mat-table [dataSource]="medicineList">
+              <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Name</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="name"> {{element.name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="composition">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Composition</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="composition"> {{element.composition}} </td>
+              </ng-container>
+              <ng-container matColumnDef="form">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Form</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="form"> {{element.form}} </td>
+              </ng-container>
+              <ng-container matColumnDef="manufacturer">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Manufacturer</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="manufacturer"> {{element.manufacturer}} </td>
+              </ng-container>
+              <ng-container matColumnDef="medicineCode">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Medicine code</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="medicineCode"> {{element.medicineCode}} </td>
+              </ng-container>
+              <ng-container matColumnDef="medicineType">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Medicine Type</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="medicineType"> {{element.medicineType}} </td>
+              </ng-container>
+              <ng-container matColumnDef="additionalComments">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Additional comments</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="additionalComments"> {{element.additionalComments}} </td>
+              </ng-container>
+              <ng-container matColumnDef="prescription">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Prescription</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="prescription"> {{element.prescription}} </td>
+              </ng-container>
+              <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef class = "coloumnName">Id</th>
+                  <td mat-cell *matCellDef="let element" class = "coloumnName" type="id"> {{element.id}} </td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <mat-header-cell  *matHeaderCellDef >  </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+                     <button mat-button color="primary" (click)="openDialog(element)"><i class="material-icons">shopping_cart</i></button>
+                </mat-cell>
+              </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsMedicineList"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsMedicineList;"></tr>
+            </table>
+        </div>
+
+      </mat-card>
+
+      <mat-card class = "create-button">
+          
+        <button [disabled]="!isValid" mat-button color="primary" (click)="createPurchaseOrder()">Create purchase order</button>
+        
+    </mat-card>
+
+</div>
+
+
+ 
