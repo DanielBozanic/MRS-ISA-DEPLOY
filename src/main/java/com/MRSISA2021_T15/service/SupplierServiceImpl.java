@@ -239,30 +239,38 @@ public class SupplierServiceImpl implements SupplierService {
 				message = login;
 				return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
-				var ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(medicineSupplyDto.getMedicine().getMedicineCode(), supplier.getId());
-				if (ms != null) {
-					List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplier.getId());
-					var sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(ms.getMedicine().getId(), pendingPurchaseOrderIds);
-					if (sum == null) {
-						sum = 0;
-					}
-					if (sum > Math.abs(medicineSupplyDto.getQuantity())) {
-						message = "This medicine has more pending offers than entered quantity!";
-						return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
-					} else {
-						ms.setQuantity(Math.abs(medicineSupplyDto.getQuantity()));
-						medicineSupplyRepository.save(ms);
-						message = "Medicine stock updated.";
-					}
-				} else {
-					var medicineSupply = new MedicineSupply();
-					medicineSupply.setMedicine(medicineSupplyDto.getMedicine());
-					medicineSupply.setSupplier(supplier);
-					medicineSupply.setQuantity(Math.abs(medicineSupplyDto.getQuantity()));
-					medicineSupplyRepository.save(medicineSupply);
-					message = "Medicine is added to stock.";
-				}
+				return updateMedicineStockDatabase(medicineSupplyDto, supplierDb);
 			}
+		}
+		return new ResponseEntity<>(gson.toJson(message), HttpStatus.OK);
+	}
+	
+	public ResponseEntity<String> updateMedicineStockDatabase(MedicineSupplyDTO medicineSupplyDto, Supplier supplier) {
+		var message = "";
+		var gson = new GsonBuilder().create();
+		var ms = medicineSupplyRepository.getMedicineSupplyBySupplierPessimisticWrite(medicineSupplyDto.getMedicine().getMedicineCode(), supplier.getId());
+		if (ms != null) {
+			List<Integer> pendingPurchaseOrderIds = purchaseOrderSupplierRepository.getPendingPurchaseOrderIdsBySupplierId(supplier.getId());
+			var sum = purchaseOrderSupplierRepository.getTotalMedicineQuantityFromPurchaseOrders(ms.getMedicine().getId(), pendingPurchaseOrderIds);
+			if (sum == null) {
+				sum = 0;
+			}
+			if (sum > Math.abs(medicineSupplyDto.getQuantity())) {
+				message = "This medicine has more pending offers than entered quantity!";
+				return new ResponseEntity<>(gson.toJson(message), HttpStatus.INTERNAL_SERVER_ERROR);
+			} else {
+				ms.setQuantity(Math.abs(medicineSupplyDto.getQuantity()));
+				medicineSupplyRepository.save(ms);
+				message = "Medicine stock updated.";
+			}
+		} else {
+			var medicineSupply = new MedicineSupply();
+			medicineSupply.setMedicine(medicineSupplyDto.getMedicine());
+			medicineSupply.setSupplier(supplier);
+			medicineSupply.setQuantity(Math.abs(medicineSupplyDto.getQuantity()));
+			medicineSupplyRepository.save(medicineSupply);
+			message = "Medicine is added to stock.";
+			
 		}
 		return new ResponseEntity<>(gson.toJson(message), HttpStatus.OK);
 	}
